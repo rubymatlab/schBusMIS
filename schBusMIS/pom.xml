@@ -612,13 +612,20 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<!-- 微信API接口(jeewx-api 1.2.0依赖) by 20181016-->
+		<dependency>  
+			<groupId>org.jeewx</groupId>  
+			<artifactId>jeewx-api</artifactId>  
+			<version>1.2.0</version>  
+		</dependency>
+		
 		<!-- Jeecg Plugin end -->
 		
 	</dependencies>
 
 	<organization>
-		<name>JEECG 微云快速开发平台</name>
-		<url>www.jeecg.org</url>
+		<name>校车管理系统</name>
 	</organization>
 	<build>
 		<finalName>${project.artifactId}</finalName>
