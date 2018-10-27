@@ -14,14 +14,14 @@
  <div class="container" style="width:100%;">
 	<div class="panel-heading"></div>
 	<div class="panel-body">
-	<form class="form-horizontal" role="form" id="formobj" action="basStudentController.do?doUpdate" method="POST">
+	<form class="form-horizontal" role="form" id="formobj" action="basStudentTreeController.do?doUpdate" method="POST">
 		<input type="hidden" id="btn_sub" class="btn_sub"/>
-		<input type="hidden" id="id" name="id" value="${basStudent.id}"/>
+		<input type="hidden" id="id" name="id" value="${basStudentTree.id}"/>
 	<div class="form-group">
 		<label for="bsName" class="col-sm-3 control-label">学生姓名：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-				<input id="bsName" name="bsName" value='${basStudent.bsName}' type="text" maxlength="50" class="form-control input-sm" placeholder="请输入学生姓名"  datatype="*" ignore="checked" />
+				<input id="bsName" name="bsName" value='${basStudentTree.bsName}' type="text" maxlength="50" class="form-control input-sm" placeholder="请输入学生姓名"  datatype="*" ignore="checked" />
 			</div>
 		</div>
 	</div>
@@ -29,7 +29,7 @@
 		<label for="bsSex" class="col-sm-3 control-label">性别：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-               <t:dictSelect field="bsSex" type="list" extendJson="{class:'form-control input-sm'}"  datatype="*"  typeGroupCode="sex"  hasLabel="false"  title="性别" defaultVal="${basStudent.bsSex}"></t:dictSelect>
+               <t:dictSelect field="bsSex" type="list" extendJson="{class:'form-control input-sm'}"  datatype="*"  typeGroupCode="sex"  hasLabel="false"  title="性别" defaultVal="${basStudentTree.bsSex}"></t:dictSelect>
 			</div>
 		</div>
 	</div>
@@ -37,7 +37,7 @@
 		<label for="bcParent" class="col-sm-3 control-label">家长：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-				<input id="bcParent" name="bcParent" value='${basStudent.bcParent}' type="text" maxlength="50" class="form-control input-sm" placeholder="请输入家长"  ignore="ignore" />
+				<input id="bcParent" name="bcParent" value='${basStudentTree.bcParent}' type="text" maxlength="50" class="form-control input-sm" placeholder="请输入家长"  ignore="ignore" />
 			</div>
 		</div>
 	</div>
@@ -45,7 +45,7 @@
 		<label for="bsTel" class="col-sm-3 control-label">家长手机：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-				<input id="bsTel" name="bsTel" value='${basStudent.bsTel}' type="text" maxlength="32" class="form-control input-sm" placeholder="请输入家长手机"  datatype="n" ignore="ignore" />
+				<input id="bsTel" name="bsTel" value='${basStudentTree.bsTel}' type="text" maxlength="32" class="form-control input-sm" placeholder="请输入家长手机"  datatype="n" ignore="ignore" />
 			</div>
 		</div>
 	</div>
@@ -53,7 +53,7 @@
 		<label for="bcGrade" class="col-sm-3 control-label">年级：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-	      		<input id="bcGrade" name="bcGrade" value='${basStudent.bcGrade}' type="text" maxlength="4" class="form-control input-sm" placeholder="请输入年级"  ignore="ignore" />
+	      		<input id="bcGrade" name="bcGrade" value='${basStudentTree.bcGrade}' type="text" maxlength="4" class="form-control input-sm" placeholder="请输入年级"  ignore="ignore" />
 			</div>
 		</div>
 	</div>
@@ -61,7 +61,7 @@
 		<label for="bcName" class="col-sm-3 control-label">班级：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-	      		<input id="bcName" name="bcName" value='${basStudent.bcName}' type="text" maxlength="50" class="form-control input-sm" placeholder="请输入班级"  ignore="ignore" />
+	      		<input id="bcName" name="bcName" value='${basStudentTree.bcName}' type="text" maxlength="50" class="form-control input-sm" placeholder="请输入班级"  ignore="ignore" />
 			</div>
 		</div>
 	</div>
@@ -69,7 +69,7 @@
 		<label for="bsCardno" class="col-sm-3 control-label">卡号：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-				<input id="bsCardno" name="bsCardno" value='${basStudent.bsCardno}' type="text" maxlength="32" class="form-control input-sm" placeholder="请输入卡号"  ignore="ignore" />
+				<input id="bsCardno" name="bsCardno" value='${basStudentTree.bsCardno}' type="text" maxlength="32" class="form-control input-sm" placeholder="请输入卡号"  ignore="ignore" />
 			</div>
 		</div>
 	</div>
@@ -77,7 +77,7 @@
 		<label for="blName" class="col-sm-3 control-label">线路：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-	      		<input id="blName" name="blName" value='${basStudent.blName}' type="text" maxlength="32" class="form-control input-sm" placeholder="请输入线路"  ignore="ignore" />
+	      		<input id="blName" name="blName" value='${basStudentTree.blName}' type="text" maxlength="32" class="form-control input-sm" placeholder="请输入线路"  ignore="ignore" />
 			</div>
 		</div>
 	</div>
@@ -85,7 +85,7 @@
 		<label for="blSize" class="col-sm-3 control-label">站点：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-	      		<input id="blSize" name="blSize" value='${basStudent.blSize}' type="text" maxlength="32" class="form-control input-sm" placeholder="请输入站点"  ignore="ignore" />
+	      		<input id="blSize" name="blSize" value='${basStudentTree.blSize}' type="text" maxlength="32" class="form-control input-sm" placeholder="请输入站点"  ignore="ignore" />
 			</div>
 		</div>
 	</div>
@@ -93,7 +93,7 @@
 		<label for="bsAddress" class="col-sm-3 control-label">地址：</label>
 		<div class="col-sm-7">
 			<div class="input-group" style="width:100%">
-				<input id="bsAddress" name="bsAddress" value='${basStudent.bsAddress}' type="text" maxlength="100" class="form-control input-sm" placeholder="请输入地址"  ignore="ignore" />
+				<input id="bsAddress" name="bsAddress" value='${basStudentTree.bsAddress}' type="text" maxlength="100" class="form-control input-sm" placeholder="请输入地址"  ignore="ignore" />
 			</div>
 		</div>
 	</div>
@@ -101,7 +101,7 @@
 					<label for="bsDesc" class="col-sm-3 control-label">备注：</label>
 					<div class="col-sm-7">
 					<div class="input-group" style="width:100%">
-						  	 	<textarea name="bsDesc" class="form-control input-sm" rows="6"  ignore="ignore" >${basStudent.bsDesc}</textarea>
+						  	 	<textarea name="bsDesc" class="form-control input-sm" rows="6"  ignore="ignore" >${basStudentTree.bsDesc}</textarea>
 						<span class="Validform_checktip" style="float:left;height:0px;"></span>
 						<label class="Validform_label" style="display: none">备注</label>
 			          </div>

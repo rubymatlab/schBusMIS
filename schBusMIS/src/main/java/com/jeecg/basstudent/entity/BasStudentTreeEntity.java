@@ -1,4 +1,4 @@
-package com.jeecg.bastree.entity;
+package com.jeecg.basstudent.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,14 +22,14 @@ import org.jeecgframework.poi.excel.annotation.Excel;
  * @Title: Entity
  * @Description: 学生资料
  * @author onlineGenerator
- * @date 2018-10-27 21:48:05
+ * @date 2018-10-27 23:26:58
  * @version V1.0   
  *
  */
 @Entity
 @Table(name = "bas_student", schema = "")
 @SuppressWarnings("serial")
-public class BasStudentEntity implements java.io.Serializable {
+public class BasStudentTreeEntity implements java.io.Serializable {
 	/**主键*/
 	private java.lang.String id;
 	/**学生姓名*/

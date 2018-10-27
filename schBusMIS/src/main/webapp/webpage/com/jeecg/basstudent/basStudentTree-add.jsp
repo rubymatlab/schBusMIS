@@ -14,7 +14,7 @@
  <div class="container" style="width:100%;">
 	<div class="panel-heading"></div>
 	<div class="panel-body">
-	<form class="form-horizontal" role="form" id="formobj" action="basStudentController.do?doAdd" method="POST">
+	<form class="form-horizontal" role="form" id="formobj" action="basStudentTreeController.do?doAdd" method="POST">
 		<input type="hidden" id="btn_sub" class="btn_sub"/>
 		<input type="hidden" id="id" name="id"/>
 		<div class="form-group">
@@ -101,7 +101,7 @@
 						<label for="bsDesc" class="col-sm-3 control-label">备注：</label>
 						<div class="col-sm-7">
 				    <div class="input-group" style="width:100%">
-						  	 	<textarea name="bsDesc" value = "${basStudent.bsDesc}" class="form-control input-sm" rows="6"  ignore="ignore" ></textarea>
+						  	 	<textarea name="bsDesc" value = "${basStudentTree.bsDesc}" class="form-control input-sm" rows="6"  ignore="ignore" ></textarea>
 						<span class="Validform_checktip" style="float:left;height:0px;"></span>
 						<label class="Validform_label" style="display: none">备注</label>
 			          </div>
