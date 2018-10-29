@@ -7,15 +7,19 @@ import java.util.List;
 
 import org.jeecgframework.core.common.service.impl.CommonServiceImpl;
 import org.jeecgframework.web.system.pojo.base.DictEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.schbusmis.wx.entity.MsgBox;
-import com.schbusmis.wx.service.wxService;
+import com.schbusmis.wx.service.wxServiceI;
 
 /**
  * @author dev_zhu
  *
  */
-public class wxServiceImpl extends CommonServiceImpl implements wxService {
+@Service("wxService")
+@Transactional
+public class wxServiceImpl extends CommonServiceImpl implements wxServiceI {
 
 	/* (non-Javadoc)
 	 * @see com.schbusmis.wx.service.wxService#getMsgBox_UP()

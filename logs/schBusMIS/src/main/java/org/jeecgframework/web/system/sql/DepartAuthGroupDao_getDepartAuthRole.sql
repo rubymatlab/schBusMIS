@@ -1,1 +1,0 @@
-select dag.* from t_s_depart_auth_group dag,t_s_depart_authg_manager dam where dag.id=dam.group_id and dam.user_id=:userId GROUP BY dag.id

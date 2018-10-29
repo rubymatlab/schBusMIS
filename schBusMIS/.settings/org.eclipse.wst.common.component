@@ -4,12 +4,9 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-<<<<<<< HEAD
-=======
         <dependent-module archiveName="jeewx-api-1.2.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jeewx-api/jeewx-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
->>>>>>> 89de628cbc6552eb6bee589eae3f0b8baa42ab0e
         <property name="context-root" value="schBusMIS"/>
         <property name="java-output-path" value="/schBusMIS/target/classes"/>
     </wb-module>

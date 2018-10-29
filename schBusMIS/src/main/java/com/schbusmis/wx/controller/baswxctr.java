@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jeecg.demo.entity.JeecgDemoExcelEntity;
 import com.schbusmis.wx.entity.MsgBox;
-import com.schbusmis.wx.service.wxService;
+import com.schbusmis.wx.service.wxServiceI;
 
 /**
  * @author dev_zhu
@@ -38,8 +38,8 @@ public class baswxctr extends BaseController {
 
 	private static final String accessToken = "14_mUOWKuaKZtUlgFTqv4I-UpjGyzN8OoooTPXldLRHOPn6ElOCn-i4T1IegDAOcDGdneJi6Jg63vESfpXFe-72DMVTdq4RrA7H0DxWI2zMzEGpJlOZwKBkik_H_-IChqp2p0qP9G5NQwJgpNA-QRZfAFAJKS";
 	
-	@Autowired
-	private wxService wxservice;
+	/*@Autowired
+	private wxServiceI wxservice;
 	
 	//上车提醒
 	@RequestMapping(params = "doSendTMessage_UP")
@@ -136,7 +136,7 @@ public class baswxctr extends BaseController {
 		j.setMsg(message);
 		System.out.println("wxoputing...");
 		return j;
-	}	
+	}	*/
 }
 
 
