@@ -159,6 +159,7 @@
 						<value>loginController.do?checkuser</value>
 						<value>loginController.do?checkuser=</value>
 						<value>systemController.do?saveFiles</value>
+						<value>basStudentLocationController.do?list</value>
 						<!-- 邮件密码重置 -->
 						<value>loginController.do?goResetPwd</value>
 						<value>loginController.do?resetPwd</value>
