@@ -1,0 +1,195 @@
+/* å…¬å…±æ ·å¼è¡¨css */
+html,body {
+    color: #333;
+    margin: 0;
+    height: 100%;
+    font-family: "Myriad Set Pro","Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: normal;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+img {
+    border: 0;
+}
+
+body {
+    background: #fff;
+    color: #666;
+}
+
+html, body, div, dl, dt, dd, ol, ul, li, h1, h2, h3, h4, h5, h6, p, blockquote, pre, button, fieldset, form, input, legend, textarea, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #08acee;
+}
+
+button {
+    outline: 0;
+}
+
+img {
+    border: 0;
+}
+
+button,input,optgroup,select,textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+
+li {
+    list-style: none;
+    box-shadow:1px 1px 6px #c9eafd;
+}
+
+a {
+    color: #666;
+}
+
+a:hover {
+    color: #eee;
+}
+
+.clearfix::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.clearfix {
+}
+
+/* å¿…è¦å¸ƒå±€æ ·å¼css */
+.like-content {
+    width: 100%;
+    margin: 0 auto;
+    
+}
+
+.like-fl {
+    float: left;
+    position: relative;
+}
+
+/*.guess-box {
+    width:auto;
+    height:auto;
+    overflow: hidden;
+    background:url(../image/like-bj.jpg) no-repeat;
+    position: relative;
+    top: 1px;
+    padding-top: 10px;
+    box-sizing: border-box;
+    
+}*/
+
+.guess-box ul li {
+    width: 340px;
+    border: 1px solid #c9eafd;
+    border-radius: 2px;
+    margin: 14px 0 0px 13px;
+    background-color: #f7fcff;
+    padding: 10px 10px;
+    float: left;
+}
+
+.guess-box ul li:hover {
+    box-shadow: 1px 1px 6px 1px #dbdbdb;
+}
+
+.switch {
+    text-align: center;
+    color: gray;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.guess-switch {
+    background: url(../imges/adress.png) no-repeat 0px 2px;
+    color: #7A7A7A;
+    font-size: 14px;
+    padding-left: 24px;
+    position: absolute;
+    top: 9px;
+    right: 16px;
+    cursor: pointer;
+    height: 20px;
+    line-height: 20px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.guess-switch .switch:hover {
+    color: #169d84;
+}
+
+.guess-item-text {
+    font-size: 14px;
+    color: #3f3f3f;
+    margin-bottom: 5px;
+    display: block;
+    width: 183px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.guess-item-text:hover {
+    color: #38bca4;
+}
+
+.icon-add {
+    width: 12px;
+    height: 14px;
+    background: url(../image/adress.png) no-repeat;
+    margin-right: 5px;
+    margin-top: 2px;
+    float: left;
+}
+
+.icon-time {
+    width: 12px;
+    height: 14px;
+    background: url(../imges/tu.png) no-repeat;
+    margin-right: 5px;
+    margin-top: 2px;
+    float: left;
+}
+
+.icon-til {
+    width: 144px;
+    color: #9c9c9c;
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    float: left;
+}
+
+.price {
+    color: #ff7011;
+    font-size: 19px;
+    font-family: "Microsoft YaHei";
+}
+
+.guess-mba {
+    margin-bottom: 10px;
+}

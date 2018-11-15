@@ -177,6 +177,23 @@
 						<value>timeTaskController.do?remoteTask</value>
 						<!-- swagger支持  -->
 						<value>rest/v2/api-docs</value>
+						
+						<!-- 微信控制器 by dev_zhu -->
+						<value>baswxcontroller.do?doSendTMessage_UP</value>
+						<value>baswxcontroller.do?doSendTMessage_LO</value>
+						<value>baswxcontroller.do?doSendTMessage_WR</value>
+						<value>baswxcontroller.do?connect</value>
+						<value>baswxcontroller.do?createMenu</value>
+						<value>baswxcontroller.do?gopenid</value>
+						<value>baswxcontroller.do?binding</value>
+						<value>baswxcontroller.do?unBinding</value>
+						<value>baswxcontroller.do?getStudent</value>
+						<value>baswxcontroller.do?insertopenid</value>
+						<value>baswxcontroller.do?getcardinfo</value>
+						<value>baswxcontroller.do?getcardinfo02</value>
+						<value>baswxcontroller.do?leave</value>
+						<value>baswxcontroller.do?leavelist</value>
+						<value>baswxcontroller.do?test</value>
 					</list>
 				</property>
 				<!-- 模糊匹配 -->

@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link href="./css/mywx.css" rel="stylesheet" type="text/css" />
+    <link href="./css/weui.css" rel="stylesheet" type="text/css" />
+    <link href="./css/mui.min.css" rel="stylesheet" type="text/css" />
+    <link href="./css/mui.picker.min.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="./js/jquery-3.2.1.min.js" ></script>
+    <script src="./js/mui.min.js"></script>
+    <script src="./js/mui.picker.min.js"></script>
+    <script src="./js/zepto.min.js"></script>
+    
+
+    <title></title>
+    <style>
+    	#ceshi,#ceshi1{
+    		display: flex;
+    	}
+    </style>
+</head>
+
+<body ontouchstart>
+    <div style="margin:10px;">
+        <h1 class="page_title" style="color:#04BE02">请假申请</h1>
+    </div>
+    <form class="mui-input-group mui-card">
+
+<!-- 		<div class="mui-input-row">
+			<label>开始日期</label> <input id="begb" type="date" value="">
+		</div>
+		<div class="mui-input-row">
+			<label>结束日期</label> <input id="bege" type="date" value="">
+		</div> -->
+		
+
+		<div id="ceshi" class="mui-input-row">
+			<label>开始日期</label> 
+			<input id="begb" type="text" value="">
+            <button id='demo1' data-options='{"type":"datetime"}' class="btn mui-btn-primary">请选择</button>
+		</div>
+		<div id="ceshi1" class="mui-input-row" style="margin-top: 20PX;">
+			<label>结束日期</label> 
+			<input id="bege" type="text" value="">
+            <button id='demo2' data-options='{"type":"datetime"}' class="btn mui-btn-primary">请选择</button>
+		</div>
+		
+	</form> 
+	<div class="mui-input-row" style="margin: 10px 5px;">
+		<textarea id="reason" rows="5" placeholder="请假原因"></textarea>
+	</div>	
+
+  
+    <div style="margin:10px 10px;">
+        <a href="javascript:getUrl();" class="weui_btn weui_btn_primary" id="submitBtn">提交申请</a>
+    </div>
+    <div style="margin:10px 10px;">
+        <a onclick="javascript :history.back(-2);" class="weui_btn weui_btn_primary" id="submitBtn">返回</a>
+    </div>
+
+<script src="js/leave.js"></script>
+<script>
+//	mui.init()
+	document.getElementById("demo1").addEventListener('tap', function () {
+    var dDate = new Date();
+    var optionsJson = this.getAttribute('data-options') || '{}';
+    var options = JSON.parse(optionsJson);
+    var picker = new mui.DtPicker(options);
+    picker.show(function (rs) {
+        console.log(rs)
+        var timestr = rs.text;
+        $('#first').val(timestr);
+         picker.dispose();
+        });
+})
+	document.getElementById("demo2").addEventListener('tap', function () {
+    var dDate = new Date();
+    var optionsJson = this.getAttribute('data-options') || '{}';
+    var options = JSON.parse(optionsJson);
+    var picker = new mui.DtPicker(options);
+    picker.show(function (rs) {
+        console.log(rs)
+        var timestr = rs.text;
+        $('#second').val(timestr);
+         picker.dispose();
+        });
+})
+
+</script>
+</body>
+</html>
+
