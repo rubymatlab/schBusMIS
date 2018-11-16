@@ -3,7 +3,7 @@
 <!DOCTYPE html >
 <html>
 	<head>
-		<title>JEECG 微云快速开发平台</title>
+		<title>校车管理平台</title>
 <t:base type="jquery-webos,easyui,tools,DatePicker,autocomplete"></t:base>
 <link rel="shortcut icon" href="images/favicon.ico">
 		<link href="plug-in/sliding/css/main.css" rel="stylesheet" type="text/css" />
