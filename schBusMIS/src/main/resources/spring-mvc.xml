@@ -194,6 +194,9 @@
 						<value>baswxcontroller.do?leave</value>
 						<value>baswxcontroller.do?leavelist</value>
 						<value>baswxcontroller.do?test</value>
+						
+						<value>basStudentLocationController.do?list</value>
+						
 					</list>
 				</property>
 				<!-- 模糊匹配 -->

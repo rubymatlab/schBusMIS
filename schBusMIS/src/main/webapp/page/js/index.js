@@ -37,8 +37,8 @@ function toUnicodeFun(data){
 
 //绑定
 function geturlhui() {
-    	alert("openid:" + openid);
-        var postUrl = "http://devzhu.hk1.mofasuidao.cn/schBusMIS/baswxcontroller.do?binding";//请求路径
+    	//alert("openid:" + openid);
+        var postUrl = "http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?binding";//请求路径
         var postData = { openid: openid };//请求数据
         $.ajax({
             type: 'POST',
@@ -66,7 +66,7 @@ function geturlhui() {
 
 //我的刷卡记录
 function geturlke() {
-    var postUrl = "http://devzhu.hk1.mofasuidao.cn/schBusMIS/baswxcontroller.do?getcardinfo";//请求路径
+    var postUrl = "http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?getcardinfo";//请求路径
     //alert("openid"+openid);
     var postData = { openid: openid };//请求数据
     $.ajax({
@@ -94,7 +94,7 @@ function geturlke() {
 //我的请假
 function geturlshou() {
     
-    var postUrl = "http://devzhu.hk1.mofasuidao.cn/schBusMIS/baswxcontroller.do?getcardinfo";//请求路径
+    var postUrl = "http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?getcardinfo";//请求路径
     var postData = { openid: openid };//请求数据
     $.ajax({
         type: 'POST',

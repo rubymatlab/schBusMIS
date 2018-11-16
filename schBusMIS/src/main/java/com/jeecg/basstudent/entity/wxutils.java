@@ -41,7 +41,7 @@ public class wxutils {
 	private static final String appid = "wx2968e71a3e302dab";
 	private static final String appscret = "fdca7717bdd31d4c52feb67d82d8f700";
 	
-	private static final String openidurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2968e71a3e302dab&redirect_uri=http://devzhu.hk1.mofasuidao.cn/schBusMIS/baswxcontroller.do?gopenid&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+	private static final String openidurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2968e71a3e302dab&redirect_uri=http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?gopenid&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 
 	private static final String token = "JYWX";
 	
@@ -72,21 +72,21 @@ public class wxutils {
 			WeixinButton o1_s1 = new WeixinButton();
 /*			o1_s1.setType("view");
 			o1_s1.setName("我的线路");
-			o1_s1.setUrl("http://devzhu.hk1.mofasuidao.cn/schBusMIS/page/being_devloped.html");
+			o1_s1.setUrl("http://tdcq.natapp1.cc/schBusMIS/page/being_devloped.html");
 			sub_button1.add(o1_s1);*/
 			o1_s1.setType("view");
 			o1_s1.setName("上车提醒");
-			o1_s1.setUrl("http://devzhu.hk1.mofasuidao.cn/schBusMIS/baswxcontroller.do?doSendTMessage_UP");
+			o1_s1.setUrl("http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?doSendTMessage_UP");
 			sub_button1.add(o1_s1);
 			WeixinButton o1_s2 = new WeixinButton();
 			o1_s2.setType("view");
 			o1_s2.setName("下车提醒");
-			o1_s2.setUrl("http://devzhu.hk1.mofasuidao.cn/schBusMIS/baswxcontroller.do?doSendTMessage_LO");
+			o1_s2.setUrl("http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?doSendTMessage_LO");
 			sub_button1.add(o1_s2);
 			WeixinButton o1_s3 = new WeixinButton();
 			o1_s3.setType("view");
 			o1_s3.setName("未上车警示提醒");
-			o1_s3.setUrl("http://devzhu.hk1.mofasuidao.cn/schBusMIS/baswxcontroller.do?doSendTMessage_WR&cardno=A001");
+			o1_s3.setUrl("http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?doSendTMessage_WR&cardno=A001");
 			sub_button1.add(o1_s3);
 			
 			WeixinButton o1 = new WeixinButton();
@@ -99,7 +99,7 @@ public class wxutils {
 			o2_s1.setType("view");
 			o2_s1.setName("电子围栏");
 			//o2_s1.setKey("PostHere");
-			o2_s1.setUrl("http://26b0dd6d.ngrok.io/schBusMIS/basStudentLocationController.do?list");
+			o2_s1.setUrl("http://tdcq.natapp1.cc/schBusMIS/basStudentLocationController.do?list");
 			sub_button2.add(o2_s1);
 			WeixinButton o2 = new WeixinButton();
 			o2.setName("位置");

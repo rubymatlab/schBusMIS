@@ -232,7 +232,7 @@ public class basWXController extends BaseController {
 			System.out.println("数组转json失败");
 		}
 	
-		String url = "redirect:http://devzhu.hk1.mofasuidao.cn/schBusMIS/page/index.html?openid="+sopenid+"&accessToken="+jsonStr; 
+		String url = "redirect:http://tdcq.natapp1.cc/schBusMIS/page/index.html?openid="+sopenid+"&accessToken="+jsonStr; 
 		System.out.println("url-->:"+url);
 		return new ModelAndView(url);
 	}	
@@ -454,10 +454,10 @@ public class basWXController extends BaseController {
 	private int iopenid(String stuid,String openid){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String sysdt = df.format(new Date());// new Date()为获取当前系统时间
-
+		UUID ID = UUID.randomUUID();
 		StringBuffer sql = new StringBuffer(
-				"INSERT INTO bus_openid  (`bs_studentid`, `bo_openid`, `bo_binddatetime`) ");
-		sql.append("VALUES ('" + stuid + "','" + openid + "','" + sysdt + "');");
+				"INSERT INTO bus_openid  (`id`,`bs_studentid`, `bo_openid`, `bo_binddatetime`) ");
+		sql.append("VALUES ('" + ID + "','" + stuid + "','" + openid + "','" + sysdt + "');");
 
 		System.out.println("iopenid sql..." + ";" + sql.toString());
 

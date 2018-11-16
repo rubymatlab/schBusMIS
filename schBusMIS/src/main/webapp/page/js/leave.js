@@ -48,7 +48,7 @@ function getUrl() {
     var reason=document.getElementById('reason').value;
     var openid = GetQueryString("Open");
     //alert(openid+";"+begb+";"+bege+";"+reason);
-    var postUrl = "http://devzhu.hk1.mofasuidao.cn/schBusMIS/baswxcontroller.do?leave";//请求路径
+    var postUrl = "http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?leave";//请求路径
     if (openid != "" || openid!=null) {
         var postData = { begb: begb,bege: bege,reason: reason, openid:openid};//请求数据
         $.ajaxSettings.async = false;
@@ -71,7 +71,7 @@ function getUrl() {
             	alert('请求出错!');
             }
         });
-        alert("03");
+        //alert("03");
     } else {
         //alert("请输入手机号码！");
         window.location.href = "error.html";
