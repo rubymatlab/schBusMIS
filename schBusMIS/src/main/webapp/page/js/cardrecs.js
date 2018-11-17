@@ -1,5 +1,5 @@
 ﻿var openid = GetQueryString("Open");
-var postUrl = "http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?getcardinfo02";//请求路径
+var postUrl = path+"/baswxcontroller.do?getcardinfo02";//请求路径
 if (openid != "" || openid != null) {
     $content = $("#contentwx");//获取div的id
     var postData = { openid: openid };//请求数据

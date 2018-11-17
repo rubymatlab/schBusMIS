@@ -11,7 +11,7 @@ import org.jeecgframework.core.common.service.CommonService;
 import com.schbusmis.wx.entity.MsgBox;
 
 /**
- * @author dev_zhu
+ * @author dev001
  *
  */
 public interface wxServiceI extends CommonService {

@@ -37,7 +37,7 @@ import com.jeecg.basstudent.entity.wxutils;
 import net.sf.json.JSONObject;
 
 /**
- * @author dev_zhu
+ * @author dev001
  *
  */
 
@@ -45,7 +45,6 @@ import net.sf.json.JSONObject;
 @RequestMapping("/baswxcontroller")
 public class basWXController extends BaseController {
 	
-	//private static final String accessToken = "15_5qBTtwZOnqMTF2DYtT6TQ4JjybtyDTufFNgIOUB3FlcDV1NFsPRXL4gv6xHDcOSH6GYd-Jyf7ekAha2RRdHGiRRYpA9zQjh_0Ybw3NJJSLw5tb2zMpm1byDB0n-rEXZUxykT1G65yZO6GoyeFOEeAHAAJZ";
 	private static final String Templateid_UP="J_1DwXtF8IorKSmpxR3I2v_kb-rLykW4kb8-7E0RQpw";
 	private static final String Templateid_LO="SYi3dsdmvq7CUw3M3E0Mfl63xLl7wAo-4oJY5v126O0";
 	private static final String Templateid_WR="jqFKmBdfNU-KhMW4n36iBk5el3Qd_DPVtpvR5GRfDyM";
@@ -232,7 +231,7 @@ public class basWXController extends BaseController {
 			System.out.println("数组转json失败");
 		}
 	
-		String url = "redirect:http://tdcq.natapp1.cc/schBusMIS/page/index.html?openid="+sopenid+"&accessToken="+jsonStr; 
+		String url = "redirect:"+wxutils.basurl+"/page/index.html?openid="+sopenid+"&accessToken="+jsonStr; 
 		System.out.println("url-->:"+url);
 		return new ModelAndView(url);
 	}	

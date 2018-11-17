@@ -28,7 +28,7 @@ import com.schbusmis.wx.entity.MsgBox;
 import com.schbusmis.wx.service.wxServiceI;
 
 /**
- * @author dev_zhu
+ * @author dev001
  *
  */
 

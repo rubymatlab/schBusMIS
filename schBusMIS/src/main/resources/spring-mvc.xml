@@ -178,7 +178,7 @@
 						<!-- swagger支持  -->
 						<value>rest/v2/api-docs</value>
 						
-						<!-- 微信控制器 by dev_zhu -->
+						<!-- 微信控制器 by dev001 -->
 						<value>baswxcontroller.do?doSendTMessage_UP</value>
 						<value>baswxcontroller.do?doSendTMessage_LO</value>
 						<value>baswxcontroller.do?doSendTMessage_WR</value>

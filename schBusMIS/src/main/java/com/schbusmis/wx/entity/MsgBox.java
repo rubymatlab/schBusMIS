@@ -6,7 +6,7 @@ package com.schbusmis.wx.entity;
 import java.io.Serializable;
 
 /**
- * @author dev_zhu
+ * @author dev001
  *
  */
 public class MsgBox implements Serializable {

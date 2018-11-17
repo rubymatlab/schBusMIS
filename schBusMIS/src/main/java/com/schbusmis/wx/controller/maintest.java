@@ -13,7 +13,7 @@ import org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI;
 import org.jeewx.api.wxuser.user.JwUserAPI;
 
 /**
- * @author dev_zhu
+ * @author dev001
  *
  */
 public class maintest {

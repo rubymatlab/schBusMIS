@@ -1,5 +1,5 @@
 ﻿    var openId = GetQueryString("Open");
-    var postUrl = "http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?getStudent";//请求路径
+    var postUrl = path+"/baswxcontroller.do?getStudent";//请求路径
     var postData = { openid: openId };//请求数据
     $.ajax({
         type: 'POST',
@@ -24,7 +24,7 @@
 function getUrl() {
     //var va = $(" input[ name='tall' ] ").val();
 	if (window.confirm('确定解绑？ 如解绑则查阅不到个人的相关信息!')) {
-	    var postUrl = "http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?unBinding";//请求路径
+	    var postUrl = path+"/baswxcontroller.do?unBinding";//请求路径
 	    if (openId != "" || openId != null) {
 	        var postData = { openid:openId};//请求数据
 	        $.ajax({

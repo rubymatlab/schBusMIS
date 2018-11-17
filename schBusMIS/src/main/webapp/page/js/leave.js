@@ -48,7 +48,7 @@ function getUrl() {
     var reason=document.getElementById('reason').value;
     var openid = GetQueryString("Open");
     //alert(openid+";"+begb+";"+bege+";"+reason);
-    var postUrl = "http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?leave";//请求路径
+    var postUrl = path+"/baswxcontroller.do?leave";//请求路径
     if (openid != "" || openid!=null) {
         var postData = { begb: begb,bege: bege,reason: reason, openid:openid};//请求数据
         $.ajaxSettings.async = false;

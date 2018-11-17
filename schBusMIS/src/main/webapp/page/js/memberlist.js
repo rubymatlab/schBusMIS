@@ -11,7 +11,7 @@ function getUrl() {
     var ruleType = $('input[name="ruleType"]:checked').val(); 
 
     item = $('input[name=age]:checked').val();
-    var postUrl = "http://tdcq.natapp1.cc/schBusMIS/baswxcontroller.do?insertopenid";//请求路径
+    var postUrl = path+"/baswxcontroller.do?insertopenid";//请求路径
     alert(va+";"+ruleType);
     if (va != "" || va != null || openid != "" || openid!=null) {
         var postData = { tell: va, openid:openid};//请求数据
