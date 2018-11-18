@@ -1,8 +1,10 @@
 ﻿var openid = GetQueryString("Open");
+var ruletype=localStorage.getItem("ruletype");
 var postUrl = path+"/baswxcontroller.do?getcardinfo02";//请求路径
+//alert(ruletype);
 if (openid != "" || openid != null) {
     $content = $("#contentwx");//获取div的id
-    var postData = { openid: openid };//请求数据
+    var postData = { openid: openid,ruletype:ruletype };//请求数据
     var cour = '';
     var courtilte = '';
     $.ajax({
@@ -16,18 +18,18 @@ if (openid != "" || openid != null) {
                 for (var i = 0; i < data.length; i++) {
                     cour = cour + ' <tbody > ' +
                                         '  <tr> ' +
-                                            '  <td style="width:200px">' + data[i].bs_cardno + '</td> ' +
-                                            '  <td style="width:200px">' + data[i].bs_name + '</td> ' +
-                                            '  <td style="width:200px">' + data[i].bc_datetime + '</td> ' +
+                                            '  <td style="width:130px">' + data[i].bs_cardno + '</td> ' +
+                                            '  <td style="width:170px">' + data[i].bs_name + '</td> ' +
+                                            '  <td style="width:300px">' + data[i].bc_datetime + '</td> ' +
                                         '  </tr> ' +
                                     '  </tbody> ';
                 }
                 courtilte = courtilte + ' <table style="width:100%" id="table11"> ' +
                                             ' <thead> ' +
                                                 ' <tr> ' +
-                                                    ' <th style="width:200px" >卡号</th> ' +
-                                                    ' <th style="width:200px" >姓名</th> ' +
-                                                    ' <th style="width:200px" >刷卡时间</th> ' +
+                                                    ' <th style="width:130px" >卡号</th> ' +
+                                                    ' <th style="width:170px" >姓名</th> ' +
+                                                    ' <th style="width:300px" >刷卡时间</th> ' +
                                                 ' </tr> ' +
                                             ' </thead> ' + cour +
                                            '  </table> ';

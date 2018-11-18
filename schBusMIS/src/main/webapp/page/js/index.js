@@ -40,7 +40,12 @@ function geturlhui() {
     	//alert("openid:" + openid);
         var postUrl = path+"/baswxcontroller.do?binding";//请求路径
         //alert("postUrl:"+postUrl)
-        var postData = { openid: openid };//请求数据
+        var ruletype=localStorage.getItem("ruletype");
+        if(ruletype==null){
+        	ruletype="1";
+        }
+        //alert("ruletype:"+ruletype);
+        var postData = { openid: openid,ruletype:ruletype };//请求数据
         $.ajax({
             type: 'POST',
             url: postUrl,
@@ -68,8 +73,9 @@ function geturlhui() {
 //我的刷卡记录
 function geturlke() {
     var postUrl = path+"/baswxcontroller.do?getcardinfo";//请求路径
-    alert("postUrl"+postUrl);
-    var postData = { openid: openid };//请求数据
+    //alert("postUrl"+postUrl);
+    var ruletype=localStorage.getItem("ruletype");
+    var postData = { openid: openid,ruletype:ruletype};//请求数据
     $.ajax({
         type: 'POST',
         url: postUrl,
@@ -94,10 +100,10 @@ function geturlke() {
 
 //我的请假
 function geturlshou() {
-    
+    var ruletype=localStorage.getItem("ruletype");
     var postUrl = path+"/baswxcontroller.do?getcardinfo";//请求路径
-    alert("postUrl"+postUrl);
-    var postData = { openid: openid };//请求数据
+    //alert("postUrl"+postUrl);
+    var postData = { openid: openid,ruletype:ruletype };//请求数据
     $.ajax({
         type: 'POST',
         url: postUrl,
@@ -110,7 +116,12 @@ function geturlshou() {
             if (re == "" || re == 0 || re== "0" || re == null) {
             	window.location.href = "fans.html?Open=" + openid;
             } else {
-            	 window.location.href = "leave.html?Open=" + openid;
+            	if(ruletype=="1"){
+            		window.location.href = "leave.html?Open=" + openid;
+            	}else if(ruletype=="2"){
+            		window.location.href = "leavelist.html?Open=" + openid;
+            	}
+            	 
             }
             
         },

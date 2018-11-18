@@ -1,6 +1,7 @@
 ﻿    var openId = GetQueryString("Open");
     var postUrl = path+"/baswxcontroller.do?getStudent";//请求路径
-    var postData = { openid: openId };//请求数据
+    var ruletype=localStorage.getItem("ruletype");
+    var postData = { openid: openId,ruletype:ruletype };//请求数据
     $.ajax({
         type: 'POST',
         url: postUrl,
@@ -23,10 +24,11 @@
 //var openId=JSON.parse(GetQueryString("resdata")).openId;
 function getUrl() {
     //var va = $(" input[ name='tall' ] ").val();
+	var ruletype=localStorage.getItem("ruletype");
 	if (window.confirm('确定解绑？ 如解绑则查阅不到个人的相关信息!')) {
 	    var postUrl = path+"/baswxcontroller.do?unBinding";//请求路径
 	    if (openId != "" || openId != null) {
-	        var postData = { openid:openId};//请求数据
+	        var postData = { openid:openId,ruletype:ruletype};//请求数据
 	        $.ajax({
 	            type: 'POST',
 	            url: postUrl,

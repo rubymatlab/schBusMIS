@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title></title>
     <link href="css/weui.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="../page/js/jquery-3.2.1.min.js"  ></script>
     <script type="text/javascript" src="../page/js/zepto.min.js"></script>
     <style type="text/css">
         #table11 thead th {
@@ -47,10 +48,42 @@
     <div style="overflow-x:scroll ;white-space:nowrap;text-align:center;margin-top:14px;" id="contentwx" class="contentwx">
 
     </div>
+	<script>
+		var ruletype=localStorage.getItem("ruletype");
+		if (ruletype=="2"){
+	</script>
+		<div style="margin:10px 10px;">
+	        <!-- <a onclick="approve();" class="weui_btn weui_btn_primary" id="submitBtn">请假审批</a> -->
+	        <a onclick="checksel();" class="weui_btn weui_btn_primary" id="showDialog">请假审批</a>
+	        
+	    </div>			
+	<script>	
+		}
+	</script>
+	
+	    <div style="margin:10px 10px;">
+	        <a onclick="javascript :history.back(-1);" class="weui_btn weui_btn_primary" id="submitBtn">返回</a>
+	    </div>
+	    
+	    <!--BEGIN dialog1-->
+	    <div class="weui_dialog_confirm" id="dialog1" style="display: none;">
+	        <div class="weui_mask"></div>
+	        <div class="weui_dialog">
+	            <div class="weui_dialog_hd"><strong class="weui_dialog_title">请假审批</strong></div>
+	            <div class="weui_dialog_bd">请选择你的审批选项</div>
+	            <div class="weui_dialog_ft">
+	                <a href="javascript:;" class="weui_btn_dialog default">取消</a>
+	                <a onclick="approve(0)" class="weui_btn_dialog primary">不同意</a>
+	                <a onclick="approve(1)" class="weui_btn_dialog primary">同意</a>
+	            </div>
+	        </div>
+	    </div>
+		<!--END dialog1-->
+		
+	<script>	
 
-    <div style="margin:10px 10px;">
-        <a onclick="javascript :history.back(-1);" class="weui_btn weui_btn_primary" id="submitBtn">返回</a>
-    </div>
+    </script>
+    
     <script type="text/javascript" src="../page/js/config.js"></script>
     <script type="text/javascript" src="../page/js/leavelist.js"></script>
 </body>

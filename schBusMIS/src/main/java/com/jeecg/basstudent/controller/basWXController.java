@@ -240,9 +240,9 @@ public class basWXController extends BaseController {
 	//绑定
 	@RequestMapping(params = "binding")
 	@ResponseBody
-	public int binding(String tell,String openid,HttpServletRequest request) throws WexinReqException {
-		System.out.println("binding参数输出1:"+tell+";"+openid);
-		int i=isBinded(openid);
+	public int binding(String openid,String ruletype,HttpServletRequest request) throws WexinReqException {
+		System.out.println("binding参数输出1:"+openid+";"+ruletype);
+		int i=isBinded(openid,ruletype);
 		System.out.println("binding参数输出2"+i);
 		return i;
 	}
@@ -251,9 +251,9 @@ public class basWXController extends BaseController {
 	//解除绑定
 	@RequestMapping(params = "unBinding")
 	@ResponseBody
-	public int unBinding(String openid,HttpServletRequest request) throws WexinReqException {
+	public int unBinding(String openid,String ruletype,HttpServletRequest request) throws WexinReqException {
 		System.out.println("binding参数输出1:"+openid);
-		int i=isUnBinded(openid);
+		int i=isUnBinded(openid,ruletype);
 		System.out.println("binding参数输出2"+i);
 		return i;
 	}	
@@ -261,53 +261,75 @@ public class basWXController extends BaseController {
 	//新增openid记录
 	@RequestMapping(params = "insertopenid")
 	@ResponseBody
-	public int insertopenid(String tell,String openid,HttpServletRequest request) throws WexinReqException {
-		System.out.println("insertopenid参数输出:" + tell + ";" + openid);
+	public int insertopenid(String tell,String openid,String ruletype,HttpServletRequest request) throws WexinReqException {
+		System.out.println("insertopenid参数输出:" + tell + ";" + openid+";"+ruletype);
 		int i = 0;
-		if (isExitsTel(tell) >=1) {
-			String stuid = getStudenID(tell);
-			i = iopenid(stuid, openid);
-		} else {	//手机号码不存在
+		if (isExitsTel(tell,Integer.parseInt(ruletype)) >=1) {
+			if(ruletype.equals("1")){//家长		
+				String stuid = getStudenID(tell);
+				i = iopenid(stuid, openid);
+			}else if(ruletype.equals("2")){
+				i=uopenid(tell,openid);
+			}
+		}else {	//手机号码不存在
 			i = 0;
 		}
-
 		return i;
 	}
 	
 	//获取个人信息
 	@RequestMapping(params = "getStudent")
 	@ResponseBody	
-	public List<Map<String, Object>> getStudent(String openid,HttpServletRequest request){		
+	public List<Map<String, Object>> getStudent(String openid,String ruletype,HttpServletRequest request){		
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 		// getData
-		StringBuffer sql = new StringBuffer("SELECT b.bs_name,b.bs_tel FROM bus_openid a ");
-		sql.append("LEFT JOIN bas_student b on a.bs_studentid=b.id ");
-		sql.append("WHERE a.bo_openid='" + openid + "'");
+		StringBuffer sql = new StringBuffer();
+		if(ruletype.equals("1")){
+			sql.append("SELECT b.bs_name,b.bs_tel FROM bus_openid a ");
+			sql.append("LEFT JOIN bas_student b on a.bs_studentid=b.id ");
+			sql.append("WHERE a.bo_openid='" + openid + "'");			
+		}else if(ruletype.equals("2")){
+			sql.append("SELECT bp_name as bs_name,bp_tel as bs_tel from bas_person ");
+			sql.append("WHERE bp_openid='" + openid + "'");			
+		}
+
 		System.out.println("getStudent sql..." + ";" + sql.toString());
 		listTree = this.systemService.findForJdbc(sql.toString());
 		System.out.println("getStudent:"+listTree.get(0).get("bs_name").toString()+";"+listTree.get(0).get("bs_tel").toString());
 		return listTree;
 	}
 
-	//获取刷卡记录
+	//获取刷卡记录?
 	@RequestMapping(params = "getcardinfo")
 	@ResponseBody		
-	public int getcardinfo(String openid,HttpServletRequest request){
+	public int getcardinfo(String openid,String ruletype,HttpServletRequest request){
 		//是否绑定？
-		int i=isBinded(openid);
+		int i=isBinded(openid,ruletype);
 		return i;
 	}
 	
 	//获取刷卡记录02
 	@RequestMapping(params = "getcardinfo02")
 	@ResponseBody		
-	public List<Map<String, Object>> getcardinfo02(String openid,HttpServletRequest request){
+	public List<Map<String, Object>> getcardinfo02(String openid,String ruletype,HttpServletRequest request){
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer();
+		
+		if(ruletype.equals("1")){
 		// getData
-		StringBuffer sql = new StringBuffer("SELECT b.bs_cardno,b.bs_name,c.bc_datetime from bus_openid a ");
-		sql.append("LEFT JOIN bas_student b on a.bs_studentid=b.id ");
-		sql.append("LEFT JOIN bus_cardinfo c on b.bs_cardno=c.bc_cardno ");
-		sql.append("where a.bo_openid='" + openid + "'");
+			sql.append("SELECT b.bs_cardno,b.bs_name,c.bc_datetime from bus_openid a ");
+			sql.append("LEFT JOIN bas_student b on a.bs_studentid=b.id ");
+			sql.append("LEFT JOIN bus_cardinfo c on b.bs_cardno=c.bc_cardno ");
+			sql.append("WHERE a.bo_openid='" + openid + "'");
+			sql.append("ORDER BY bc_datetime");
+		}else if(ruletype.equals("2")){
+			sql.append("SELECT d.bc_cardno as bs_cardno,c.bs_name,d.bc_datetime from bas_person a ");
+			sql.append("LEFT JOIN bas_class b on a.id=b.bc_personid ");
+			sql.append("LEFT JOIN bas_student c on c.bc_id=b.id ");
+			sql.append("LEFT JOIN bus_cardinfo d on d.bc_cardno=c.bs_cardno ");
+			sql.append("WHERE a.bp_openid='" + openid + "' AND c.bs_cardno is not NULL ");
+			sql.append("ORDER BY bc_cardno,bc_datetime");
+		}
 		System.out.println("getcardinfo sql..." + ";" + sql.toString());
 		listTree = this.systemService.findForJdbc(sql.toString());		
 		return listTree;
@@ -324,22 +346,44 @@ public class basWXController extends BaseController {
 	//请假记录
 	@RequestMapping(params = "leavelist")
 	@ResponseBody		
-	public List<Map<String, Object>> leavelist(String openid,HttpServletRequest request){
+	public List<Map<String, Object>> leavelist(String openid,String ruletype,HttpServletRequest request){
 		//System.out.println(begb + ";" + bege + ";" + reason + openid);
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer();
 		// getData
-		StringBuffer sql = new StringBuffer("SELECT a.bl_begdate,a.bl_enddate,a.bl_reason, ");
-		sql.append("case  when a.bl_status='0' then '待批' when a.bl_status='1' then '已批'  when a.bl_status='-1' then '未批' else '其他' END as status from bus_leave a ");
-		sql.append("LEFT JOIN bus_openid b ON a.bl_studentid=b.bs_studentid ");
-		sql.append("WHERE b.bo_openid='" + openid + "'  ");
-		sql.append("order by bl_begdate desc ");
+		if(ruletype.equals("1")){		//家长
+			sql.append("SELECT a.bl_begdate,a.bl_enddate,a.bl_reason, ");
+			sql.append("case  when a.bl_status='-1' then '待批' when a.bl_status='1' then '已通过'  when a.bl_status='0' then '未通过' else '其他' END as status from bus_leave a ");
+			sql.append("LEFT JOIN bus_openid b ON a.bl_studentid=b.bs_studentid ");
+			sql.append("WHERE b.bo_openid='" + openid + "'  ");
+			sql.append("order by bl_begdate desc ");
+		}else if(ruletype.equals("2")){	//班主任
+			sql.append("SELECT a.id,b.bs_name,a.bl_begdate,a.bl_enddate,a.bl_reason,  ");
+			sql.append("case  when a.bl_status='-1' then '待批' when a.bl_status='1' then '已通过'  when a.bl_status='0' then '未通过' else '其他' END as status  from bus_leave a ");
+			sql.append("LEFT JOIN bas_student b on a.bl_studentid=b.id ");
+			sql.append("LEFT JOIN bas_class c on c.id=b.bc_id ");
+			sql.append("LEFT JOIN bas_person d on d.id=c.bc_personid ");
+			sql.append("WHERE d.bp_openid='" + openid + "'  ");
+			sql.append("order by bl_begdate desc ");
+		}			
 		System.out.println("leavelist sql..." + ";" + sql.toString());
 		listTree = this.systemService.findForJdbc(sql.toString());		
 		return listTree;
 	}	
 	
 	
-	
+	//请假记录
+	@RequestMapping(params = "approve")
+	@ResponseBody		
+	public int approve(String openid,String stroid,String approvetype,HttpServletRequest request){
+		stroid = stroid.substring(1, stroid.length() - 1);
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE bus_leave SET bl_status='" + approvetype + "' WHERE id in (" + stroid + ")");
+		
+		System.out.println("approve sql..." + ";" + sql.toString());
+		int sc = this.systemService.executeSql(sql.toString());
+		return sc;
+	}	
 	//test
 	@RequestMapping(params = "test")
 	@ResponseBody
@@ -386,10 +430,16 @@ public class basWXController extends BaseController {
 	
 	//业务处理
 	//openid是否已绑定 1:已绑;0:未绑
-	private int isBinded(String sopenid){
+	private int isBinded(String sopenid,String ruletype){
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT count(*) as c FROM bus_openid  ");
-		sql.append("WHERE bo_openid='" + sopenid + "'");
+		StringBuffer sql = new StringBuffer();
+		if (ruletype.equals("1")){
+			sql.append("SELECT count(*) as c FROM bus_openid  ");
+			sql.append("WHERE bo_openid='" + sopenid + "'");
+		}else if (ruletype.equals("2")){
+			sql.append("SELECT count(*) as c FROM bas_person  ");
+			sql.append("WHERE bp_openid='" + sopenid + "'");			
+		}
 		System.out.println("isBinded sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
@@ -399,10 +449,15 @@ public class basWXController extends BaseController {
 	}
 	
 	//解除绑定 1:成功;0:失败
-	private int isUnBinded(String sopenid){
-		Object ob = null;
-		StringBuffer sql = new StringBuffer("DELETE FROM bus_openid ");
-		sql.append("WHERE bo_openid='" + sopenid + "'");
+	private int isUnBinded(String sopenid,String ruletype){
+		StringBuffer sql = new StringBuffer();
+		if (ruletype.equals("1")){
+			sql.append("DELETE FROM bus_openid ");
+			sql.append("WHERE bo_openid='" + sopenid + "'");			
+		}else if(ruletype.equals("2")){
+			sql.append("UPDATE bas_person SET bp_openid=null WHERE bp_openid='"+sopenid+"' ");			
+		}
+
 		System.out.println("isUnBinded sql..." + ";" + sql.toString());
 
 		int sc = this.systemService.executeSql(sql.toString());
@@ -411,11 +466,15 @@ public class basWXController extends BaseController {
 	}
 	
 	// 电话号码是否已存在 1:存在;0:不存在
-	private int isExitsTel(String stel) {
+	private int isExitsTel(String stel,int type) {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-
-		StringBuffer sql = new StringBuffer("SELECT count(*) as c From bas_student a ");
-		sql.append("WHERE a.bs_tel='" + stel + "'");
+		StringBuffer sql = new StringBuffer("SELECT count(*) as c From ");
+		if (type==1){
+			//StringBuffer sql = new StringBuffer("SELECT count(*) as c From bas_student a ");
+			sql.append("bas_student  WHERE bs_tel='" + stel + "'");
+		}else if(type==2){
+			sql.append("bas_person  WHERE bp_tel='" + stel + "'");
+		}
 		System.out.println("bindcard sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
@@ -449,7 +508,7 @@ public class basWXController extends BaseController {
 		return sc;
 	}
 	
-	//新增openid
+	//新增openid(家长)
 	private int iopenid(String stuid,String openid){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String sysdt = df.format(new Date());// new Date()为获取当前系统时间
@@ -463,10 +522,21 @@ public class basWXController extends BaseController {
 		int sc = this.systemService.executeSql(sql.toString());
 		return sc;
 	}
-	
+	//更新 openid(班主任)
+	private int uopenid(String tel,String openid){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String sysdt = df.format(new Date());// new Date()为获取当前系统时间
+		UUID ID = UUID.randomUUID();
+		StringBuffer sql = new StringBuffer("UPDATE bas_person SET bp_openid='" + openid + "' WHERE bp_tel='"+tel+"' ");
+
+		System.out.println("uopenid sql..." + ";" + sql.toString());
+
+		int sc = this.systemService.executeSql(sql.toString());
+		return sc;
+	}	
 	//新增请假信息
 	private int ilevel(String begb,String bete,String reason,String openid){
-		String status = "0";
+		String status = "-1";
 		String stuID = getStudenID02(openid);
 		UUID ID = UUID.randomUUID();
 		StringBuffer sql = new StringBuffer(

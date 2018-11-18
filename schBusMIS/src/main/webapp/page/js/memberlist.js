@@ -8,13 +8,13 @@ var va = $(" input[ name='tall' ] ").val();
 function getUrl() {
     var va = $(" input[ name='tall' ] ").val();
     var openid = GetQueryString("Open");
-    var ruleType = $('input[name="ruleType"]:checked').val(); 
+    var ruletype = $("input[name='ruleType']:checked").val(); 
+    //$("input[name='reportType']:checked").val();
 
-    item = $('input[name=age]:checked').val();
     var postUrl = path+"/baswxcontroller.do?insertopenid";//请求路径
-    alert(va+";"+ruleType);
+    //alert(va+"a;"+ruleType);
     if (va != "" || va != null || openid != "" || openid!=null) {
-        var postData = { tell: va, openid:openid};//请求数据
+        var postData = { tell: va, openid:openid,ruletype:ruletype};//请求数据
         $.ajax({
             type: 'POST',
             url: postUrl,
@@ -24,8 +24,9 @@ function getUrl() {
             success: function (data) {
             	var re=JSON.stringify(data);
             	if (re == 1){
-            		//window.location.href = "ok.html"; 
-            		window.location.href = "index.html?openid=" + openid;
+            		localStorage.setItem("ruletype", ruletype);		//本地存储ruletype
+            		window.location.href = "ok.html"; 
+            		//window.location.href = "index.html?openid=" + openid;
             	}else if (re==0){
             		alert("该手机号码不存在，请重新输入！");
             	}else{

@@ -193,8 +193,8 @@
 						<value>baswxcontroller.do?getcardinfo02</value>
 						<value>baswxcontroller.do?leave</value>
 						<value>baswxcontroller.do?leavelist</value>
+						<value>baswxcontroller.do?approve</value>
 						<value>baswxcontroller.do?test</value>
-						
 						<value>basStudentLocationController.do?list</value>
 						
 					</list>
