@@ -194,6 +194,12 @@
 						<value>baswxcontroller.do?leave</value>
 						<value>baswxcontroller.do?leavelist</value>
 						<value>baswxcontroller.do?approve</value>
+						<value>baswxcontroller.do?userlogin</value>
+						<value>baswxcontroller.do?getlinename</value>
+						<value>baswxcontroller.do?getallsizename</value>
+						<value>baswxcontroller.do?getstudentlist</value>
+						<value>baswxcontroller.do?getcardlist</value>
+						
 						<value>baswxcontroller.do?test</value>
 						<value>basStudentLocationController.do?list</value>
 						

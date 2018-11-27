@@ -82,7 +82,7 @@ public class basWXController extends BaseController {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
 		//getData				
-		StringBuffer sql = new StringBuffer("SELECT b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bus_cardinfo a ");
+		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bus_cardinfo a ");
 		sql.append("left join bas_student b on a.bc_cardno=b.bs_cardno ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
 		sql.append("Where bc_sended=0 AND c.bo_openid is not NULL ");
@@ -105,6 +105,7 @@ public class basWXController extends BaseController {
 			msgSend.setData(data);
 			try {
 				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+				//issendcard(o.get("id").toString());
 				message = "发送消息模板成功";
 			} catch (WexinReqException e) {
 				message = "发送消息模板失败";
@@ -129,7 +130,7 @@ public class basWXController extends BaseController {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
 		//getData				
-		StringBuffer sql = new StringBuffer("SELECT b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bus_cardinfo a ");
+		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bus_cardinfo a ");
 		sql.append("left join bas_student b on a.bc_cardno=b.bs_cardno ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
 		sql.append("Where bc_sended=0 AND c.bo_openid is not NULL ");
@@ -152,6 +153,7 @@ public class basWXController extends BaseController {
 			msgSend.setData(data);
 			try {
 				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+				//issendcard(o.get("id").toString());
 				message = "发送消息模板成功";
 			} catch (WexinReqException e) {
 				message = "发送消息模板失败";
@@ -166,19 +168,23 @@ public class basWXController extends BaseController {
 	//未上车提醒
 	@RequestMapping(params = "doSendTMessage_WR")
 	@ResponseBody
-	public AjaxJson doSendTMessage_WR(String cardno,HttpServletRequest request) throws WexinReqException {
+	public int doSendTMessage_WR(String id,HttpServletRequest request,HttpServletResponse response) throws WexinReqException {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		
+		int ri=0;
 		String accessToken=wxutils.getAcctonken();
 		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
 		
 		String message = null;
-		AjaxJson j = new AjaxJson();
+		//AjaxJson j = new AjaxJson();
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
 		//getData				
-		StringBuffer sql = new StringBuffer("SELECT b.bs_name,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bas_student b ");
+		StringBuffer sql = new StringBuffer("SELECT b.id, b.bs_name,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bas_student b ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
 		sql.append("Where c.bo_openid is not NULL ");
-		sql.append("AND b.bs_cardno='"+cardno+"'");
+		sql.append("AND b.id='"+id+"'");
 		System.out.println("getDate sql..."+";"+sql.toString());
 		
 		listTree = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
@@ -196,16 +202,19 @@ public class basWXController extends BaseController {
 			msgSend.setData(data);
 			try {
 				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+				//issendcard(o.get("id").toString());
 				message = "发送消息模板成功";
+				ri=1;
 			} catch (WexinReqException e) {
 				message = "发送消息模板失败";
+				ri=0;
 				e.printStackTrace();
 			}
 		}
 
-		j.setMsg(message);
-		System.out.println("wxoputing..."+accessToken);
-		return j;
+		//j.setMsg(message);
+		System.out.println("wxoputing..."+message+";"+accessToken);
+		return ri;
 	}	
 	
 
@@ -372,7 +381,7 @@ public class basWXController extends BaseController {
 	}	
 	
 	
-	//请假记录
+	//请假审批
 	@RequestMapping(params = "approve")
 	@ResponseBody		
 	public int approve(String openid,String stroid,String approvetype,HttpServletRequest request){
@@ -603,4 +612,93 @@ public class basWXController extends BaseController {
 		return weixinUserInfo;
 		}
 	
+	//更新刷卡状态为已发送
+	private int issendcard(String id){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String sysdt = df.format(new Date());// new Date()为获取当前系统时间
+		UUID ID = UUID.randomUUID();
+		StringBuffer sql = new StringBuffer("UPDATE bus_cardinfo SET bc_sended=1,update_date='"+sysdt+"' where id='"+id+"' and bc_sended=0");
+
+		System.out.println("issendcard sql..." + ";" + sql.toString());
+
+		int sc = this.systemService.executeSql(sql.toString());
+		return sc;
+	}	
+	
+	
+	//APP端业务
+	//登录身份验证
+	@RequestMapping(params = "userlogin")
+	@ResponseBody
+	public int userlogin(String userid,String pwd,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT count(*) as c From ");
+		sql.append("t_s_base_user  WHERE username='" + userid + "'");
+		System.out.println("userlogin sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("c").toString();
+		int isc = Integer.parseInt(sc);
+
+		return isc;				
+	}
+	
+	//根据登录者，获取其所管理的线路名称
+	@RequestMapping(params = "getlinename")
+	@ResponseBody	
+	public List<Map<String, Object>> getlinename(String userid,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT b.id,CONCAT( bl_name, bl_desc) as linename FROM t_s_base_user a ");
+		sql.append("LEFT JOIN bas_person b on a.id=b.bp_userID ");
+		sql.append("LEFT JOIN bas_line c on c.bl_driverid=b.id ");
+		sql.append("where bp_rule='driver' and a.username='" + userid + "'");
+		System.out.println("getlinename sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		//String sc = listTree.get(0).get("linename").toString();
+		return listTree;				
+	}	
+		
+	//根据登录者，获取其管理的线路下所有站点
+	@RequestMapping(params = "getstudentlist")
+	@ResponseBody	
+	public List<Map<String, Object>> getstudentlist(String userid,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT d.id,a.username,CONCAT( bl_name, bl_desc) as linename,d.bs_name FROM t_s_base_user a ");
+		sql.append("LEFT JOIN bas_person b on a.id=b.bp_userID ");
+		sql.append("LEFT JOIN bas_line c on c.bl_driverid=b.id ");
+		sql.append("LEFT JOIN bas_size d on d.fk_bl_id=c.id ");
+		sql.append("where bp_rule='driver' and a.username='" + userid + "'");
+		System.out.println("getallsizename sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+
+		return listTree;				
+	}
+	
+	//根据站点OID，获取此站点所有学生刷卡信息
+	@RequestMapping(params = "getcardlist")
+	@ResponseBody	
+	public List<Map<String, Object>> getcardlist(String sizeoid,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,IFNULL(a.bs_cardno,'--')bs_cardno,IFNULL(b.bc_datetime,'--')bc_datetime from bas_student a ");
+		sql.append("LEFT JOIN bus_cardinfo b on a.bs_cardno=b.bc_cardno ");
+		sql.append("AND b.bc_datetime<=date_add(sysdate(), interval 1 hour) ");
+		sql.append("AND b.bc_datetime>=date_sub(sysdate(), interval 1 hour) ");
+		sql.append("WHERE a.bl_sizeid='" + sizeoid + "' ");
+		sql.append("ORDER BY bc_datetime DESC ");
+		System.out.println("getcardlist sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+
+		return listTree;				
+	}	
 }
