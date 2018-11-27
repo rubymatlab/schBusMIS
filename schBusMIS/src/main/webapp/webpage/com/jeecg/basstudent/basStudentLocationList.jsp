@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,24 +64,9 @@ p {
 		'getLocation', 'openLocation' ]
 	});
 	wx.ready(function() {
-		/*wx.checkJsApi({
-			jsApiList : [ 'getLocation' ],
-			success : function(res) {
-				if (res.checkResult.getLocation == false) {
-					alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
-					return;
-				}
-			}
-		});*/
 		wx.getLocation({
 			type : 'gcj02',
 			success : function(res) {
-				/*wx.openLocation({
-					latitude : res.latitude, // 纬度，浮点数，范围为90 ~ -90
-					longitude : res.longitude, // 经度，浮点数，范围为180 ~ -180。
-					name : '我的位置', // 位置名
-					scale : 28 // 地图缩放级别,整形值,范围从1~28。默认为最大
-				});*/
 				init();
 			},
 			cancel : function(res) {
@@ -100,22 +87,54 @@ p {
 				zoom : 13
 			});
 			var cirle = new qq.maps.Circle({
-			    center: center,
-			    radius: 2000,
-			    map: map
+				center : center,
+				radius : 2000,
+				map : map
 			});
 
+			var i = 0;
+			<c:forEach items="${locationList}" var="item">
+			var position = new qq.maps.LatLng("${item.bl_longitude}",
+					"${item.bl_latitude}");
+			if (i == 0) {
+				var marker = new qq.maps.Marker({
+					position : position,
+					map : map,
+					animation : qq.maps.MarkerAnimation.BOUNCE
+				});
+			}
+
+			else {
+				var marker = new qq.maps.Marker({
+					position : position,
+					map : map
+				});
+			}
+			i++;
+			var label = new qq.maps.Label({
+				//如果为true，表示可点击，默认true。
+				clickable : true,
+				position : position,
+				//标签的文本。
+				content : '${item.bs_name}在${item.bl_commdatetime}打卡',
+				//显示标签的地图。
+				map : map,
+				//如果为true，表示标签可见，默认为true。
+				visible : true
+
+			});
+			</c:forEach>
+
 			//惠州东江沙公园
-			var marker = new qq.maps.Marker({
+			/* var marker = new qq.maps.Marker({
 				position : new qq.maps.LatLng(23.0923800000, 114.4253600000),
 				map : map
 			});
 			var marker = new qq.maps.Marker({
 				position : new qq.maps.LatLng(23.0662400000, 114.4318100000),
 				map : map
-			});
+			}); */
 
-			
 		}
 		//调用初始化函数地图
 		init();

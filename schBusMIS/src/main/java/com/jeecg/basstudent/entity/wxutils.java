@@ -39,14 +39,15 @@ import net.sf.json.JSONObject;
 public class wxutils {
 
 	//配置信息
-	public static final String basurl="http://tdcq.natapp1.cc/schBusMIS";
+	public static final String basurl="http://zhyongfeng.natapp1.cc/schBusMIS";
 	
-	private static final String appid = "wx2968e71a3e302dab";
-	private static final String appscret = "fdca7717bdd31d4c52feb67d82d8f700";
+	public static final String appid = "wx682cc2749a11f4c1";
+	public static final String appscret = "b369bb95659591a7b69f213b4ac5e390";
 	private static final String token = "JYWX";
 	
-	private static final String openidurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2968e71a3e302dab&redirect_uri="+basurl+"/baswxcontroller.do?gopenid&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-
+	private static final String openidurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/baswxcontroller.do?gopenid&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+	//地图地址openid
+	private static final String openidurlLocation = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/basStudentLocationController.do?list&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 	
 	
 	//获取Acctonken
@@ -103,7 +104,8 @@ public class wxutils {
 			o2_s1.setType("view");
 			o2_s1.setName("电子围栏");
 			//o2_s1.setKey("PostHere");
-			o2_s1.setUrl(basurl+"/basStudentLocationController.do?list");
+			//o2_s1.setUrl(basurl+"/basStudentLocationController.do?list");
+			o2_s1.setUrl(openidurlLocation);
 			sub_button2.add(o2_s1);
 			WeixinButton o2 = new WeixinButton();
 			o2.setName("位置");

@@ -1,5 +1,6 @@
 package com.jeecg.basstudent.controller;
 import com.jeecg.basstudent.entity.BasStudentLocationEntity;
+import com.jeecg.basstudent.entity.wxutils;
 import com.jeecg.basstudent.service.BasStudentLocationServiceI;
 
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import com.jeecg.basstudent.entity.wxutils;
 
 /**   
  * @Title: Controller  
@@ -91,30 +93,43 @@ public class BasStudentLocationController extends BaseController {
 
 
 	/**
-	 * 学生资料列表 页面跳转
+	 * 学生位置资料列表 页面跳转
 	 * 
 	 * @return
 	 */
 	@RequestMapping(params = "list")
-	public ModelAndView list(HttpServletRequest request) {
-		String appid = "wx682cc2749a11f4c1";
-		String appscret = "b369bb95659591a7b69f213b4ac5e390";
-		String url="26b0dd6d.ngrok.io";
+	public ModelAndView list(String code,HttpServletRequest request) {
+		//获取地图认证
 		String access_token=null;
 		if (access_token == null)
 			try {
-				access_token = JwTokenAPI.getAccessToken(appid, appscret);
+				access_token = JwTokenAPI.getAccessToken(wxutils.appid, wxutils.appscret);
 			} catch (WexinReqException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		String ticket=JsapiTicketUtil.getJSApiTicket(access_token);
-		Map<String, String> o=JsapiTicketUtil.sign(ticket,"http://"+url+"/schBusMIS/basStudentLocationController.do?list");
-		request.setAttribute("appId", appid);
+		Map<String, String> o=JsapiTicketUtil.sign(ticket,request.getRequestURL().toString()+"?list");
+
+		System.out.println(request.getRequestURL().toString());
+		request.setAttribute("appId", wxutils.appid);
 		request.setAttribute("timestamp", o.get("timestamp"));
 		request.setAttribute("nonceStr", o.get("nonceStr"));
 		request.setAttribute("signature", o.get("signature"));
 		
+		
+		//查询经纬度
+		String sql="SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,bl.bl_commdatetime FROM bas_student bs ,bus_openid bo,bus_locationinfo bl where bs.id=bo.bs_studentid and  bs.bs_cardno= bl.bl_cardno";
+		//获取openid
+		if(code!=null)
+		{
+			String sopenid=wxutils.OAuthGetOpenid(code);
+			sql+=" and bo.bo_openid='"+sopenid+"'";
+		}
+		sql+=" order by bl.bl_commdatetime desc";
+		List<Map<String, Object>> locationList = new ArrayList<Map<String, Object>>();
+		locationList= systemService.findForJdbc(sql);
+		request.setAttribute("locationList",locationList);
 		return new ModelAndView("com/jeecg/basstudent/basStudentLocationList");
 	}
 
