@@ -119,7 +119,7 @@ public class BasStudentLocationController extends BaseController {
 		
 		
 		//查询经纬度
-		String sql="SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,bl.bl_commdatetime FROM bas_student bs ,bus_openid bo,bus_locationinfo bl where bs.id=bo.bs_studentid and  bs.bs_cardno= bl.bl_cardno";
+		String sql="SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_openid bo,bus_locationinfo bl where bs.id=bo.bs_studentid and  bs.bs_cardno= bl.bl_cardno";
 		//获取openid
 		if(code!=null)
 		{

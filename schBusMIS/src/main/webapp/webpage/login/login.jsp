@@ -49,7 +49,7 @@
           <div class="center">
             <h1 id="id-text2" class="grey">
               <i class="ace-icon fa fa-leaf green"></i>
-               演示系统
+               校车管理平台
             </h1>
             <h4 class="blue" id="id-company-text"></h4>
           </div>
@@ -103,7 +103,7 @@
                       <div class="space-4"></div>
 
                 </div>
-                <div class="toolbar clearfix">
+<%--                 <div class="toolbar clearfix">
                   <div style="float: right">
                     <a href="#"  class="forgot-password-link">
                     	  语言
@@ -111,11 +111,11 @@
                       <t:dictSelect id="langCode" field="langCode" typeGroupCode="lang" hasLabel="false" extendJson="{style:'padding:2px; width:80px;'}" defaultVal="zh-cn"></t:dictSelect>
                     </a>
                   </div>
-                </div>
+                </div> --%>
                 </form>
               </div>
             </div>
-            <div class="center"><h4 class="blue" id="id-company-text">&copy; 版权:</h4></div>
+            <div class="center"><h4 class="blue" id="id-company-text">&copy; 版权:___ Ver0.9</h4></div>
             <div class="navbar-fixed-top align-right">
               <br />
               &nbsp;
