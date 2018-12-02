@@ -28,9 +28,9 @@
     $('#begb').val(begintime);
     $('#bege').val(endtime);*/
     var begintime = begin.format("yyyy-MM-dd hh:mm");
-    var endtime = end.format("yyyy-MM-dd hh:mm");
+    //var endtime = end.format("yyyy-MM-dd hh:mm");
     $('#begb').val(begintime);
-    $('#bege').val(endtime);
+    //$('#bege').val(endtime);
 
 
  
@@ -44,13 +44,13 @@ function GetQueryString(name) {
 
 function getUrl() {
 	var begb=document.getElementById('begb').value;
-	var bege=document.getElementById('bege').value;
+	//var bege=document.getElementById('bege').value;
     var reason=document.getElementById('reason').value;
     var openid = GetQueryString("Open");
     //alert(openid+";"+begb+";"+bege+";"+reason);
     var postUrl = path+"/baswxcontroller.do?leave";//请求路径
     if (openid != "" || openid!=null) {
-        var postData = { begb: begb,bege: bege,reason: reason, openid:openid};//请求数据
+        var postData = { begb: begb,reason: reason, openid:openid};//请求数据
         $.ajaxSettings.async = false;
         $.ajax({
             type: 'POST',
@@ -76,6 +76,12 @@ function getUrl() {
         //alert("请输入手机号码！");
         window.location.href = "error.html";
     }
+}
+
+function getHistory() {
+	var openid = GetQueryString("Open");
+	//alert(openid);
+	window.location.href = "leavelist.html?Open=" + openid;
 }
 
 

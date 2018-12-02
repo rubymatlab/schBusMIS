@@ -17,17 +17,17 @@ if (openid != "" || openid != null) {
         success: function (data) {
             if (data.length != 0 || data.length!="0") {
                 for (var i = 0; i < data.length; i++) {
-                	if(ruletype=="1"){
+                	/*if(ruletype=="1"){*/
 	                    cour = cour + ' <tbody > ' +
 	                                        '  <tr> ' +
 	                                            '  <td style="width:150px">' + data[i].bl_begdate + '</td> ' +
-	                                            '  <td style="width:150px">' + data[i].bl_enddate + '</td> ' +
+	                                          /*  '  <td style="width:150px">' + data[i].bl_enddate + '</td> ' +*/
 	                                            '  <td style="width:300px">' + data[i].bl_reason + '</td> ' +
-	                                            '  <td style="width:50px">' + data[i].status + '</td> ' +
+	                                           /* '  <td style="width:50px">' + data[i].status + '</td> ' +*/
 	                                        '  </tr> ' +
 	                                    '  </tbody> ';
                     
-                	}else if(ruletype=="2"){
+ /*               	}else if(ruletype=="2"){
 	                    cour = cour + ' <tbody > ' +
                         '  <tr> ' +
                         	'  <td> <input type="checkbox" name="boxs" value=' + data[i].id + '>'+
@@ -38,20 +38,20 @@ if (openid != "" || openid != null) {
                             '  <td style="width:50px">' + data[i].status + '</td> ' +
                         '  </tr> ' +
                     '  </tbody> ';               		
-                	}  
+                	}*/  
                 }
-                if(ruletype=="1"){ 
+                //if(ruletype=="1"){ 
 	                courtilte = courtilte + ' <table style="width:100%" id="table11"> ' +
 	                                            ' <thead> ' +
 	                                                ' <tr> ' +
-	                                                    ' <th style="width:150px" >开始日期</th> ' +
-	                                                    ' <th style="width:150px" >结束日期</th> ' +
-	                                                    ' <th style="width:300px" >请假原因</th> ' +
-	                                                    ' <th style="width:50px" >状态</th> ' +
+	                                                    ' <th style="width:150px" >日期</th> ' +
+	                                                    /*' <th style="width:150px" >结束日期</th> ' +*/
+	                                                    ' <th style="width:300px" >申请原因</th> ' +
+	                                                    /*' <th style="width:50px" >状态</th> ' +*/
 	                                                ' </tr> ' +
 	                                            ' </thead> ' + cour +
 	                                           '  </table> ';
-                }else if(ruletype=="2"){
+                /*}else if(ruletype=="2"){
 	                courtilte = courtilte + ' <table style="width:100%" id="table11"> ' +
                     ' <thead> ' +
                         ' <tr> ' +
@@ -64,14 +64,14 @@ if (openid != "" || openid != null) {
                         ' </tr> ' +
                     ' </thead> ' + cour +
                    '  </table> ';                	
-                }
+                }*/
                 
                 $content.append(courtilte);//div赋值
 
             } else {
                 $content.append(' <div style="text-align:center;" class="weui_text_area"> ' +
                                 ' <p class="weui_msg_desc"> </p> '+
-                                ' <p class="weui_msg_desc"><h5 class="weui_msg_title">没有请假数据</h5></p> '+
+                                ' <p class="weui_msg_desc"><h5 class="weui_msg_title">没有数据</h5></p> '+
                                 ' </div>');//div赋值
             }
         },
@@ -82,7 +82,7 @@ if (openid != "" || openid != null) {
 } else {
     $courses.append(' <div style="text-align:center;" class="weui_text_area"> ' +
                                  ' <p class="weui_msg_desc"> </p> ' +
-                                 ' <p class="weui_msg_desc"><h5 class="weui_msg_title">没有请假数据</h5></p> ' +
+                                 ' <p class="weui_msg_desc"><h5 class="weui_msg_title">没有数据</h5></p> ' +
                                  ' </div>');//div赋值
 }
 

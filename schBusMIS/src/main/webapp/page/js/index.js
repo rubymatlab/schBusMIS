@@ -43,6 +43,7 @@ function geturlhui() {
         var ruletype=localStorage.getItem("ruletype");
         if(ruletype==null){
         	ruletype="1";
+        	localStorage.setItem("ruletype",ruletype);
         }
         //alert("ruletype:"+ruletype);
         var postData = { openid: openid,ruletype:ruletype };//请求数据

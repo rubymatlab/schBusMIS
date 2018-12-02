@@ -48,6 +48,7 @@ public class basWXController extends BaseController {
 	private static final String Templateid_UP="J_1DwXtF8IorKSmpxR3I2v_kb-rLykW4kb8-7E0RQpw";
 	private static final String Templateid_LO="SYi3dsdmvq7CUw3M3E0Mfl63xLl7wAo-4oJY5v126O0";
 	private static final String Templateid_WR="jqFKmBdfNU-KhMW4n36iBk5el3Qd_DPVtpvR5GRfDyM";
+	private static final String Templateid_NextUp="qDsUOPzKc93AjGAKNXDWItWyU0x4wM_q4zR6ME1AdT4";
 	@Autowired
 	private SystemService systemService;
 	
@@ -217,6 +218,59 @@ public class basWXController extends BaseController {
 		return ri;
 	}	
 	
+	//下一站上车提醒
+	@RequestMapping(params = "doSendTMessage_NextUp")
+	@ResponseBody
+	public int doSendTMessage_NextUp(String sizeoid,HttpServletRequest request,HttpServletResponse response) throws WexinReqException {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		
+		int ri=0;
+		String accessToken=wxutils.getAcctonken();
+		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
+		
+		String message = null;
+		//AjaxJson j = new AjaxJson();
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+
+		//getData				
+		StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,CONCAT(bl_name,bl_size)as place,b.bo_openid from bas_student a ");
+		sql.append("left join bus_openid b on a.id=b.bs_studentid ");
+		sql.append("LEFT JOIN bus_leave c ON a.id=c.bl_studentid ");
+		sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour)  ");	
+		sql.append("WHERE a.bl_sizeid='" + sizeoid + "' ");
+		sql.append("AND a.bs_cardno is not NULL and c.bl_begdate is NULL AND b.bo_openid is not NULL ");
+		sql.append("ORDER BY id ");
+		System.out.println("doSendTMessage_NextUp sql..."+";"+sql.toString());
+		
+		listTree = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
+			
+		for (Map<String, Object> o : listTree) {			
+			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
+			data.put("first", new TemplateData("尊敬的家长，我们的车尽将到达下一站，请做好上车准备。","#173177"));
+			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
+			data.put("keyword2", new TemplateData(o.get("place").toString(),"#173177"));
+			data.put("remark", new TemplateData("以上信息，特提醒！","#173177"));
+			msgSend.setTemplate_id(Templateid_NextUp);
+			msgSend.setTouser(o.get("bo_openid").toString());
+
+			msgSend.setData(data);
+			try {
+				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+				//issendcard(o.get("id").toString());
+				message = "发送消息模板成功";
+				ri=1;
+			} catch (WexinReqException e) {
+				message = "发送消息模板失败";
+				ri=0;
+				e.printStackTrace();
+			}
+		}
+
+		//j.setMsg(message);
+		System.out.println("wxoputing..."+message+";"+accessToken);
+		return ri;
+	}	
 
 
 	//个人中心入口
@@ -347,9 +401,9 @@ public class basWXController extends BaseController {
 	//请假
 	@RequestMapping(params = "leave")
 	@ResponseBody		
-	public int leave(String begb,String bege,String reason,String openid,HttpServletRequest request){
-		System.out.println(begb + ";" + bege + ";" + reason + openid);
-		int i = ilevel(begb, bege, reason, openid);
+	public int leave(String begb,String reason,String openid,HttpServletRequest request){
+		System.out.println(begb + ";" + reason + openid);
+		int i = ilevel(begb, reason, openid);
 		return i;
 	}	
 	//请假记录
@@ -544,16 +598,16 @@ public class basWXController extends BaseController {
 		return sc;
 	}	
 	//新增请假信息
-	private int ilevel(String begb,String bete,String reason,String openid){
+	private int ilevel(String begb,String reason,String openid){
 		String status = "-1";
 		String stuID = getStudenID02(openid);
 		UUID ID = UUID.randomUUID();
 		StringBuffer sql = new StringBuffer(
-				"INSERT INTO `bus_leave` (`id`, `bl_studentid`,  `bl_reason`, `bl_begdate`, `bl_enddate`, `bl_status`) ");
-		sql.append("VALUES ('" + ID + "','" + stuID + "','" + reason + "','" + begb + "','" + bete + "','" + status
+				"INSERT INTO `bus_leave` (`id`, `bl_studentid`,  `bl_reason`, `bl_begdate`, `bl_status`) ");
+		sql.append("VALUES ('" + ID + "','" + stuID + "','" + reason + "','" + begb + "','" + status
 				+ "');");
 
-		System.out.println("iopenid sql..." + ";" + sql.toString());
+		System.out.println("ilevel sql..." + ";" + sql.toString());
 
 		int sc = this.systemService.executeSql(sql.toString());
 		return sc;
@@ -674,7 +728,7 @@ public class basWXController extends BaseController {
 		sql.append("LEFT JOIN bas_person b on a.id=b.bp_userID ");
 		sql.append("LEFT JOIN bas_line c on c.bl_driverid=b.id ");
 		sql.append("LEFT JOIN bas_size d on d.fk_bl_id=c.id ");
-		sql.append("where bp_rule='driver' and a.username='" + userid + "'");
+		sql.append("where bp_rule='driver' and a.username='" + userid + "' ORDER BY bs_desc");
 		System.out.println("getallsizename sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
@@ -689,10 +743,13 @@ public class basWXController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,IFNULL(a.bs_cardno,'--')bs_cardno,IFNULL(b.bc_datetime,'--')bc_datetime from bas_student a ");
+		StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,IFNULL(a.bs_cardno,'--')bs_cardno,IFNULL(b.bc_datetime,'--')bc_datetime,IFNULL(c.bl_begdate,'--')bl_begdate from bas_student a ");
 		sql.append("LEFT JOIN bus_cardinfo b on a.bs_cardno=b.bc_cardno ");
 		sql.append("AND b.bc_datetime<=date_add(sysdate(), interval 1 hour) ");
 		sql.append("AND b.bc_datetime>=date_sub(sysdate(), interval 1 hour) ");
+		sql.append("LEFT JOIN bus_leave c ON a.id=c.bl_studentid ");
+		sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) ");
+		sql.append("AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour) ");		
 		sql.append("WHERE a.bl_sizeid='" + sizeoid + "' ");
 		sql.append("ORDER BY bc_datetime DESC ");
 		System.out.println("getcardlist sql..." + ";" + sql.toString());

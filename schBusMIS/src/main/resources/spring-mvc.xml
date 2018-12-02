@@ -182,6 +182,7 @@
 						<value>baswxcontroller.do?doSendTMessage_UP</value>
 						<value>baswxcontroller.do?doSendTMessage_LO</value>
 						<value>baswxcontroller.do?doSendTMessage_WR</value>
+						<value>baswxcontroller.do?doSendTMessage_NextUp</value>
 						<value>baswxcontroller.do?connect</value>
 						<value>baswxcontroller.do?createMenu</value>
 						<value>baswxcontroller.do?gopenid</value>
