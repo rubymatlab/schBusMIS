@@ -352,8 +352,8 @@ public class basWXController extends BaseController {
 			sql.append("LEFT JOIN bas_student b on a.bs_studentid=b.id ");
 			sql.append("WHERE a.bo_openid='" + openid + "'");			
 		}else if(ruletype.equals("2")){
-			sql.append("SELECT bp_name as bs_name,bp_tel as bs_tel from bas_person ");
-			sql.append("WHERE bp_openid='" + openid + "'");			
+			sql.append("SELECT bs.realname as bs_name,ts.mobilePhone as bs_tel FROM t_s_base_user bs,t_s_user ts where bs.ID=ts.id ");
+			sql.append("and bs.openid='" + openid + "'");			
 		}
 
 		System.out.println("getStudent sql..." + ";" + sql.toString());
@@ -386,11 +386,11 @@ public class basWXController extends BaseController {
 			sql.append("WHERE a.bo_openid='" + openid + "'");
 			sql.append("ORDER BY bc_datetime");
 		}else if(ruletype.equals("2")){
-			sql.append("SELECT d.bc_cardno as bs_cardno,c.bs_name,d.bc_datetime from bas_person a ");
+			sql.append("SELECT d.bc_cardno as bs_cardno,c.bs_name,d.bc_datetime from t_s_base_user a ");
 			sql.append("LEFT JOIN bas_class b on a.id=b.bc_personid ");
 			sql.append("LEFT JOIN bas_student c on c.bc_id=b.id ");
 			sql.append("LEFT JOIN bus_cardinfo d on d.bc_cardno=c.bs_cardno ");
-			sql.append("WHERE a.bp_openid='" + openid + "' AND c.bs_cardno is not NULL ");
+			sql.append("WHERE a.openid='" + openid + "' AND c.bs_cardno is not NULL ");
 			sql.append("ORDER BY bc_cardno,bc_datetime");
 		}
 		System.out.println("getcardinfo sql..." + ";" + sql.toString());
@@ -425,8 +425,8 @@ public class basWXController extends BaseController {
 			sql.append("case  when a.bl_status='-1' then '待批' when a.bl_status='1' then '已通过'  when a.bl_status='0' then '未通过' else '其他' END as status  from bus_leave a ");
 			sql.append("LEFT JOIN bas_student b on a.bl_studentid=b.id ");
 			sql.append("LEFT JOIN bas_class c on c.id=b.bc_id ");
-			sql.append("LEFT JOIN bas_person d on d.id=c.bc_personid ");
-			sql.append("WHERE d.bp_openid='" + openid + "'  ");
+			sql.append("LEFT JOIN t_s_base_user d on d.id=c.bc_personid ");
+			sql.append("WHERE d.openid='" + openid + "'  ");
 			sql.append("order by bl_begdate desc ");
 		}			
 		System.out.println("leavelist sql..." + ";" + sql.toString());
@@ -485,7 +485,7 @@ public class basWXController extends BaseController {
 	@ResponseBody
 	public String createMenu(HttpServletRequest request) throws WexinReqException {
 		wxutils.createMenu();
-		return null;
+		return "ok";
 	}
 	
 	
@@ -500,8 +500,8 @@ public class basWXController extends BaseController {
 			sql.append("SELECT count(*) as c FROM bus_openid  ");
 			sql.append("WHERE bo_openid='" + sopenid + "'");
 		}else if (ruletype.equals("2")){
-			sql.append("SELECT count(*) as c FROM bas_person  ");
-			sql.append("WHERE bp_openid='" + sopenid + "'");			
+			sql.append("SELECT count(*) as c FROM t_s_base_user  ");
+			sql.append("WHERE openid='" + sopenid + "'");			
 		}
 		System.out.println("isBinded sql..." + ";" + sql.toString());
 
@@ -518,7 +518,7 @@ public class basWXController extends BaseController {
 			sql.append("DELETE FROM bus_openid ");
 			sql.append("WHERE bo_openid='" + sopenid + "'");			
 		}else if(ruletype.equals("2")){
-			sql.append("UPDATE bas_person SET bp_openid=null WHERE bp_openid='"+sopenid+"' ");			
+			sql.append("UPDATE t_s_base_user SET openid=null WHERE openid='"+sopenid+"' ");			
 		}
 
 		System.out.println("isUnBinded sql..." + ";" + sql.toString());
@@ -531,12 +531,12 @@ public class basWXController extends BaseController {
 	// 电话号码是否已存在 1:存在;0:不存在
 	private int isExitsTel(String stel,int type) {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT count(*) as c From ");
+		StringBuffer sql = new StringBuffer("SELECT count(bs.id) as c From ");
 		if (type==1){
 			//StringBuffer sql = new StringBuffer("SELECT count(*) as c From bas_student a ");
-			sql.append("bas_student  WHERE bs_tel='" + stel + "'");
+			sql.append("bas_student bs  WHERE bs_tel='" + stel + "'");
 		}else if(type==2){
-			sql.append("bas_person  WHERE bp_tel='" + stel + "'");
+			sql.append("t_s_base_user bs,t_s_user ts where bs.ID=ts.id and bs.status='1' and ts.mobilePhone='" + stel + "'");
 		}
 		System.out.println("bindcard sql..." + ";" + sql.toString());
 
@@ -590,7 +590,7 @@ public class basWXController extends BaseController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String sysdt = df.format(new Date());// new Date()为获取当前系统时间
 		UUID ID = UUID.randomUUID();
-		StringBuffer sql = new StringBuffer("UPDATE bas_person SET bp_openid='" + openid + "' WHERE bp_tel='"+tel+"' ");
+		StringBuffer sql = new StringBuffer("UPDATE t_s_base_user SET openid='" + openid + "' WHERE id in (select id from t_s_user where mobilePhone='"+tel+"')");
 
 		System.out.println("uopenid sql..." + ";" + sql.toString());
 
@@ -706,10 +706,9 @@ public class basWXController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT b.id,CONCAT( bl_name, bl_desc) as linename FROM t_s_base_user a ");
-		sql.append("LEFT JOIN bas_person b on a.id=b.bp_userID ");
-		sql.append("LEFT JOIN bas_line c on c.bl_driverid=b.id ");
-		sql.append("where bp_rule='driver' and a.username='" + userid + "'");
+		StringBuffer sql = new StringBuffer("SELECT tu.id,CONCAT( bl_name, bl_desc) FROM t_s_role tr,t_s_role_user tru,t_s_base_user tu,bas_line c ");
+		sql.append("where tr.ID=tru.roleid and tru.userid=tu.ID and tr.rolecode='driver' and tu.status='1' and c.bl_driverid=tu.ID ");
+		sql.append("and tu.username='" + userid + "'");
 		System.out.println("getlinename sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
@@ -724,11 +723,9 @@ public class basWXController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT d.id,a.username,CONCAT( bl_name, bl_desc) as linename,d.bs_name FROM t_s_base_user a ");
-		sql.append("LEFT JOIN bas_person b on a.id=b.bp_userID ");
-		sql.append("LEFT JOIN bas_line c on c.bl_driverid=b.id ");
-		sql.append("LEFT JOIN bas_size d on d.fk_bl_id=c.id ");
-		sql.append("where bp_rule='driver' and a.username='" + userid + "' ORDER BY bs_desc");
+		StringBuffer sql = new StringBuffer("SELECT d.id,tu.username,CONCAT( bl_name, bl_desc) as linename,d.bs_name FROM t_s_role tr,t_s_role_user tru,t_s_base_user tu,bas_line c,bas_size d ");
+		sql.append("where tr.ID=tru.roleid and tru.userid=tu.ID and tr.rolecode='driver' and tu.status='1' and c.bl_driverid=tu.id  and d.fk_bl_id=c.id  ");
+		sql.append("and tu.username='" + userid + "' ORDER BY bs_desc");
 		System.out.println("getallsizename sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());

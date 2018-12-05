@@ -1,4 +1,5 @@
 package com.jeecg.basstudent.controller;
+
 import com.jeecg.basstudent.entity.BasStudentLocationEntity;
 import com.jeecg.basstudent.entity.wxutils;
 import com.jeecg.basstudent.service.BasStudentLocationServiceI;
@@ -69,15 +70,15 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import com.jeecg.basstudent.entity.wxutils;
 
-/**   
- * @Title: Controller  
+/**
+ * @Title: Controller
  * @Description: 学生资料
  * @author onlineGenerator
  * @date 2018-11-05 18:34:04
- * @version V1.0   
+ * @version V1.0
  *
  */
-@Api(value="BasStudentLocation",description="学生资料",tags="basStudentLocationController")
+@Api(value = "BasStudentLocation", description = "学生资料", tags = "basStudentLocationController")
 @Controller
 @RequestMapping("/basStudentLocationController")
 public class BasStudentLocationController extends BaseController {
@@ -89,8 +90,6 @@ public class BasStudentLocationController extends BaseController {
 	private SystemService systemService;
 	@Autowired
 	private Validator validator;
-	
-
 
 	/**
 	 * 学生位置资料列表 页面跳转
@@ -98,9 +97,9 @@ public class BasStudentLocationController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(params = "list")
-	public ModelAndView list(String code,HttpServletRequest request) {
-		//获取地图认证
-		String access_token=null;
+	public ModelAndView list(String code, String state, HttpServletRequest request) {
+		// 获取地图认证
+		String access_token = null;
 		if (access_token == null)
 			try {
 				access_token = JwTokenAPI.getAccessToken(wxutils.appid, wxutils.appscret);
@@ -108,28 +107,46 @@ public class BasStudentLocationController extends BaseController {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		String ticket=JsapiTicketUtil.getJSApiTicket(access_token);
-		Map<String, String> o=JsapiTicketUtil.sign(ticket,request.getRequestURL().toString()+"?list");
+		String ticket = JsapiTicketUtil.getJSApiTicket(access_token);
+
+		String signUrl = request.getRequestURL().toString() + "?list&code=" + code + "&state=" + state;
+		Map<String, String> o = JsapiTicketUtil.sign(ticket, signUrl);
 
 		System.out.println(request.getRequestURL().toString());
 		request.setAttribute("appId", wxutils.appid);
 		request.setAttribute("timestamp", o.get("timestamp"));
 		request.setAttribute("nonceStr", o.get("nonceStr"));
 		request.setAttribute("signature", o.get("signature"));
-		
-		
-		//查询经纬度
-		String sql="SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_openid bo,bus_locationinfo bl where bs.id=bo.bs_studentid and  bs.bs_cardno= bl.bl_cardno";
-		//获取openid
-		if(code!=null)
-		{
-			String sopenid=wxutils.OAuthGetOpenid(code);
-			sql+=" and bo.bo_openid='"+sopenid+"'";
+		String sql = "";
+		if (code != null) {
+			String sopenid = wxutils.OAuthGetOpenid(code);
+			List<Map<String, Object>> listCount = new ArrayList<Map<String, Object>>();
+			StringBuffer sb = new StringBuffer();
+			sb.append("SELECT count(*) as c FROM t_s_base_user  ");
+			sb.append("WHERE openid='" + sopenid + "'");	
+			listCount = this.systemService.findForJdbc(sb.toString());
+			int flag = Integer.parseInt(listCount.get(0).get("c").toString());
+			if (flag==0) {
+				// openid是学生，默认最近5个打卡时间
+				sql = "select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_openid bo,bus_locationinfo bl where bs.id=bo.bs_studentid and  bs.bs_cardno= bl.bl_cardno";
+				sql += " and bo.bo_openid='" + sopenid + "'";
+				sql += " order by bl.bl_commdatetime desc) vw  limit 0,5";
+			} else {
+				// opendid是老师，默认300个学生
+				sql="select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_locationinfo bl where  bs.bs_cardno= bl.bl_cardno";
+				sql+=" and bs.bc_id in (SELECT bc.id FROM bas_class bc ,t_s_base_user tu where bc.bc_personid=tu.id";
+				sql+=" and tu.openid='"+sopenid+"'";
+				sql+=" ) order by bl.bl_commdatetime desc) vw  limit 0,300";
+			}
+		} else {
+			sql="select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_locationinfo bl where  bs.bs_cardno= bl.bl_cardno";
+			sql+=" and bs.bc_id in (SELECT bc.id FROM bas_class bc ,t_s_base_user tu where bc.bc_personid=tu.id";
+			sql+=" ) order by bl.bl_commdatetime desc) vw  limit 0,800";
 		}
-		sql+=" order by bl.bl_commdatetime desc";
+
 		List<Map<String, Object>> locationList = new ArrayList<Map<String, Object>>();
-		locationList= systemService.findForJdbc(sql);
-		request.setAttribute("locationList",locationList);
+		locationList = systemService.findForJdbc(sql);
+		request.setAttribute("locationList", locationList);
 		return new ModelAndView("com/jeecg/basstudent/basStudentLocationList");
 	}
 
@@ -143,21 +160,23 @@ public class BasStudentLocationController extends BaseController {
 	 */
 
 	@RequestMapping(params = "datagrid")
-	public void datagrid(BasStudentLocationEntity basStudentLocation,HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
+	public void datagrid(BasStudentLocationEntity basStudentLocation, HttpServletRequest request,
+			HttpServletResponse response, DataGrid dataGrid) {
 		CriteriaQuery cq = new CriteriaQuery(BasStudentLocationEntity.class, dataGrid);
-		//查询条件组装器
-		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, basStudentLocation, request.getParameterMap());
-		try{
-		//自定义追加查询条件
-		
-		}catch (Exception e) {
+		// 查询条件组装器
+		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, basStudentLocation,
+				request.getParameterMap());
+		try {
+			// 自定义追加查询条件
+
+		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
 		cq.add();
 		this.basStudentLocationService.getDataGridReturn(cq, true);
 		TagUtil.datagrid(response, dataGrid);
 	}
-	
+
 	/**
 	 * 删除学生资料
 	 * 
@@ -170,38 +189,10 @@ public class BasStudentLocationController extends BaseController {
 		AjaxJson j = new AjaxJson();
 		basStudentLocation = systemService.getEntity(BasStudentLocationEntity.class, basStudentLocation.getId());
 		message = "学生资料删除成功";
-		try{
+		try {
 			basStudentLocationService.delete(basStudentLocation);
 			systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
-		}catch(Exception e){
-			e.printStackTrace();
-			message = "学生资料删除失败";
-			throw new BusinessException(e.getMessage());
-		}
-		j.setMsg(message);
-		return j;
-	}
-	
-	/**
-	 * 批量删除学生资料
-	 * 
-	 * @return
-	 */
-	 @RequestMapping(params = "doBatchDel")
-	@ResponseBody
-	public AjaxJson doBatchDel(String ids,HttpServletRequest request){
-		String message = null;
-		AjaxJson j = new AjaxJson();
-		message = "学生资料删除成功";
-		try{
-			for(String id:ids.split(",")){
-				BasStudentLocationEntity basStudentLocation = systemService.getEntity(BasStudentLocationEntity.class, 
-				id
-				);
-				basStudentLocationService.delete(basStudentLocation);
-				systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
-			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			message = "学生资料删除失败";
 			throw new BusinessException(e.getMessage());
@@ -210,6 +201,32 @@ public class BasStudentLocationController extends BaseController {
 		return j;
 	}
 
+	/**
+	 * 批量删除学生资料
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "doBatchDel")
+	@ResponseBody
+	public AjaxJson doBatchDel(String ids, HttpServletRequest request) {
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		message = "学生资料删除成功";
+		try {
+			for (String id : ids.split(",")) {
+				BasStudentLocationEntity basStudentLocation = systemService.getEntity(BasStudentLocationEntity.class,
+						id);
+				basStudentLocationService.delete(basStudentLocation);
+				systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = "学生资料删除失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
 
 	/**
 	 * 添加学生资料
@@ -223,10 +240,10 @@ public class BasStudentLocationController extends BaseController {
 		String message = null;
 		AjaxJson j = new AjaxJson();
 		message = "学生资料添加成功";
-		try{
+		try {
 			basStudentLocationService.save(basStudentLocation);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			message = "学生资料添加失败";
 			throw new BusinessException(e.getMessage());
@@ -234,7 +251,7 @@ public class BasStudentLocationController extends BaseController {
 		j.setMsg(message);
 		return j;
 	}
-	
+
 	/**
 	 * 更新学生资料
 	 * 
@@ -247,7 +264,8 @@ public class BasStudentLocationController extends BaseController {
 		String message = null;
 		AjaxJson j = new AjaxJson();
 		message = "学生资料更新成功";
-		BasStudentLocationEntity t = basStudentLocationService.get(BasStudentLocationEntity.class, basStudentLocation.getId());
+		BasStudentLocationEntity t = basStudentLocationService.get(BasStudentLocationEntity.class,
+				basStudentLocation.getId());
 		try {
 			MyBeanUtils.copyBeanNotNull2Bean(basStudentLocation, t);
 			basStudentLocationService.saveOrUpdate(t);
@@ -260,7 +278,6 @@ public class BasStudentLocationController extends BaseController {
 		j.setMsg(message);
 		return j;
 	}
-	
 
 	/**
 	 * 学生资料新增页面跳转
@@ -270,11 +287,13 @@ public class BasStudentLocationController extends BaseController {
 	@RequestMapping(params = "goAdd")
 	public ModelAndView goAdd(BasStudentLocationEntity basStudentLocation, HttpServletRequest req) {
 		if (StringUtil.isNotEmpty(basStudentLocation.getId())) {
-			basStudentLocation = basStudentLocationService.getEntity(BasStudentLocationEntity.class, basStudentLocation.getId());
+			basStudentLocation = basStudentLocationService.getEntity(BasStudentLocationEntity.class,
+					basStudentLocation.getId());
 			req.setAttribute("basStudentLocation", basStudentLocation);
 		}
 		return new ModelAndView("com/jeecg/basstudent/basStudentLocation-add");
 	}
+
 	/**
 	 * 学生资料编辑页面跳转
 	 * 
@@ -283,12 +302,13 @@ public class BasStudentLocationController extends BaseController {
 	@RequestMapping(params = "goUpdate")
 	public ModelAndView goUpdate(BasStudentLocationEntity basStudentLocation, HttpServletRequest req) {
 		if (StringUtil.isNotEmpty(basStudentLocation.getId())) {
-			basStudentLocation = basStudentLocationService.getEntity(BasStudentLocationEntity.class, basStudentLocation.getId());
+			basStudentLocation = basStudentLocationService.getEntity(BasStudentLocationEntity.class,
+					basStudentLocation.getId());
 			req.setAttribute("basStudentLocation", basStudentLocation);
 		}
 		return new ModelAndView("com/jeecg/basstudent/basStudentLocation-update");
 	}
-	
+
 	/**
 	 * 导入功能跳转
 	 * 
@@ -296,10 +316,10 @@ public class BasStudentLocationController extends BaseController {
 	 */
 	@RequestMapping(params = "upload")
 	public ModelAndView upload(HttpServletRequest req) {
-		req.setAttribute("controller_name","basStudentLocationController");
+		req.setAttribute("controller_name", "basStudentLocationController");
 		return new ModelAndView("common/upload/pub_excel_upload");
 	}
-	
+
 	/**
 	 * 导出excel
 	 * 
@@ -307,18 +327,21 @@ public class BasStudentLocationController extends BaseController {
 	 * @param response
 	 */
 	@RequestMapping(params = "exportXls")
-	public String exportXls(BasStudentLocationEntity basStudentLocation,HttpServletRequest request,HttpServletResponse response
-			, DataGrid dataGrid,ModelMap modelMap) {
+	public String exportXls(BasStudentLocationEntity basStudentLocation, HttpServletRequest request,
+			HttpServletResponse response, DataGrid dataGrid, ModelMap modelMap) {
 		CriteriaQuery cq = new CriteriaQuery(BasStudentLocationEntity.class, dataGrid);
-		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, basStudentLocation, request.getParameterMap());
-		List<BasStudentLocationEntity> basStudentLocations = this.basStudentLocationService.getListByCriteriaQuery(cq,false);
-		modelMap.put(NormalExcelConstants.FILE_NAME,"学生资料");
-		modelMap.put(NormalExcelConstants.CLASS,BasStudentLocationEntity.class);
-		modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("学生资料列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
-			"导出信息"));
-		modelMap.put(NormalExcelConstants.DATA_LIST,basStudentLocations);
+		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, basStudentLocation,
+				request.getParameterMap());
+		List<BasStudentLocationEntity> basStudentLocations = this.basStudentLocationService.getListByCriteriaQuery(cq,
+				false);
+		modelMap.put(NormalExcelConstants.FILE_NAME, "学生资料");
+		modelMap.put(NormalExcelConstants.CLASS, BasStudentLocationEntity.class);
+		modelMap.put(NormalExcelConstants.PARAMS,
+				new ExportParams("学生资料列表", "导出人:" + ResourceUtil.getSessionUser().getRealName(), "导出信息"));
+		modelMap.put(NormalExcelConstants.DATA_LIST, basStudentLocations);
 		return NormalExcelConstants.JEECG_EXCEL_VIEW;
 	}
+
 	/**
 	 * 导出excel 使模板
 	 * 
@@ -326,22 +349,22 @@ public class BasStudentLocationController extends BaseController {
 	 * @param response
 	 */
 	@RequestMapping(params = "exportXlsByT")
-	public String exportXlsByT(BasStudentLocationEntity basStudentLocation,HttpServletRequest request,HttpServletResponse response
-			, DataGrid dataGrid,ModelMap modelMap) {
-    	modelMap.put(NormalExcelConstants.FILE_NAME,"学生资料");
-    	modelMap.put(NormalExcelConstants.CLASS,BasStudentLocationEntity.class);
-    	modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("学生资料列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
-    	"导出信息"));
-    	modelMap.put(NormalExcelConstants.DATA_LIST,new ArrayList());
-    	return NormalExcelConstants.JEECG_EXCEL_VIEW;
+	public String exportXlsByT(BasStudentLocationEntity basStudentLocation, HttpServletRequest request,
+			HttpServletResponse response, DataGrid dataGrid, ModelMap modelMap) {
+		modelMap.put(NormalExcelConstants.FILE_NAME, "学生资料");
+		modelMap.put(NormalExcelConstants.CLASS, BasStudentLocationEntity.class);
+		modelMap.put(NormalExcelConstants.PARAMS,
+				new ExportParams("学生资料列表", "导出人:" + ResourceUtil.getSessionUser().getRealName(), "导出信息"));
+		modelMap.put(NormalExcelConstants.DATA_LIST, new ArrayList());
+		return NormalExcelConstants.JEECG_EXCEL_VIEW;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(params = "importExcel", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxJson importExcel(HttpServletRequest request, HttpServletResponse response) {
 		AjaxJson j = new AjaxJson();
-		
+
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
@@ -351,7 +374,8 @@ public class BasStudentLocationController extends BaseController {
 			params.setHeadRows(1);
 			params.setNeedSave(true);
 			try {
-				List<BasStudentLocationEntity> listBasStudentLocationEntitys = ExcelImportUtil.importExcel(file.getInputStream(),BasStudentLocationEntity.class,params);
+				List<BasStudentLocationEntity> listBasStudentLocationEntitys = ExcelImportUtil
+						.importExcel(file.getInputStream(), BasStudentLocationEntity.class, params);
 				for (BasStudentLocationEntity basStudentLocation : listBasStudentLocationEntitys) {
 					basStudentLocationService.save(basStudentLocation);
 				}
@@ -359,7 +383,7 @@ public class BasStudentLocationController extends BaseController {
 			} catch (Exception e) {
 				j.setMsg("文件导入失败！");
 				logger.error(ExceptionUtil.getExceptionMessage(e));
-			}finally{
+			} finally {
 				try {
 					file.getInputStream().close();
 				} catch (IOException e) {
@@ -369,20 +393,20 @@ public class BasStudentLocationController extends BaseController {
 		}
 		return j;
 	}
-	
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	@ApiOperation(value="学生资料列表信息",produces="application/json",httpMethod="GET")
+	@ApiOperation(value = "学生资料列表信息", produces = "application/json", httpMethod = "GET")
 	public ResponseMessage<List<BasStudentLocationEntity>> list() {
-		List<BasStudentLocationEntity> listBasStudentLocations=basStudentLocationService.getList(BasStudentLocationEntity.class);
+		List<BasStudentLocationEntity> listBasStudentLocations = basStudentLocationService
+				.getList(BasStudentLocationEntity.class);
 		return Result.success(listBasStudentLocations);
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	@ApiOperation(value="根据ID获取学生资料信息",notes="根据ID获取学生资料信息",httpMethod="GET",produces="application/json")
-	public ResponseMessage<?> get(@ApiParam(required=true,name="id",value="ID")@PathVariable("id") String id) {
+	@ApiOperation(value = "根据ID获取学生资料信息", notes = "根据ID获取学生资料信息", httpMethod = "GET", produces = "application/json")
+	public ResponseMessage<?> get(@ApiParam(required = true, name = "id", value = "ID") @PathVariable("id") String id) {
 		BasStudentLocationEntity task = basStudentLocationService.get(BasStudentLocationEntity.class, id);
 		if (task == null) {
 			return Result.error("根据ID获取学生资料信息为空");
@@ -392,16 +416,18 @@ public class BasStudentLocationController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value="创建学生资料")
-	public ResponseMessage<?> create(@ApiParam(name="学生资料对象")@RequestBody BasStudentLocationEntity basStudentLocation, UriComponentsBuilder uriBuilder) {
-		//调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+	@ApiOperation(value = "创建学生资料")
+	public ResponseMessage<?> create(
+			@ApiParam(name = "学生资料对象") @RequestBody BasStudentLocationEntity basStudentLocation,
+			UriComponentsBuilder uriBuilder) {
+		// 调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
 		Set<ConstraintViolation<BasStudentLocationEntity>> failures = validator.validate(basStudentLocation);
 		if (!failures.isEmpty()) {
 			return Result.error(JSONArray.toJSONString(BeanValidators.extractPropertyAndMessage(failures)));
 		}
 
-		//保存
-		try{
+		// 保存
+		try {
 			basStudentLocationService.save(basStudentLocation);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -412,31 +438,33 @@ public class BasStudentLocationController extends BaseController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value="更新学生资料",notes="更新学生资料")
-	public ResponseMessage<?> update(@ApiParam(name="学生资料对象")@RequestBody BasStudentLocationEntity basStudentLocation) {
-		//调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+	@ApiOperation(value = "更新学生资料", notes = "更新学生资料")
+	public ResponseMessage<?> update(
+			@ApiParam(name = "学生资料对象") @RequestBody BasStudentLocationEntity basStudentLocation) {
+		// 调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
 		Set<ConstraintViolation<BasStudentLocationEntity>> failures = validator.validate(basStudentLocation);
 		if (!failures.isEmpty()) {
 			return Result.error(JSONArray.toJSONString(BeanValidators.extractPropertyAndMessage(failures)));
 		}
 
-		//保存
-		try{
+		// 保存
+		try {
 			basStudentLocationService.saveOrUpdate(basStudentLocation);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Result.error("更新学生资料信息失败");
 		}
 
-		//按Restful约定，返回204状态码, 无内容. 也可以返回200状态码.
+		// 按Restful约定，返回204状态码, 无内容. 也可以返回200状态码.
 		return Result.success("更新学生资料信息成功");
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@ApiOperation(value="删除学生资料")
-	public ResponseMessage<?> delete(@ApiParam(name="id",value="ID",required=true)@PathVariable("id") String id) {
-		logger.info("delete[{}]" , id);
+	@ApiOperation(value = "删除学生资料")
+	public ResponseMessage<?> delete(
+			@ApiParam(name = "id", value = "ID", required = true) @PathVariable("id") String id) {
+		logger.info("delete[{}]", id);
 		// 验证
 		if (StringUtils.isEmpty(id)) {
 			return Result.error("ID不能为空");
