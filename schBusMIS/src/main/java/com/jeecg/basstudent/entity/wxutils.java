@@ -39,9 +39,9 @@ import net.sf.json.JSONObject;
 public class wxutils {
 
 	//配置信息
-	public static  String basurl="http://zhyongfeng.natapp1.cc/schBusMIS";
-	public static  String appid = "wx682cc2749a11f4c1";
-	public static  String appscret = "b369bb95659591a7b69f213b4ac5e390";
+	public static  String basurl="http://tdcq.natapp1.cc/schBusMIS";	
+	public static  String appid = "wx2968e71a3e302dab";
+	public static  String appscret = "fdca7717bdd31d4c52feb67d82d8f700";
 	private static final String token = "JYWX";
 	
 	private static final String openidurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/baswxcontroller.do?gopenid&response_type=code&scope=snsapi_base&state=1#wechat_redirect";

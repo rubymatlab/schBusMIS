@@ -357,7 +357,7 @@ select{right:.2rem;height:.92rem}
 .m_footer .home_links p a{font-size:.2rem;color:#777;margin:0 .06rem 0 0}
 .m_header{background:none !important;box-shadow:none !important;position:absolute}
 .m_menu{position:absolute !important}
-.m_index_header{height:2.8rem;position:relative;background:url(../imges/shouye.jpg);margin-top:-.88rem;border-bottom:#b8b8b8 solid 1px;background-size:6.4rem 3.8rem}
+.m_index_header{height:2.8rem;position:relative;background:url(../imges/shouye.jpg);margin-top:-.88rem;border-bottom:#b8b8b8 solid 1px;background-size:6.4rem 3.8rem;background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;}
 .m_index_header .message_box{float:right;height:.6rem;width:.6rem;line-height:.55rem;text-align:center;position:relative;margin:.9rem .35rem 0 0}
 .m_index_header .message_box .box_bg{background:#000;opacity:0.5;height:.6rem;width:.6rem;border-radius:.3rem;position:absolute;top:0;left:0}
 .m_index_header .message_box .m_dots{color:#fff;display:inline-block;vertical-align:middle;height:.18rem;line-height:.18rem;background:#fff;min-width:.18rem;text-align:center;font-size:.20rem;border-radius:.9rem;padding:0 .06rem;position:absolute;top:-.04rem;right:-.04rem;font-style:normal}

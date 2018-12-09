@@ -706,7 +706,7 @@ public class basWXController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT tu.id,CONCAT( bl_name, bl_desc) FROM t_s_role tr,t_s_role_user tru,t_s_base_user tu,bas_line c ");
+		StringBuffer sql = new StringBuffer("SELECT tu.id,CONCAT( bl_name, bl_desc) as linename FROM t_s_role tr,t_s_role_user tru,t_s_base_user tu,bas_line c ");
 		sql.append("where tr.ID=tru.roleid and tru.userid=tu.ID and tr.rolecode='driver' and tu.status='1' and c.bl_driverid=tu.ID ");
 		sql.append("and tu.username='" + userid + "'");
 		System.out.println("getlinename sql..." + ";" + sql.toString());
