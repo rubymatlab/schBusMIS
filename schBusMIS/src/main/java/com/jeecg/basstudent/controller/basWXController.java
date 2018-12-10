@@ -416,13 +416,13 @@ public class basWXController extends BaseController {
 		// getData
 		if(ruletype.equals("1")){		//家长
 			sql.append("SELECT a.bl_begdate,a.bl_enddate,a.bl_reason, ");
-			sql.append("case  when a.bl_status='-1' then '待批' when a.bl_status='1' then '已通过'  when a.bl_status='0' then '未通过' else '其他' END as status from bus_leave a ");
+			sql.append("case  when a.bl_status='0' then '待批' when a.bl_status='1' then '已通过'  when a.bl_status='2' then '未通过' else '其他' END as status from bus_leave a ");
 			sql.append("LEFT JOIN bus_openid b ON a.bl_studentid=b.bs_studentid ");
 			sql.append("WHERE b.bo_openid='" + openid + "'  ");
 			sql.append("order by bl_begdate desc ");
 		}else if(ruletype.equals("2")){	//班主任
 			sql.append("SELECT a.id,b.bs_name,a.bl_begdate,a.bl_enddate,a.bl_reason,  ");
-			sql.append("case  when a.bl_status='-1' then '待批' when a.bl_status='1' then '已通过'  when a.bl_status='0' then '未通过' else '其他' END as status  from bus_leave a ");
+			sql.append("case  when a.bl_status='0' then '待批' when a.bl_status='1' then '已通过'  when a.bl_status='2' then '未通过' else '其他' END as status  from bus_leave a ");
 			sql.append("LEFT JOIN bas_student b on a.bl_studentid=b.id ");
 			sql.append("LEFT JOIN bas_class c on c.id=b.bc_id ");
 			sql.append("LEFT JOIN t_s_base_user d on d.id=c.bc_personid ");
@@ -559,16 +559,16 @@ public class basWXController extends BaseController {
 	}
 	
 	//获取学生ID
-	private String getStudenID02(String openid){
+	private Map<String,Object> getStudenID02(String openid){
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT a.id from bas_student a  ");
+		StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name from bas_student a  ");
 		sql.append("LEFT JOIN bus_openid b ON a.id=b.bs_studentid ");
 		sql.append("where b.bo_openid='" + openid + "'");
 		System.out.println("getStudenID02 sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
-		String sc = listTree.get(0).get("id").toString();
-		return sc;
+		//String sc = listTree.get(0).get("id").toString();
+		return listTree.get(0);
 	}
 	
 	//新增openid(家长)
@@ -599,12 +599,14 @@ public class basWXController extends BaseController {
 	}	
 	//新增请假信息
 	private int ilevel(String begb,String reason,String openid){
-		String status = "-1";
-		String stuID = getStudenID02(openid);
+		String status = "0";
+		Map<String,Object> ob=getStudenID02(openid);
+		String stuID = ob.get("id").toString();
+		String stuName=ob.get("bs_name").toString();
 		UUID ID = UUID.randomUUID();
 		StringBuffer sql = new StringBuffer(
-				"INSERT INTO `bus_leave` (`id`, `bl_studentid`,  `bl_reason`, `bl_begdate`, `bl_status`) ");
-		sql.append("VALUES ('" + ID + "','" + stuID + "','" + reason + "','" + begb + "','" + status
+				"INSERT INTO `bus_leave` (`id`, `bl_studentid`,`bl_student`,  `bl_reason`, `bl_begdate`, `bl_status`) ");
+		sql.append("VALUES ('" + ID + "','" + stuID + "','"+stuName+"','" + reason + "','" + begb + "','" + status
 				+ "');");
 
 		System.out.println("ilevel sql..." + ";" + sql.toString());

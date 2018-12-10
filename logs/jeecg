@@ -52,3 +52,259 @@
 [2018-12-09 21:45:13] [INFO] [com.jeecg.chat.web.ImController:318] --通过流的方式获取文件异常--D:\upFiles\upload\files\20180715\qq_1531625977907.jpg (系統找不到指定的路徑。)
 [2018-12-09 21:45:46] [INFO] [com.jeecg.chat.web.ImController:318] --通过流的方式获取文件异常--D:\upFiles\upload\files\20180715\qq_1531625977907.jpg (系統找不到指定的路徑。)
 [2018-12-09 21:47:26] [INFO] [com.jeecg.chat.web.ImController:318] --通过流的方式获取文件异常--D:\upFiles\upload\files\20180715\qq_1531625977907.jpg (系統找不到指定的路徑。)
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormFieldDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormVersionDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.upload.CgFormUploadDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgreport.dao.core.CgReportDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.DepartAuthGroupDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.JeecgDictDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.demo.dao.JeecgMinidaoDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2018-12-10 22:33:25] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2018-12-10 22:33:25] [INFO] [com.alibaba.druid.pool.DruidDataSource:928] {dataSource-1} inited
+[2018-12-10 22:33:27] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2018-12-10 22:33:28] [WARN] [net.sf.ehcache.config.CacheConfiguration:698] Cache 'foreverCache' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'foreverCache' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
+[2018-12-10 22:33:30] [INFO] [org.quartz.impl.StdSchedulerFactory:1208] Using default implementation for ThreadExecutor
+[2018-12-10 22:33:30] [INFO] [org.quartz.core.SchedulerSignalerImpl:61] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2018-12-10 22:33:30] [INFO] [org.quartz.core.QuartzScheduler:229] Quartz Scheduler v.2.3.0 created.
+[2018-12-10 22:33:30] [INFO] [org.quartz.simpl.RAMJobStore:155] RAMJobStore initialized.
+[2018-12-10 22:33:30] [INFO] [org.quartz.core.QuartzScheduler:294] Scheduler meta-data: Quartz Scheduler (v2.3.0) 'schedulerFactory' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2018-12-10 22:33:30] [INFO] [org.quartz.impl.StdSchedulerFactory:1362] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2018-12-10 22:33:30] [INFO] [org.quartz.impl.StdSchedulerFactory:1366] Quartz scheduler version: 2.3.0
+[2018-12-10 22:33:30] [INFO] [org.quartz.core.QuartzScheduler:2287] JobFactory set to: org.jeecgframework.web.system.sms.util.JQuartzJobFactory@33bcd1b7
+[2018-12-10 22:33:31] [INFO] [org.jeecgframework.core.timer.DynamicTask:252]  register time task class num is [0] 
+[2018-12-10 22:33:33] [INFO] [org.jeecgframework.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2018-12-10 22:33:33] [INFO] [org.quartz.core.QuartzScheduler:547] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2018-12-10 22:33:34] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:180]   ------ 初始化字典组 【系统缓存】-----------typeGroupsList-----size: [40]
+[2018-12-10 22:33:34] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:181]   ------ 初始化字典 【系统缓存】-----------typesList-----size: [40]
+[2018-12-10 22:33:34] [INFO] [org.jeecgframework.web.system.service.impl.MutiLangServiceImpl:43]   ------ 初始化国际化语言【系统缓存】  ------ size: [1211] 
+[2018-12-10 22:33:34] [INFO] [org.jeecgframework.web.system.service.impl.DynamicDataSourceServiceImpl:41]   ------ 初始化动态数据源配置【系统缓存】---------size: [2] 
+[2018-12-10 22:34:14] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2018-12-10 22:34:14] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2018-12-10 22:34:15] [INFO] [com.jeecg.chat.web.ImController:318] --通过流的方式获取文件异常--D:\upFiles\upload\files\20180715\qq_1531625977907.jpg (系统找不到指定的路径。)
+[2018-12-10 22:34:35] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2018-12-10 22:34:36] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [本地][online表单配置保存]修改成功表名：bus_leave
+[2018-12-10 22:35:57] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2018-12-10 22:35:58] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [本地][online表单配置保存]修改成功表名：bus_leave
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:251] ---同步数据库 ---doDbSynch-----> TableName:bus_leave ---修改时间 :2018-12-10 22:35:58.0 ----创建时间:2018-10-22 23:20:54.0---请求IP ---+0:0:0:0:0:0:0:1
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:ID TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_STUDENTID TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_STUDENT TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_REASON TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_BEGDATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_ENDDATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_STATUS TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:10
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:CREATE_NAME TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:CREATE_BY TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:CREATE_DATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:UPDATE_NAME TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:UPDATE_BY TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:UPDATE_DATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:id TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_studentid TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_student TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_reason TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_begdate TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_enddate TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_status TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:10
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:create_name TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:create_by TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:create_date TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:20
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:update_name TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:update_by TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:update_date TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:20
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:144] [alter table  bus_leave  MODIFY COLUMN  bl_student varchar(50) NULL COMMENT '申请学生' ;, , alter table  bus_leave  MODIFY COLUMN  id varchar(36) NOT NULL COMMENT '主键' ;, , alter table  bus_leave  MODIFY COLUMN  bl_reason varchar(32) NULL COMMENT '申请原因' ;, , alter table  bus_leave  MODIFY COLUMN  bl_begdate datetime NULL COMMENT '申请时间' ;, ]
+[2018-12-10 22:36:04] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:295] [本地][online表单配置同步数据库]同步成功表名：bus_leave
+[2018-12-10 22:36:38] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2018-12-10 22:36:38] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [本地][online表单配置保存]修改成功表名：bus_leave
+[2018-12-10 22:36:57] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:702] [本地][online表单自定义按钮action触发]操作成功表名：bus_leave
+[2018-12-10 22:41:38] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:224]   ------ 重置字典分组缓存&字典缓存【系统缓存】  ------ refleshTypeGroupCach --------  
+[2018-12-10 22:42:06] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:213]   ------ 重置字典缓存【系统缓存】  ----------- typegroupcode: [bus_flag] 
+[2018-12-10 22:42:15] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:213]   ------ 重置字典缓存【系统缓存】  ----------- typegroupcode: [bus_flag] 
+[2018-12-10 22:44:44] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:213]   ------ 重置字典缓存【系统缓存】  ----------- typegroupcode: [bus_flag] 
+[2018-12-10 22:52:16] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2018-12-10 22:52:16] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [本地][online表单配置保存]修改成功表名：bus_leave
+[2018-12-10 23:04:18] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2018-12-10 23:04:18] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [本地][online表单配置保存]修改成功表名：bus_leave
+[2018-12-10 23:04:26] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:702] [本地][online表单自定义按钮action触发]操作成功表名：bus_leave
+[2018-12-10 23:04:33] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:702] [本地][online表单自定义按钮action触发]操作成功表名：bus_leave
+[2018-12-10 23:04:42] [INFO] [org.jeecgframework.web.cgform.controller.autolist.CgAutoListController:401] [本地][online表单数据删除]删除成功表名：bus_leave
+[2018-12-10 23:04:45] [INFO] [org.jeecgframework.web.cgform.controller.autolist.CgAutoListController:401] [本地][online表单数据删除]删除成功表名：bus_leave
+[2018-12-10 23:04:48] [INFO] [org.jeecgframework.web.cgform.controller.autolist.CgAutoListController:401] [本地][online表单数据删除]删除成功表名：bus_leave
+[2018-12-10 23:36:26] [ERROR] [com.alibaba.druid.pool.DruidDataSource:2664] abandon connection, owner thread: http-bio-80-exec-7, connected at : 1544452564570, open stackTrace
+	at java.lang.Thread.getStackTrace(Thread.java:1559)
+	at com.alibaba.druid.pool.DruidDataSource.getConnectionDirect(DruidDataSource.java:1311)
+	at com.alibaba.druid.filter.FilterChainImpl.dataSource_connect(FilterChainImpl.java:4619)
+	at com.alibaba.druid.filter.stat.StatFilter.dataSource_getConnection(StatFilter.java:680)
+	at com.alibaba.druid.filter.FilterChainImpl.dataSource_connect(FilterChainImpl.java:4615)
+	at com.alibaba.druid.pool.DruidDataSource.getConnection(DruidDataSource.java:1231)
+	at com.alibaba.druid.pool.DruidDataSource.getConnection(DruidDataSource.java:1223)
+	at com.alibaba.druid.pool.DruidDataSource.getConnection(DruidDataSource.java:90)
+	at org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource.getConnection(AbstractRoutingDataSource.java:164)
+	at org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess.getColumnMetadataFormDataBase(DbTableProcess.java:198)
+	at org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess.updateTable(DbTableProcess.java:78)
+	at org.jeecgframework.web.cgform.service.impl.config.CgFormFieldServiceImpl.dbSynch(CgFormFieldServiceImpl.java:226)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:317)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:98)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:262)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
+	at com.sun.proxy.$Proxy118.dbSynch(Unknown Source)
+	at org.jeecgframework.web.cgform.controller.config.CgFormHeadController.doDbSynch(CgFormHeadController.java:281)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+ownerThread current state is WAITING, current stackTrace
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:104)
+	at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:32)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormFieldDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormVersionDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.upload.CgFormUploadDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgreport.dao.core.CgReportDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.DepartAuthGroupDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.JeecgDictDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.demo.dao.JeecgMinidaoDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2018-12-10 23:36:54] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2018-12-10 23:36:55] [INFO] [com.alibaba.druid.pool.DruidDataSource:928] {dataSource-1} inited
+[2018-12-10 23:36:56] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2018-12-10 23:36:57] [WARN] [net.sf.ehcache.config.CacheConfiguration:698] Cache 'foreverCache' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'foreverCache' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
+[2018-12-10 23:36:59] [INFO] [org.quartz.impl.StdSchedulerFactory:1208] Using default implementation for ThreadExecutor
+[2018-12-10 23:36:59] [INFO] [org.quartz.core.SchedulerSignalerImpl:61] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2018-12-10 23:36:59] [INFO] [org.quartz.core.QuartzScheduler:229] Quartz Scheduler v.2.3.0 created.
+[2018-12-10 23:36:59] [INFO] [org.quartz.simpl.RAMJobStore:155] RAMJobStore initialized.
+[2018-12-10 23:36:59] [INFO] [org.quartz.core.QuartzScheduler:294] Scheduler meta-data: Quartz Scheduler (v2.3.0) 'schedulerFactory' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2018-12-10 23:36:59] [INFO] [org.quartz.impl.StdSchedulerFactory:1362] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2018-12-10 23:36:59] [INFO] [org.quartz.impl.StdSchedulerFactory:1366] Quartz scheduler version: 2.3.0
+[2018-12-10 23:36:59] [INFO] [org.quartz.core.QuartzScheduler:2287] JobFactory set to: org.jeecgframework.web.system.sms.util.JQuartzJobFactory@3ffa78dd
+[2018-12-10 23:37:00] [INFO] [org.jeecgframework.core.timer.DynamicTask:252]  register time task class num is [0] 
+[2018-12-10 23:37:02] [INFO] [org.jeecgframework.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2018-12-10 23:37:02] [INFO] [org.quartz.core.QuartzScheduler:547] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2018-12-10 23:37:02] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:180]   ------ 初始化字典组 【系统缓存】-----------typeGroupsList-----size: [41]
+[2018-12-10 23:37:02] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:181]   ------ 初始化字典 【系统缓存】-----------typesList-----size: [41]
+[2018-12-10 23:37:02] [INFO] [org.jeecgframework.web.system.service.impl.MutiLangServiceImpl:43]   ------ 初始化国际化语言【系统缓存】  ------ size: [1211] 
+[2018-12-10 23:37:02] [INFO] [org.jeecgframework.web.system.service.impl.DynamicDataSourceServiceImpl:41]   ------ 初始化动态数据源配置【系统缓存】---------size: [2] 
+[2018-12-10 23:42:52] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:119] Username:admin ,验证码: wskk 错误!
+[2018-12-10 23:42:57] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2018-12-10 23:42:58] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2018-12-10 23:42:59] [INFO] [com.jeecg.chat.web.ImController:318] --通过流的方式获取文件异常--D:\upFiles\upload\files\20180715\qq_1531625977907.jpg (系统找不到指定的路径。)
+[2018-12-10 23:43:11] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:702] [本地][online表单自定义按钮action触发]操作成功表名：bus_leave
+[2018-12-10 23:43:44] [INFO] [org.jeecgframework.web.cgform.controller.button.CgformButtonSqlController:161] [本地][online表单sql增强添加更新]更新成功
+[2018-12-10 23:43:50] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:702] [本地][online表单自定义按钮action触发]操作成功表名：bus_leave
+[2018-12-10 23:44:24] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2018-12-10 23:44:24] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [本地][online表单配置保存]修改成功表名：bus_leave
+[2018-12-10 23:44:37] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:599] [本地][online表单单表数据保存和更新]保存成功表名：bus_leave
+[2018-12-10 23:45:14] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:599] [本地][online表单单表数据保存和更新]保存成功表名：bus_leave
+[2018-12-10 23:46:54] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2018-12-10 23:46:54] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2018-12-10 23:46:55] [INFO] [com.jeecg.chat.web.ImController:318] --通过流的方式获取文件异常--D:\upFiles\upload\files\20180715\qq_1531625977907.jpg (系统找不到指定的路径。)
+[2018-12-10 23:48:03] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2018-12-10 23:48:03] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2018-12-10 23:48:03] [INFO] [com.jeecg.chat.web.ImController:318] --通过流的方式获取文件异常--D:\upFiles\upload\files\20180715\qq_1531625977907.jpg (系统找不到指定的路径。)
