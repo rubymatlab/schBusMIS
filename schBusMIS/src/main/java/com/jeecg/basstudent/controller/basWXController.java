@@ -742,7 +742,9 @@ public class basWXController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,IFNULL(a.bs_cardno,'--')bs_cardno,IFNULL(b.bc_datetime,'--')bc_datetime,IFNULL(c.bl_begdate,'--')bl_begdate from bas_student a ");
+		StringBuffer sql = new StringBuffer("SELECT a.id,a.bc_name,a.bs_name,IFNULL(a.bs_cardno,'--')bs_cardno,IFNULL(b.bc_datetime,'--')bc_datetime,  ");
+		/*sql.append("case IFNULL(c.bl_begdate,'--') WHEN '--' then 'X' ELSE 'V' END bl_begdate  from bas_student a ");*/
+		sql.append("case CONCAT( IFNULL(c.bl_begdate,'--'), IFNULL(b.bc_datetime,'--')) WHEN '----' then 'X' ELSE 'V' END bl_begdate  from bas_student a ");
 		sql.append("LEFT JOIN bus_cardinfo b on a.bs_cardno=b.bc_cardno ");
 		sql.append("AND b.bc_datetime<=date_add(sysdate(), interval 1 hour) ");
 		sql.append("AND b.bc_datetime>=date_sub(sysdate(), interval 1 hour) ");
@@ -750,11 +752,31 @@ public class basWXController extends BaseController {
 		sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) ");
 		sql.append("AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour) ");		
 		sql.append("WHERE a.bl_sizeid='" + sizeoid + "' ");
-		sql.append("ORDER BY bc_datetime DESC ");
+		sql.append("ORDER BY bc_datetime DESC,bl_begdate DESC ");
 		System.out.println("getcardlist sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
 
 		return listTree;				
 	}	
+	
+	
+	//新增刷卡信息
+	@RequestMapping(params = "iCardData")
+	@ResponseBody
+	private int iCardData(String cardno,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		UUID ID = UUID.randomUUID();
+		StringBuffer sql = new StringBuffer(
+				"INSERT INTO `bus_cardinfo` (`id`, `bc_cardno`, `bc_datetime`) ");
+		sql.append("VALUES ('" + ID + "','" + cardno + "',now() );");
+
+		//System.out.println("iCardData sql..." + ";" + sql.toString());
+
+		int sc = this.systemService.executeSql(sql.toString());
+		System.out.println("iCardData sql..." + ";" + sql.toString()+";"+String.valueOf(sc));
+		return sc;
+		
+	}
 }

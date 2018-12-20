@@ -200,6 +200,7 @@
 						<value>baswxcontroller.do?getallsizename</value>
 						<value>baswxcontroller.do?getstudentlist</value>
 						<value>baswxcontroller.do?getcardlist</value>
+						<value>baswxcontroller.do?iCardData</value>
 						
 						<value>baswxcontroller.do?test</value>
 						<value>basStudentLocationController.do?list</value>
