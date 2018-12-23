@@ -7,8 +7,8 @@
 <t:base type="jquery,easyui,tools,DatePicker,autocomplete"></t:base>
 <script type="text/javascript" src="plug-in/easyui/portal/jquery.portal.js"></script>
 <link rel="stylesheet" type="text/css" href="plug-in/easyui/portal/portal.css">
-<!--add-start--Author:wangkun Date:20160813 for:内部聊天修改-->
-<%@include file="/context/layui.jsp"%>
+<!--add-start--Author:wangkun Date:20160813 for:内部聊天修改
+<%@include file="/context/layui.jsp"%>-->
 <!--add-end--Author:wangkun Date:20160813 for:内部聊天修改-->
 <link rel="shortcut icon" href="images/favicon.ico">
 <style type="text/css">

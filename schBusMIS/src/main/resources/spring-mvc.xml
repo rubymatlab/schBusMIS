@@ -201,9 +201,12 @@
 						<value>baswxcontroller.do?getstudentlist</value>
 						<value>baswxcontroller.do?getcardlist</value>
 						<value>baswxcontroller.do?iCardData</value>
-						
 						<value>baswxcontroller.do?test</value>
 						<value>basStudentLocationController.do?list</value>
+						<value>DeviceOperationController.do?AddDevice</value>
+						<value>DeviceOperationController.do?DelDevice</value>
+						<value>DeviceOperationController.do?LocationDevice</value>
+						<value>DeviceOperationController.do?LocationsDevice</value>
 						
 					</list>
 				</property>

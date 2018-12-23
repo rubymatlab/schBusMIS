@@ -486,8 +486,8 @@
 		<script src="plug-in/jquery/jquery.contextmenu.js"></script>
 		<script src="plug-in/layer/layer.js"></script>
 	    <script src="plug-in/ace/js/bootbox.js"></script>
-		<!--add-start--Author:wangkun Date:20160813 for:内部聊天修改-->
-		<%@include file="/context/layui.jsp"%>
+		<!--add-start--Author:wangkun Date:20160813 for:内部聊天修改
+		<%@include file="/context/layui.jsp"%>-->
 		<!--add-end--Author:wangkun Date:20160813 for:内部聊天修改-->
 		<!-- inline scripts related to this page -->
 		<script>

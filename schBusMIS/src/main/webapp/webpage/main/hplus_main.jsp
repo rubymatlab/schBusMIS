@@ -131,7 +131,7 @@
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="loginController.do?hplushome" frameborder="0" data-id="loginController.do?hplushome" seamless></iframe>
         </div>
         <div class="footer" style="border-top:none;">
-            <div class="pull-right">&copy; <t:mutiLang langKey="system.version.number"/> <a href="http://www.jeecg.org/" target="_blank">jeecg</a>
+            <div class="pull-right">&copy; <t:mutiLang langKey="system.version.number"/> <a href="#" target="_blank">校车平台</a>
             </div>
         </div>        
     </div>
@@ -290,8 +290,8 @@
 
 <!-- 弹出TAB -->
 <script type="text/javascript" src="plug-in/hplus/hplus-tab.js"></script>
-<!-- 在线聊天 -->
-<%@include file="/context/layui.jsp"%>
+<!-- 在线聊天
+<%@include file="/context/layui.jsp"%> -->
 <script>
 	//初始化国际化配置
 	initI18nConfig();
