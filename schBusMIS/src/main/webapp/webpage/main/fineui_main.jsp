@@ -162,11 +162,8 @@
 					<li>
 	                         <a href="javascript:createdetailwindow('<t:mutiLang langKey="common.ssms.getSysInfos"/>','tSSmsController.do?goMySmsList',800,400)" title="系统消息">系统消息</a>
 					</li>
-					<li >
-	                         <a href="javascript:window.open('http://yun.jeecg.org')" title="云应用中心">云应用中心</a>
-					</li>
 					<li><a href="javascript:clearLocalstorage()"><t:mutiLang langKey="common.clear.localstorage"/></a></li>
-					<li><a href="javascript:toSwagger()">SwaggerUI</a></li>
+					
 				</ul>
 			</li> 
 			

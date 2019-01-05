@@ -245,13 +245,6 @@
 								</li>
 								
 								<li>
-									<a href="http://yun.jeecg.org" target="_blank">
-										<i class="icon-cloud"></i>
-										 云应用中心
-									</a>
-								</li>
-								
-								<li>
 									<a href="javascript:clearLocalstorage()">
 										<i class="icon-cog"></i>
 										<t:mutiLang langKey="common.clear.localstorage"/>

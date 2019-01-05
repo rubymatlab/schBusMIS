@@ -393,3 +393,951 @@ org.springframework.web.bind.UnsatisfiedServletRequestParameterException: Parame
 [2018-12-19 23:38:06] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:181]   ------ 初始化字典 【系统缓存】-----------typesList-----size: [40]
 [2018-12-19 23:38:06] [INFO] [org.jeecgframework.web.system.service.impl.MutiLangServiceImpl:43]   ------ 初始化国际化语言【系统缓存】  ------ size: [1211] 
 [2018-12-19 23:38:06] [INFO] [org.jeecgframework.web.system.service.impl.DynamicDataSourceServiceImpl:41]   ------ 初始化动态数据源配置【系统缓存】---------size: [2] 
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormFieldDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormVersionDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.upload.CgFormUploadDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgreport.dao.core.CgReportDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.DepartAuthGroupDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.JeecgDictDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.demo.dao.JeecgMinidaoDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2019-01-05 12:09:46] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2019-01-05 12:09:48] [INFO] [com.alibaba.druid.pool.DruidDataSource:928] {dataSource-1} inited
+[2019-01-05 12:09:51] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2019-01-05 12:09:52] [WARN] [net.sf.ehcache.config.CacheConfiguration:698] Cache 'foreverCache' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'foreverCache' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
+[2019-01-05 12:09:56] [INFO] [org.quartz.impl.StdSchedulerFactory:1208] Using default implementation for ThreadExecutor
+[2019-01-05 12:09:56] [INFO] [org.quartz.core.SchedulerSignalerImpl:61] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-01-05 12:09:56] [INFO] [org.quartz.core.QuartzScheduler:229] Quartz Scheduler v.2.3.0 created.
+[2019-01-05 12:09:56] [INFO] [org.quartz.simpl.RAMJobStore:155] RAMJobStore initialized.
+[2019-01-05 12:09:56] [INFO] [org.quartz.core.QuartzScheduler:294] Scheduler meta-data: Quartz Scheduler (v2.3.0) 'schedulerFactory' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-01-05 12:09:56] [INFO] [org.quartz.impl.StdSchedulerFactory:1362] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2019-01-05 12:09:56] [INFO] [org.quartz.impl.StdSchedulerFactory:1366] Quartz scheduler version: 2.3.0
+[2019-01-05 12:09:56] [INFO] [org.quartz.core.QuartzScheduler:2287] JobFactory set to: org.jeecgframework.web.system.sms.util.JQuartzJobFactory@403ac315
+[2019-01-05 12:09:59] [INFO] [org.jeecgframework.core.timer.DynamicTask:252]  register time task class num is [0] 
+[2019-01-05 12:10:01] [INFO] [org.jeecgframework.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2019-01-05 12:10:01] [INFO] [org.quartz.core.QuartzScheduler:547] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2019-01-05 12:10:02] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:180]   ------ 初始化字典组 【系统缓存】-----------typeGroupsList-----size: [40]
+[2019-01-05 12:10:02] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:181]   ------ 初始化字典 【系统缓存】-----------typesList-----size: [40]
+[2019-01-05 12:10:02] [INFO] [org.jeecgframework.web.system.service.impl.MutiLangServiceImpl:43]   ------ 初始化国际化语言【系统缓存】  ------ size: [1211] 
+[2019-01-05 12:10:02] [INFO] [org.jeecgframework.web.system.service.impl.DynamicDataSourceServiceImpl:41]   ------ 初始化动态数据源配置【系统缓存】---------size: [2] 
+[2019-01-05 12:13:20] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2019-01-05 12:13:20] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2019-01-05 12:14:00] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2019-01-05 12:14:00] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [127.0.0.1][online表单配置保存]修改成功表名：bus_leave
+[2019-01-05 12:14:24] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2019-01-05 12:14:24] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2019-01-05 12:21:02] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2019-01-05 12:21:02] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [127.0.0.1][online表单配置保存]修改成功表名：bus_leave
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:251] ---同步数据库 ---doDbSynch-----> TableName:bus_leave ---修改时间 :2019-01-05 12:21:02.0 ----创建时间:2018-10-22 23:20:54.0---请求IP ---+127.0.0.1
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:ID TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_STUDENTID TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_STUDENT TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_REASON TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_BEGDATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_ENDDATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_STATUS TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:10
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:CREATE_NAME TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:CREATE_BY TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:CREATE_DATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:UPDATE_NAME TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:UPDATE_BY TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:UPDATE_DATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:id TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_studentid TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_student TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_reason TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_begdate TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_enddate TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_status TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:10
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:create_name TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:create_by TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:create_date TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:20
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:update_name TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:update_by TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:update_date TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:20
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:144] [alter table  bus_leave  MODIFY COLUMN  bl_student varchar(50) NULL COMMENT '申请学生' ;, , alter table  bus_leave  MODIFY COLUMN  id varchar(36) NOT NULL COMMENT '主键' ;, , alter table  bus_leave  MODIFY COLUMN  bl_reason varchar(32) NULL COMMENT '申请原因' ;, , alter table  bus_leave  MODIFY COLUMN  bl_begdate datetime NULL COMMENT '申请时间' ;, ]
+[2019-01-05 12:21:10] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:295] [127.0.0.1][online表单配置同步数据库]同步成功表名：bus_leave
+[2019-01-05 12:46:49] [INFO] [org.jeecgframework.web.cgform.controller.autolist.CgAutoListController:430] [127.0.0.1][online表单数据批量删除]删除成功表名：bus_leave
+[2019-01-05 12:48:53] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:224]   ------ 重置字典分组缓存&字典缓存【系统缓存】  ------ refleshTypeGroupCach --------  
+[2019-01-05 12:49:17] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:213]   ------ 重置字典缓存【系统缓存】  ----------- typegroupcode: [bus_flag] 
+[2019-01-05 12:50:11] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:213]   ------ 重置字典缓存【系统缓存】  ----------- typegroupcode: [bus_flag] 
+[2019-01-05 12:50:19] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:213]   ------ 重置字典缓存【系统缓存】  ----------- typegroupcode: [bus_flag] 
+[2019-01-05 12:50:31] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2019-01-05 12:50:31] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [127.0.0.1][online表单配置保存]修改成功表名：bus_leave
+[2019-01-05 12:50:49] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:599] [127.0.0.1][online表单单表数据保存和更新]保存成功表名：bus_leave
+[2019-01-05 12:54:31] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2019-01-05 12:54:31] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2019-01-05 12:54:43] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2019-01-05 12:54:43] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2019-01-05 12:54:56] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:268] ============================填值规则开始时间:2019-01-05 12:54:56==============================
+[2019-01-05 12:54:56] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:293] ================================填值规则结束时间:2019-01-05 12:54:56==============================
+[2019-01-05 12:54:56] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:294] ================================填值规则耗时:0ms==============================
+[2019-01-05 12:55:09] [INFO] [org.jeecgframework.web.cgform.controller.autolist.CgAutoListController:401] [本地][online表单数据删除]删除成功表名：bus_leave
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.database.JeecgReadTable:420] 数据库驱动: com.mysql.jdbc.Driver
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:68] -------------------load template from templateRootDir = 'D:\schBusMIS\schBusMIS\target\classes\jeecg\ext-common-template' outJavaRootDir:D:\schBusMIS\schBusMIS\src\main\java' outWebappRootDir:D:\schBusMIS\schBusMIS\src\main\webapp
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:78] ----srcFiles----size-----------114
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\controller\${entityName}Controller.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\controller\BasStudentController.java
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\entity\${entityName}Entity.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\entity\BasStudentEntity.java
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\service\${entityName}ServiceI.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\service\BasStudentServiceI.java
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\service\impl\${entityName}ServiceImpl.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\service\impl\BasStudentServiceImpl.java
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\webapp\webpage\${bussiPackage}\${entityPackage}\${entityNameUncapFirst}-add.jspi ==> E:/workspace/jeecg-framework/\src/main/webapp\webpage\com\jeecg\basstudent\basStudent-add.jsp
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\webapp\webpage\${bussiPackage}\${entityPackage}\${entityNameUncapFirst}-update.jspi ==> E:/workspace/jeecg-framework/\src/main/webapp\webpage\com\jeecg\basstudent\basStudent-update.jsp
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\webapp\webpage\${bussiPackage}\${entityPackage}\${entityNameUncapFirst}List.jspi ==> E:/workspace/jeecg-framework/\src/main/webapp\webpage\com\jeecg\basstudent\basStudentList.jsp
+[2019-01-05 12:58:05] [INFO] [org.jeecgframework.codegenerate.extcommon.single.CgformCodeExtCommonGenerate:177] ----jeecg----Code----Generation-----[单表模型：bas_student]------ 生成完成。。。
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.database.JeecgReadTable:420] 数据库驱动: com.mysql.jdbc.Driver
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:68] -------------------load template from templateRootDir = 'D:\schBusMIS\schBusMIS\target\classes\jeecg\ext-common-template' outJavaRootDir:D:\schBusMIS\schBusMIS\src\main\java' outWebappRootDir:D:\schBusMIS\schBusMIS\src\main\webapp
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:78] ----srcFiles----size-----------114
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\controller\${entityName}Controller.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\controller\BasStudentController.java
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\entity\${entityName}Entity.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\entity\BasStudentEntity.java
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\service\${entityName}ServiceI.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\service\BasStudentServiceI.java
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\service\impl\${entityName}ServiceImpl.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\service\impl\BasStudentServiceImpl.java
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\webapp\webpage\${bussiPackage}\${entityPackage}\${entityNameUncapFirst}-add.jspi ==> E:/workspace/jeecg-framework/\src/main/webapp\webpage\com\jeecg\basstudent\basStudent-add.jsp
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\webapp\webpage\${bussiPackage}\${entityPackage}\${entityNameUncapFirst}-update.jspi ==> E:/workspace/jeecg-framework/\src/main/webapp\webpage\com\jeecg\basstudent\basStudent-update.jsp
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\webapp\webpage\${bussiPackage}\${entityPackage}\${entityNameUncapFirst}List.jspi ==> E:/workspace/jeecg-framework/\src/main/webapp\webpage\com\jeecg\basstudent\basStudentList.jsp
+[2019-01-05 12:59:34] [INFO] [org.jeecgframework.codegenerate.extcommon.single.CgformCodeExtCommonGenerate:177] ----jeecg----Code----Generation-----[单表模型：bas_student]------ 生成完成。。。
+[2019-01-05 13:01:03] [INFO] [org.jeecgframework.web.cgform.controller.button.CgformButtonController:144] [本地][online表单自定义按钮添加编辑]添加成功
+[2019-01-05 13:01:20] [INFO] [org.jeecgframework.web.cgform.controller.button.CgformButtonController:144] [本地][online表单自定义按钮添加编辑]添加成功
+[2019-01-05 13:01:24] [INFO] [org.jeecgframework.web.cgform.controller.button.CgformButtonController:144] [本地][online表单自定义按钮添加编辑]更新成功
+[2019-01-05 13:01:36] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:702] [本地][online表单自定义按钮action触发]操作成功表名：bas_student
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.database.JeecgReadTable:420] 数据库驱动: com.mysql.jdbc.Driver
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:68] -------------------load template from templateRootDir = 'D:\schBusMIS\schBusMIS\target\classes\jeecg\ext-common-template' outJavaRootDir:D:\schBusMIS\schBusMIS\src\main\java' outWebappRootDir:D:\schBusMIS\schBusMIS\src\main\webapp
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:78] ----srcFiles----size-----------114
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\controller\${entityName}Controller.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\controller\BasStudentController.java
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\entity\${entityName}Entity.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\entity\BasStudentEntity.java
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\service\${entityName}ServiceI.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\service\BasStudentServiceI.java
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\java\${bussiPackage}\${entityPackage}\service\impl\${entityName}ServiceImpl.javai ==> E:/workspace/jeecg-framework/\src/main/java\com\jeecg\basstudent\service\impl\BasStudentServiceImpl.java
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\webapp\webpage\${bussiPackage}\${entityPackage}\${entityNameUncapFirst}-add.jspi ==> E:/workspace/jeecg-framework/\src/main/webapp\webpage\com\jeecg\basstudent\basStudent-add.jsp
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\webapp\webpage\${bussiPackage}\${entityPackage}\${entityNameUncapFirst}-update.jspi ==> E:/workspace/jeecg-framework/\src/main/webapp\webpage\com\jeecg\basstudent\basStudent-update.jsp
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:56] -------classpath-------/D:/schBusMIS/schBusMIS/target/classes/jeecg/ext-common-template/
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.a:184] [generate]	 template:bootstrap\single\webapp\webpage\${bussiPackage}\${entityPackage}\${entityNameUncapFirst}List.jspi ==> E:/workspace/jeecg-framework/\src/main/webapp\webpage\com\jeecg\basstudent\basStudentList.jsp
+[2019-01-05 13:10:18] [INFO] [org.jeecgframework.codegenerate.extcommon.single.CgformCodeExtCommonGenerate:177] ----jeecg----Code----Generation-----[单表模型：bas_student]------ 生成完成。。。
+[2019-01-05 13:21:48] [ERROR] [com.alibaba.druid.pool.DruidDataSource:2664] abandon connection, owner thread: http-bio-80-exec-2, connected at : 1546662070383, open stackTrace
+	at java.lang.Thread.getStackTrace(Thread.java:1559)
+	at com.alibaba.druid.pool.DruidDataSource.getConnectionDirect(DruidDataSource.java:1311)
+	at com.alibaba.druid.filter.FilterChainImpl.dataSource_connect(FilterChainImpl.java:4619)
+	at com.alibaba.druid.filter.stat.StatFilter.dataSource_getConnection(StatFilter.java:680)
+	at com.alibaba.druid.filter.FilterChainImpl.dataSource_connect(FilterChainImpl.java:4615)
+	at com.alibaba.druid.pool.DruidDataSource.getConnection(DruidDataSource.java:1231)
+	at com.alibaba.druid.pool.DruidDataSource.getConnection(DruidDataSource.java:1223)
+	at com.alibaba.druid.pool.DruidDataSource.getConnection(DruidDataSource.java:90)
+	at org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource.getConnection(AbstractRoutingDataSource.java:164)
+	at org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess.getColumnMetadataFormDataBase(DbTableProcess.java:198)
+	at org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess.updateTable(DbTableProcess.java:78)
+	at org.jeecgframework.web.cgform.service.impl.config.CgFormFieldServiceImpl.dbSynch(CgFormFieldServiceImpl.java:226)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:317)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:98)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:262)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
+	at com.sun.proxy.$Proxy118.dbSynch(Unknown Source)
+	at org.jeecgframework.web.cgform.controller.config.CgFormHeadController.doDbSynch(CgFormHeadController.java:281)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+ownerThread current state is WAITING, current stackTrace
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+	at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:104)
+	at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:32)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormFieldDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormVersionDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.upload.CgFormUploadDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgreport.dao.core.CgReportDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.DepartAuthGroupDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.JeecgDictDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.demo.dao.JeecgMinidaoDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2019-01-05 22:55:16] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2019-01-05 22:55:17] [INFO] [com.alibaba.druid.pool.DruidDataSource:928] {dataSource-1} inited
+[2019-01-05 22:55:19] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2019-01-05 22:55:19] [WARN] [net.sf.ehcache.config.CacheConfiguration:698] Cache 'foreverCache' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'foreverCache' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
+[2019-01-05 22:55:22] [INFO] [org.quartz.impl.StdSchedulerFactory:1208] Using default implementation for ThreadExecutor
+[2019-01-05 22:55:22] [INFO] [org.quartz.core.SchedulerSignalerImpl:61] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-01-05 22:55:22] [INFO] [org.quartz.core.QuartzScheduler:229] Quartz Scheduler v.2.3.0 created.
+[2019-01-05 22:55:22] [INFO] [org.quartz.simpl.RAMJobStore:155] RAMJobStore initialized.
+[2019-01-05 22:55:22] [INFO] [org.quartz.core.QuartzScheduler:294] Scheduler meta-data: Quartz Scheduler (v2.3.0) 'schedulerFactory' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-01-05 22:55:22] [INFO] [org.quartz.impl.StdSchedulerFactory:1362] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2019-01-05 22:55:22] [INFO] [org.quartz.impl.StdSchedulerFactory:1366] Quartz scheduler version: 2.3.0
+[2019-01-05 22:55:22] [INFO] [org.quartz.core.QuartzScheduler:2287] JobFactory set to: org.jeecgframework.web.system.sms.util.JQuartzJobFactory@d05bd16
+[2019-01-05 22:55:23] [INFO] [org.jeecgframework.core.timer.DynamicTask:252]  register time task class num is [0] 
+[2019-01-05 22:55:25] [INFO] [org.jeecgframework.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2019-01-05 22:55:25] [INFO] [org.quartz.core.QuartzScheduler:547] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2019-01-05 22:55:25] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:180]   ------ 初始化字典组 【系统缓存】-----------typeGroupsList-----size: [40]
+[2019-01-05 22:55:25] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:181]   ------ 初始化字典 【系统缓存】-----------typesList-----size: [40]
+[2019-01-05 22:55:26] [INFO] [org.jeecgframework.web.system.service.impl.MutiLangServiceImpl:43]   ------ 初始化国际化语言【系统缓存】  ------ size: [1211] 
+[2019-01-05 22:55:26] [INFO] [org.jeecgframework.web.system.service.impl.DynamicDataSourceServiceImpl:41]   ------ 初始化动态数据源配置【系统缓存】---------size: [2] 
+[2019-01-05 22:56:00] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2019-01-05 22:56:01] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2019-01-05 22:58:15] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2019-01-05 22:58:16] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [本地][online表单配置保存]修改成功表名：bus_leave
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:251] ---同步数据库 ---doDbSynch-----> TableName:bus_leave ---修改时间 :2019-01-05 22:58:16.0 ----创建时间:2018-10-22 23:20:54.0---请求IP ---+0:0:0:0:0:0:0:1
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:ID TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_STUDENTID TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_STUDENT TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_REASON TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_BEGDATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_ENDDATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:BL_STATUS TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:10
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:CREATE_NAME TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:CREATE_BY TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:CREATE_DATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:UPDATE_NAME TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:UPDATE_BY TYPE_NAME :VARCHAR DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:228] getColumnMetadataFormDataBase --->COLUMN_NAME:UPDATE_DATE TYPE_NAME :DATETIME DECIMAL_DIGITS:0 COLUMN_SIZE:19
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:id TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_studentid TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:36
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_student TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_reason TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_begdate TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_enddate TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:32
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:bl_status TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:10
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:create_name TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:create_by TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:create_date TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:20
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:update_name TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:update_by TYPE_NAME:string DECIMAL_DIGITS:0 COLUMN_SIZE:50
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:269] getColumnMetadataFormCgForm ---->COLUMN_NAME:update_date TYPE_NAME:date DECIMAL_DIGITS:0 COLUMN_SIZE:20
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.service.impl.config.util.DbTableProcess:144] [alter table  bus_leave  MODIFY COLUMN  bl_student varchar(50) NULL COMMENT '申请学生' ;, , alter table  bus_leave  MODIFY COLUMN  id varchar(36) NOT NULL COMMENT '主键' ;, , alter table  bus_leave  MODIFY COLUMN  bl_reason varchar(32) NULL COMMENT '申请原因' ;, , alter table  bus_leave  MODIFY COLUMN  bl_begdate datetime NULL COMMENT '申请时间' ;, ]
+[2019-01-05 22:58:20] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:295] [本地][online表单配置同步数据库]同步成功表名：bus_leave
+[2019-01-05 22:58:49] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:224]   ------ 重置字典分组缓存&字典缓存【系统缓存】  ------ refleshTypeGroupCach --------  
+[2019-01-05 22:59:13] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:213]   ------ 重置字典缓存【系统缓存】  ----------- typegroupcode: [bus_flag] 
+[2019-01-05 22:59:24] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:213]   ------ 重置字典缓存【系统缓存】  ----------- typegroupcode: [bus_flag] 
+[2019-01-05 22:59:40] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:213]   ------ 重置字典缓存【系统缓存】  ----------- typegroupcode: [bus_flag] 
+[2019-01-05 23:00:01] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2019-01-05 23:00:02] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [本地][online表单配置保存]修改成功表名：bus_leave
+[2019-01-05 23:00:52] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:119] Username:admin ,验证码: xi4 错误!
+[2019-01-05 23:00:56] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2019-01-05 23:00:56] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2019-01-05 23:01:48] [ERROR] [org.jeecgframework.web.system.servlet.ImgServerServlet:168] --通过流的方式获取文件异常--null
+[2019-01-05 23:02:06] [INFO] [org.jeecgframework.web.cgform.controller.autolist.CgAutoListController:430] [本地][online表单数据批量删除]删除成功表名：bus_leave
+[2019-01-05 23:02:08] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:268] ============================填值规则开始时间:2019-01-05 23:02:08==============================
+[2019-01-05 23:02:08] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:293] ================================填值规则结束时间:2019-01-05 23:02:08==============================
+[2019-01-05 23:02:08] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:294] ================================填值规则耗时:0ms==============================
+[2019-01-05 23:02:49] [INFO] [org.jeecgframework.web.system.service.impl.EhcacheService:61]   EhcacheService  clean cacheName：[systemBaseCache] 
+[2019-01-05 23:02:49] [INFO] [org.jeecgframework.web.cgform.controller.config.CgFormHeadController:412] [本地][online表单配置保存]修改成功表名：bus_leave
+[2019-01-05 23:03:13] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:702] [本地][online表单自定义按钮action触发]操作成功表名：bus_leave
+[2019-01-05 23:03:34] [INFO] [org.jeecgframework.web.cgform.controller.button.CgformButtonSqlController:161] [本地][online表单sql增强添加更新]更新成功
+[2019-01-05 23:03:39] [INFO] [org.jeecgframework.web.cgform.controller.build.CgFormBuildController:702] [本地][online表单自定义按钮action触发]操作成功表名：bus_leave
+[2019-01-05 23:05:46] [ERROR] [org.jeecgframework.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+java.net.SocketException: Software caused connection abort: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+	at org.apache.coyote.http11.InternalOutputBuffer.realWriteBytes(InternalOutputBuffer.java:215)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.coyote.http11.InternalOutputBuffer$OutputStreamOutputBuffer.doWrite(InternalOutputBuffer.java:240)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:119)
+	at org.apache.coyote.http11.AbstractOutputBuffer.doWrite(AbstractOutputBuffer.java:192)
+	at org.apache.coyote.Response.doWrite(Response.java:517)
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:408)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:438)
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:426)
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:91)
+	at org.codehaus.jackson.impl.Utf8Generator._flushBuffer(Utf8Generator.java:1746)
+	at org.codehaus.jackson.impl.Utf8Generator.flush(Utf8Generator.java:1082)
+	at org.codehaus.jackson.map.ObjectMapper.writeValue(ObjectMapper.java:1347)
+	at org.springframework.http.converter.json.MappingJacksonHttpMessageConverter.writeInternal(MappingJacksonHttpMessageConverter.java:209)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:208)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:143)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:89)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:188)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:71)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:120)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-01-05 23:05:49] [ERROR] [org.jeecgframework.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+java.net.SocketException: Software caused connection abort: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+	at org.apache.coyote.http11.InternalOutputBuffer.realWriteBytes(InternalOutputBuffer.java:215)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.coyote.http11.InternalOutputBuffer$OutputStreamOutputBuffer.doWrite(InternalOutputBuffer.java:240)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:119)
+	at org.apache.coyote.http11.AbstractOutputBuffer.doWrite(AbstractOutputBuffer.java:192)
+	at org.apache.coyote.Response.doWrite(Response.java:517)
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:408)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:438)
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:426)
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:91)
+	at org.codehaus.jackson.impl.Utf8Generator._flushBuffer(Utf8Generator.java:1746)
+	at org.codehaus.jackson.impl.Utf8Generator.flush(Utf8Generator.java:1082)
+	at org.codehaus.jackson.map.ObjectMapper.writeValue(ObjectMapper.java:1347)
+	at org.springframework.http.converter.json.MappingJacksonHttpMessageConverter.writeInternal(MappingJacksonHttpMessageConverter.java:209)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:208)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:143)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:89)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:188)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:71)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:120)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-01-05 23:05:52] [ERROR] [org.jeecgframework.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+java.net.SocketException: Software caused connection abort: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+	at org.apache.coyote.http11.InternalOutputBuffer.realWriteBytes(InternalOutputBuffer.java:215)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.coyote.http11.InternalOutputBuffer$OutputStreamOutputBuffer.doWrite(InternalOutputBuffer.java:240)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:119)
+	at org.apache.coyote.http11.AbstractOutputBuffer.doWrite(AbstractOutputBuffer.java:192)
+	at org.apache.coyote.Response.doWrite(Response.java:517)
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:408)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:438)
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:426)
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:91)
+	at org.codehaus.jackson.impl.Utf8Generator._flushBuffer(Utf8Generator.java:1746)
+	at org.codehaus.jackson.impl.Utf8Generator.flush(Utf8Generator.java:1082)
+	at org.codehaus.jackson.map.ObjectMapper.writeValue(ObjectMapper.java:1347)
+	at org.springframework.http.converter.json.MappingJacksonHttpMessageConverter.writeInternal(MappingJacksonHttpMessageConverter.java:209)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:208)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:143)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:89)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:188)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:71)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:120)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-01-05 23:05:55] [ERROR] [org.jeecgframework.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+java.net.SocketException: Software caused connection abort: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+	at org.apache.coyote.http11.InternalOutputBuffer.realWriteBytes(InternalOutputBuffer.java:215)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.coyote.http11.InternalOutputBuffer$OutputStreamOutputBuffer.doWrite(InternalOutputBuffer.java:240)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:119)
+	at org.apache.coyote.http11.AbstractOutputBuffer.doWrite(AbstractOutputBuffer.java:192)
+	at org.apache.coyote.Response.doWrite(Response.java:517)
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:408)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:438)
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:426)
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:91)
+	at org.codehaus.jackson.impl.Utf8Generator._flushBuffer(Utf8Generator.java:1746)
+	at org.codehaus.jackson.impl.Utf8Generator.flush(Utf8Generator.java:1082)
+	at org.codehaus.jackson.map.ObjectMapper.writeValue(ObjectMapper.java:1347)
+	at org.springframework.http.converter.json.MappingJacksonHttpMessageConverter.writeInternal(MappingJacksonHttpMessageConverter.java:209)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:208)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:143)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:89)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:188)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:71)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:120)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-01-05 23:05:56] [ERROR] [org.jeecgframework.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+java.net.SocketException: Software caused connection abort: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+	at org.apache.coyote.http11.InternalOutputBuffer.realWriteBytes(InternalOutputBuffer.java:215)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.coyote.http11.InternalOutputBuffer$OutputStreamOutputBuffer.doWrite(InternalOutputBuffer.java:240)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:119)
+	at org.apache.coyote.http11.AbstractOutputBuffer.doWrite(AbstractOutputBuffer.java:192)
+	at org.apache.coyote.Response.doWrite(Response.java:517)
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:408)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:438)
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:426)
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:91)
+	at org.codehaus.jackson.impl.Utf8Generator._flushBuffer(Utf8Generator.java:1746)
+	at org.codehaus.jackson.impl.Utf8Generator.flush(Utf8Generator.java:1082)
+	at org.codehaus.jackson.map.ObjectMapper.writeValue(ObjectMapper.java:1347)
+	at org.springframework.http.converter.json.MappingJacksonHttpMessageConverter.writeInternal(MappingJacksonHttpMessageConverter.java:209)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:208)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:143)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:89)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:188)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:71)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:120)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-01-05 23:06:01] [ERROR] [org.jeecgframework.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+java.net.SocketException: Software caused connection abort: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+	at org.apache.coyote.http11.InternalOutputBuffer.realWriteBytes(InternalOutputBuffer.java:215)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.coyote.http11.InternalOutputBuffer$OutputStreamOutputBuffer.doWrite(InternalOutputBuffer.java:240)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:119)
+	at org.apache.coyote.http11.AbstractOutputBuffer.doWrite(AbstractOutputBuffer.java:192)
+	at org.apache.coyote.Response.doWrite(Response.java:517)
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:408)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:438)
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:426)
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:91)
+	at org.codehaus.jackson.impl.Utf8Generator._flushBuffer(Utf8Generator.java:1746)
+	at org.codehaus.jackson.impl.Utf8Generator.flush(Utf8Generator.java:1082)
+	at org.codehaus.jackson.map.ObjectMapper.writeValue(ObjectMapper.java:1347)
+	at org.springframework.http.converter.json.MappingJacksonHttpMessageConverter.writeInternal(MappingJacksonHttpMessageConverter.java:209)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:208)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:143)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:89)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:188)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:71)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:120)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-01-05 23:06:01] [ERROR] [org.jeecgframework.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+java.net.SocketException: Software caused connection abort: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+	at org.apache.coyote.http11.InternalOutputBuffer.realWriteBytes(InternalOutputBuffer.java:215)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.coyote.http11.InternalOutputBuffer$OutputStreamOutputBuffer.doWrite(InternalOutputBuffer.java:240)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:119)
+	at org.apache.coyote.http11.AbstractOutputBuffer.doWrite(AbstractOutputBuffer.java:192)
+	at org.apache.coyote.Response.doWrite(Response.java:517)
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:408)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:438)
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:426)
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:91)
+	at org.codehaus.jackson.impl.Utf8Generator._flushBuffer(Utf8Generator.java:1746)
+	at org.codehaus.jackson.impl.Utf8Generator.flush(Utf8Generator.java:1082)
+	at org.codehaus.jackson.map.ObjectMapper.writeValue(ObjectMapper.java:1347)
+	at org.springframework.http.converter.json.MappingJacksonHttpMessageConverter.writeInternal(MappingJacksonHttpMessageConverter.java:209)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:208)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:143)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:89)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:188)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:71)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:120)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-01-05 23:06:02] [ERROR] [org.jeecgframework.core.common.exception.GlobalExceptionResolver:86] 全局处理异常捕获:
+java.net.SocketException: Software caused connection abort: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+	at org.apache.coyote.http11.InternalOutputBuffer.realWriteBytes(InternalOutputBuffer.java:215)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.coyote.http11.InternalOutputBuffer$OutputStreamOutputBuffer.doWrite(InternalOutputBuffer.java:240)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:119)
+	at org.apache.coyote.http11.AbstractOutputBuffer.doWrite(AbstractOutputBuffer.java:192)
+	at org.apache.coyote.Response.doWrite(Response.java:517)
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:408)
+	at org.apache.tomcat.util.buf.ByteChunk.flushBuffer(ByteChunk.java:480)
+	at org.apache.tomcat.util.buf.ByteChunk.append(ByteChunk.java:366)
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:438)
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:426)
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:91)
+	at org.codehaus.jackson.impl.Utf8Generator._flushBuffer(Utf8Generator.java:1746)
+	at org.codehaus.jackson.impl.Utf8Generator.flush(Utf8Generator.java:1082)
+	at org.codehaus.jackson.map.ObjectMapper.writeValue(ObjectMapper.java:1347)
+	at org.springframework.http.converter.json.MappingJacksonHttpMessageConverter.writeInternal(MappingJacksonHttpMessageConverter.java:209)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:208)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:143)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:89)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:188)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:71)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:120)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:747)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:676)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:938)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:870)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:863)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:647)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.jeecgframework.core.aop.GZipFilter.doFilter(GZipFilter.java:114)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.orm.hibernate4.support.OpenSessionInViewFilter.doFilterInternal(OpenSessionInViewFilter.java:150)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-01-05 23:07:51] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:220]  >>>>>>>>>>>>>>>>>>>>>>>>>>  Login 用户登录成功，初始化Main首页用户信息  （Main 首页加载逻辑）  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+[2019-01-05 23:07:52] [INFO] [org.jeecgframework.web.system.controller.core.LoginController:261] login 资源路径returnURL：null
+[2019-01-05 23:09:34] [INFO] [org.jeecgframework.web.cgform.controller.button.CgformButtonController:144] [本地][online表单自定义按钮添加编辑]添加成功
+[2019-01-05 23:09:54] [INFO] [org.jeecgframework.web.cgform.controller.button.CgformButtonController:144] [本地][online表单自定义按钮添加编辑]添加成功
+[2019-01-05 23:10:32] [INFO] [org.jeecgframework.web.cgform.controller.button.CgformButtonController:144] [本地][online表单自定义按钮添加编辑]更新成功
+[2019-01-05 23:10:37] [INFO] [org.jeecgframework.web.cgform.controller.button.CgformButtonController:144] [本地][online表单自定义按钮添加编辑]更新成功

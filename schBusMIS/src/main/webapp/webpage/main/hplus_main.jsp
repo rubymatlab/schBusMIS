@@ -78,8 +78,7 @@
                            <%--  <li><a href="javascript:openwindow('<t:mutiLang langKey="common.ssms.getSysInfos"/>','tSSmsController.do?getSysInfos')"><t:mutiLang langKey="common.ssms.getSysInfos"/></a></li> --%>
                             <li><a href="javascript:add('<t:mutiLang langKey="common.change.style"/>','userController.do?changestyle','',550,250)"><t:mutiLang langKey="common.my.style"/></a></li>
                             <li><a href="javascript:clearLocalstorage()"><t:mutiLang langKey="common.clear.localstorage"/></a></li>
-                            <li><a href="javascript:toSwagger()">Swagger接口</a></li>
-                           <%-- <li><a href="javascript:toJeecgYun()">云应用中心</a></li>--%>
+                           
                         </ul>
                     </li>
                     
