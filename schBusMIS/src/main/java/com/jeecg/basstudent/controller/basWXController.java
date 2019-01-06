@@ -708,7 +708,7 @@ public class basWXController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT tu.id,CONCAT( bl_name, bl_desc) as linename FROM t_s_role tr,t_s_role_user tru,t_s_base_user tu,bas_line c ");
+		StringBuffer sql = new StringBuffer("SELECT c.id,CONCAT( bl_name, bl_desc) as linename FROM t_s_role tr,t_s_role_user tru,t_s_base_user tu,bas_line c ");
 		sql.append("where tr.ID=tru.roleid and tru.userid=tu.ID and tr.rolecode='driver' and tu.status='1' and c.bl_driverid=tu.ID ");
 		sql.append("and tu.username='" + userid + "'");
 		System.out.println("getlinename sql..." + ";" + sql.toString());
@@ -734,6 +734,22 @@ public class basWXController extends BaseController {
 
 		return listTree;				
 	}
+	
+	//根据线路，获取其线路下所有站点
+	@RequestMapping(params = "getsizelist")
+	@ResponseBody	
+	public List<Map<String, Object>> getsizelist(String lineid,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT a.id,CONCAT(bl_name, bl_desc) as linename,bs_name FROM bas_size a LEFT JOIN bas_line b ON a.fk_bl_id=b.id ");
+		sql.append("WHERE b.id='" + lineid + "' ORDER BY bs_desc");
+		System.out.println("getsizelist sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+
+		return listTree;				
+	}	
 	
 	//根据站点OID，获取此站点所有学生刷卡信息
 	@RequestMapping(params = "getcardlist")
