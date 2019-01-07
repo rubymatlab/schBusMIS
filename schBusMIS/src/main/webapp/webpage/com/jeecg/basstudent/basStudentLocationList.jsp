@@ -94,8 +94,8 @@ p {
 
 			var i = 0;
 			<c:forEach items="${locationList}" var="item">
-			var position = new qq.maps.LatLng("${item.bl_longitude}",
-					"${item.bl_latitude}");
+			var position = new qq.maps.LatLng("${item.bl_latitude}",
+					"${item.bl_longitude}");
 			if (i == 0) {
 				var marker = new qq.maps.Marker({
 					position : position,
@@ -116,7 +116,7 @@ p {
 				clickable : true,
 				position : position,
 				//标签的文本。
-				content : '${item.bs_name}在${item.bl_commdatetime}',
+				content : '${item.bs_name} ${item.bl_commdatetime}打卡',
 				//显示标签的地图。
 				map : map,
 				//如果为true，表示标签可见，默认为true。

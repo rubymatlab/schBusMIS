@@ -17,6 +17,7 @@ import com.jeecg.basstudent.entity.RequestDelDevice;
 import com.jeecg.basstudent.entity.RequestLocationDevice;
 import com.jeecg.basstudent.entity.RequestLocationsDevice;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -95,11 +96,11 @@ public class DeviceOperationController extends BaseController {
 			System.out.println(json.toString());
 		}
 	}
-	
+
 	@RequestMapping(params = "LocationDevice")
 	@ResponseBody
 	public void LocationDevice() {
-		String deviceid = "ced25eff-6f2d-4733-a2de-63a0f07e447c";
+		String deviceid = "8c6e4b68-cbf5-4f79-918c-37563822ca1e";
 		System.out.println("开始执行:" + deviceid);
 		JSONObject json = new JSONObject();
 		List<Map<String, Object>> dataObject = new ArrayList<Map<String, Object>>();
@@ -127,9 +128,16 @@ public class DeviceOperationController extends BaseController {
 			JSONObject ob = JSONObject.fromObject(rld);
 			json = HttpRequestPost.doPost(requestUrl, ob);
 			System.out.println(json.toString());
+
+			JSONArray array = JSONArray.fromObject(json.get("result").toString());// 将json字符串转成json数组
+			for (int i = 0; i < array.size(); i++) {// 循环json数组
+				JSONObject job = (JSONObject) array.get(i);// 得到json对象
+				String name = job.getString("gps_latitude");// name这里是列名称，获取json对象中列名为name的值
+				System.out.print(name);// 输出name
+			}
 		}
 	}
-	
+
 	@RequestMapping(params = "LocationsDevice")
 	@ResponseBody
 	public void LocationsDevice() {

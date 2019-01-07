@@ -1,6 +1,9 @@
 package com.jeecg.basstudent.controller;
 
 import com.jeecg.basstudent.entity.BasStudentLocationEntity;
+import com.jeecg.basstudent.entity.HttpRequestPost;
+import com.jeecg.basstudent.entity.RequestLocationDevice;
+import com.jeecg.basstudent.entity.RequestLocationsDevice;
 import com.jeecg.basstudent.entity.wxutils;
 import com.jeecg.basstudent.service.BasStudentLocationServiceI;
 
@@ -55,9 +58,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.jeecgframework.core.beanvalidator.BeanValidators;
 import java.util.Set;
+import java.util.TimeZone;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.net.URI;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.apache.commons.lang3.StringUtils;
@@ -68,6 +76,8 @@ import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import net.sf.json.JSONObject;
+
 import com.jeecg.basstudent.entity.wxutils;
 
 /**
@@ -123,31 +133,175 @@ public class BasStudentLocationController extends BaseController {
 			List<Map<String, Object>> listCount = new ArrayList<Map<String, Object>>();
 			StringBuffer sb = new StringBuffer();
 			sb.append("SELECT count(*) as c FROM t_s_base_user  ");
-			sb.append("WHERE openid='" + sopenid + "'");	
+			sb.append("WHERE openid='" + sopenid + "'");
 			listCount = this.systemService.findForJdbc(sb.toString());
 			int flag = Integer.parseInt(listCount.get(0).get("c").toString());
-			if (flag==0) {
-				// openid是学生，默认最近5个打卡时间
-				sql = "select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_openid bo,bus_locationinfo bl where bs.id=bo.bs_studentid and  bs.bs_cardno= bl.bl_cardno";
-				sql += " and bo.bo_openid='" + sopenid + "'";
-				sql += " order by bl.bl_commdatetime desc) vw  limit 0,5";
+			if (flag == 0) {
+				// openid是学生
+				sql = "SELECT bs.bs_name, bs.bs_cardno, bs.bs_deviceid";
+				sql += " FROM bas_student bs, bus_openid bo";
+				sql += " WHERE bs.id = bo.bs_studentid";
+				sql += " AND bo.bo_openid = '" + sopenid + "'";
+				List<Map<String, Object>> studentList = new ArrayList<Map<String, Object>>();
+				studentList = systemService.findForJdbc(sql);
+				for (Map<String, Object> stu : studentList) {
+					if (stu.get("bs_deviceid").toString().length() > 0) {
+						List<Map<String, Object>> json = this.LocationDevice(stu);
+						request.setAttribute("locationList", json);
+						return new ModelAndView("com/jeecg/basstudent/basStudentLocationList");
+					}
+				}
 			} else {
 				// opendid是老师，默认300个学生
-				sql="select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_locationinfo bl where  bs.bs_cardno= bl.bl_cardno";
-				sql+=" and bs.bc_id in (SELECT bc.id FROM bas_class bc ,t_s_base_user tu where bc.bc_personid=tu.id";
-				sql+=" and tu.openid='"+sopenid+"'";
-				sql+=" ) order by bl.bl_commdatetime desc) vw  limit 0,300";
+				sql = "select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_locationinfo bl where  bs.bs_cardno= bl.bl_cardno";
+				sql += " and bs.bc_id in (SELECT bc.id FROM bas_class bc ,t_s_base_user tu where bc.bc_personid=tu.id";
+				sql += " and tu.openid='" + sopenid + "'";
+				sql += " ) order by bl.bl_commdatetime desc) vw  limit 0,300";
 			}
 		} else {
-			sql="select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_locationinfo bl where  bs.bs_cardno= bl.bl_cardno";
-			sql+=" and bs.bc_id in (SELECT bc.id FROM bas_class bc ,t_s_base_user tu where bc.bc_personid=tu.id";
-			sql+=" ) order by bl.bl_commdatetime desc) vw  limit 0,800";
+			sql = "select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_locationinfo bl where  bs.bs_cardno= bl.bl_cardno";
+			sql += " and bs.bc_id in (SELECT bc.id FROM bas_class bc ,t_s_base_user tu where bc.bc_personid=tu.id";
+			sql += " ) order by bl.bl_commdatetime desc) vw  limit 0,800";
 		}
 
 		List<Map<String, Object>> locationList = new ArrayList<Map<String, Object>>();
 		locationList = systemService.findForJdbc(sql);
 		request.setAttribute("locationList", locationList);
 		return new ModelAndView("com/jeecg/basstudent/basStudentLocationList");
+	}
+
+	/**
+	 * 电子围栏（单人）
+	 * 
+	 * @param stuMap
+	 * @return
+	 */
+	private List<Map<String, Object>> LocationDevice(Map<String, Object> stuMap) {
+		String deviceid = stuMap.get("bs_deviceid").toString();
+		String bs_name = stuMap.get("bs_name").toString();
+		String bs_cardno = stuMap.get("bs_cardno").toString();
+
+		System.out.println("开始执行:" + deviceid);
+		JSONObject json = new JSONObject();
+		List<Map<String, Object>> dataObject = new ArrayList<Map<String, Object>>();
+		String s1 = "RemoteUrlGet";
+		String s2 = "RemoteUrlUserID";
+		String s3 = "RemoteUrlAccessToken";
+		StringBuffer sql = new StringBuffer(
+				"SELECT bc.cf_code,bc.cf_name,bc.cf_value FROM bus_config bc where bc.cf_code='" + s1
+						+ "' or bc.cf_code='" + s2 + "' or bc.cf_code='" + s3 + "'");
+		dataObject = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
+		// 开始远程访问
+		String requestUrl = "";
+		RequestLocationDevice rld = new RequestLocationDevice();
+		rld.setDeviceid(deviceid);
+		for (Map<String, Object> o : dataObject) {
+			if (s1.equals(o.get("cf_code").toString()))
+				requestUrl = o.get("cf_value").toString();
+			if (s2.equals(o.get("cf_code").toString()))
+				rld.setUserid(o.get("cf_value").toString());
+			if (s3.equals(o.get("cf_code").toString()))
+				rld.setAccessToken(o.get("cf_value").toString());
+		}
+		System.out.println("访问->" + requestUrl);
+		List<Map<String, Object>> locationList = new ArrayList<Map<String, Object>>();
+		if (requestUrl != "") {
+			JSONObject ob = JSONObject.fromObject(rld);
+			json = HttpRequestPost.doPost(requestUrl, ob);
+			System.out.println(json.toString());
+			net.sf.json.JSONArray array = net.sf.json.JSONArray.fromObject(json.get("result").toString());// 将json字符串转成json数组
+
+			for (int i = 0; i < array.size(); i++) {// 循环json数组
+				JSONObject job = (JSONObject) array.get(i);// 得到json对象
+
+				// 时间转换
+				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+				df.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+				Map<String, Object> oo = new HashMap<String, Object>();
+				oo.put("bs_name", bs_name);
+				oo.put("bs_cardno", bs_cardno);
+				oo.put("bs_deviceid", job.getString("deviceId"));
+				oo.put("bl_longitude", job.getString("gps_longitude"));
+				oo.put("bl_latitude", job.getString("gps_latitude"));
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+					oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				locationList.add(oo);
+			}
+		}
+		return locationList;
+	}
+	
+	/**
+	 * 电子围栏（多人）
+	 * @param stuList
+	 * @return
+	 */
+	private List<Map<String, Object>> LocationsDevice(List<Map<String, Object>> stuList) {
+		String deviceid = "";
+		for (Map<String, Object> o : stuList)
+			if (o.get("bs_deviceid").toString().length() > 0)
+				deviceid += o.get("bs_deviceid").toString()+",";
+		// "ced25eff-6f2d-4733-a2de-63a0f07e447c,8c6e4b68-cbf5-4f79-918c-37563822ca1e";
+		
+		System.out.println("开始执行:" + deviceid);
+		JSONObject json = new JSONObject();
+		List<Map<String, Object>> dataObject = new ArrayList<Map<String, Object>>();
+		String s1 = "RemoteUrlGets";
+		String s3 = "RemoteUrlAccessToken";
+		StringBuffer sql = new StringBuffer(
+				"SELECT bc.cf_code,bc.cf_name,bc.cf_value FROM bus_config bc where bc.cf_code='" + s1
+						+ "' or bc.cf_code='" + s3 + "'");
+		dataObject = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
+		// 开始远程访问
+		String requestUrl = "";
+		RequestLocationsDevice rlsd = new RequestLocationsDevice();
+		rlsd.setDEVICEIDS(deviceid);
+		for (Map<String, Object> o : dataObject) {
+			if (s1.equals(o.get("cf_code").toString()))
+				requestUrl = o.get("cf_value").toString();
+			if (s3.equals(o.get("cf_code").toString()))
+				rlsd.setAccessToken(o.get("cf_value").toString());
+		}
+		System.out.println("访问->" + requestUrl);
+		List<Map<String, Object>> locationList = new ArrayList<Map<String, Object>>();
+		if (requestUrl != "") {
+			JSONObject ob = JSONObject.fromObject(rlsd);
+			json = HttpRequestPost.doPost(requestUrl, ob);
+			System.out.println(json.toString());
+
+			String[] deviceArray = deviceid.split(",");
+			net.sf.json.JSONArray array = net.sf.json.JSONArray.fromObject(json.get("result").toString());// 将json字符串转成json数组
+
+			for (int i = 0; i < array.size(); i++) {// 循环json数组
+				JSONObject job = (JSONObject) array.get(i);// 得到json对象
+
+				// 时间转换
+				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+				df.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+				Map<String, Object> oo = new HashMap<String, Object>();
+				oo.put("bs_name", "");
+				oo.put("bs_cardno", "");
+				oo.put("bs_deviceid", job.getString("deviceId"));
+				oo.put("bl_longitude", job.getString("gps_longitude"));
+				oo.put("bl_latitude", job.getString("gps_latitude"));
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+					oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				locationList.add(oo);
+			}
+		}
+		return locationList;
 	}
 
 	/**
