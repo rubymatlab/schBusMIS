@@ -46,6 +46,7 @@ public class wxutils {
 	public static  String basurl="http://tdcq.natapp1.cc/schBusMIS";	
 	public static  String appid = "wx2968e71a3e302dab";
 	public static  String appscret = "fdca7717bdd31d4c52feb67d82d8f700";
+	public static  String storePath="D:/Programs/schBusMIS/code/schBusMIS/src/main/webapp/photos/";
 
 	private static final String token = "JYWX";
 	

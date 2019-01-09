@@ -179,6 +179,7 @@
 						<value>rest/v2/api-docs</value>
 						
 						<!-- 微信控制器 by dev001 -->
+						<value>baswxcontroller.do?doSendTMessage_SK</value>
 						<value>baswxcontroller.do?doSendTMessage_UP</value>
 						<value>baswxcontroller.do?doSendTMessage_LO</value>
 						<value>baswxcontroller.do?doSendTMessage_WR</value>
@@ -199,8 +200,10 @@
 						<value>baswxcontroller.do?getlinename</value>
 						<value>baswxcontroller.do?getallsizename</value>
 						<value>baswxcontroller.do?getstudentlist</value>
+						<value>baswxcontroller.do?getsizelist</value>
 						<value>baswxcontroller.do?getcardlist</value>
 						<value>baswxcontroller.do?iCardData</value>
+						<value>baswxcontroller.do?uploadFile</value>
 						<value>baswxcontroller.do?test</value>
 						<value>basStudentLocationController.do?list</value>
 						<value>DeviceOperationController.do?AddDevice</value>

@@ -3,7 +3,13 @@
  */
 package com.jeecg.basstudent.controller;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -49,6 +55,7 @@ public class basWXController extends BaseController {
 	private static final String Templateid_LO="SYi3dsdmvq7CUw3M3E0Mfl63xLl7wAo-4oJY5v126O0";
 	private static final String Templateid_WR="jqFKmBdfNU-KhMW4n36iBk5el3Qd_DPVtpvR5GRfDyM";
 	private static final String Templateid_NextUp="qDsUOPzKc93AjGAKNXDWItWyU0x4wM_q4zR6ME1AdT4";
+	private static final String Templateid_SK="2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc";
 	@Autowired
 	private SystemService systemService;
 	
@@ -70,7 +77,61 @@ public class basWXController extends BaseController {
         	System.out.println("接入失败!");
         }
     }
+	
+	//刷卡通知
+	@RequestMapping(params = "doSendTMessage_SK")
+	@ResponseBody
+	private int doSendTMessage_SK(String id) throws WexinReqException {
+		System.out.println("doSendTMessage_SK begging...");
+		
+		//response.addHeader("Access-Control-Allow-Origin", "*");
+		//response.setCharacterEncoding("utf-8");
+		
+		int ri=0;
+		String accessToken=wxutils.getAcctonken();
+		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
+		
+		String message = null;
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
+		//getData				
+		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bus_cardinfo a ");
+		sql.append("left join bas_student b on a.bc_cardno=b.bs_cardno ");
+		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
+		sql.append("Where c.bo_openid is not NULL AND a.id='"+id+"' ");
+		System.out.println("getData sql..."+";"+sql.toString());
+		
+		listTree = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
+			
+		for (Map<String, Object> o : listTree) {			
+			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
+			data.put("first", new TemplateData("尊敬的家长，你的小孩已刷卡。","#173177"));
+			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
+			data.put("keyword2", new TemplateData(o.get("bc_datetime").toString(),"#173177"));
+			data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
+			data.put("remark", new TemplateData("点击详情，可查看照片！","#173177"));
+			msgSend.setTemplate_id(Templateid_SK);
+			msgSend.setTouser(o.get("bo_openid").toString());
+			msgSend.setUrl(wxutils.basurl+"/page/imges/carding.jpg");
+			msgSend.setData(data);
+			try {
+				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+				message = "发送消息模板成功";
+				ri=1;
+			} catch (WexinReqException e) {
+				message = "发送消息模板失败";
+				ri=0;
+				e.printStackTrace();
+			}
+		}
+
+		//j.setMsg(message);
+		System.out.println("wxoputing..."+message+";"+accessToken);
+		return ri;
+	}	
+	
+/*
+	
 	//上车通知
 	@RequestMapping(params = "doSendTMessage_UP")
 	@ResponseBody
@@ -83,7 +144,7 @@ public class basWXController extends BaseController {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
 		//getData				
-		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bus_cardinfo a ");
+		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid,a.bc_photo from bus_cardinfo a ");
 		sql.append("left join bas_student b on a.bc_cardno=b.bs_cardno ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
 		sql.append("Where bc_sended=0 AND c.bo_openid is not NULL ");
@@ -102,7 +163,9 @@ public class basWXController extends BaseController {
 			data.put("remark", new TemplateData("点击详情，可查看上车照片！","#173177"));
 			msgSend.setTemplate_id(Templateid_UP);
 			msgSend.setTouser(o.get("bo_openid").toString());
-			msgSend.setUrl("https://www.baidu.com");
+			//System.out.println("bc_photo..."+o.get("bc_photo").toString());
+			//msgSend.setUrl("http://tdcq.natapp1.cc/schBusMIS/page/viewphoto.html?photo="+o.get("bc_photo").toString());
+			//msgSend.setUrl("<img src=" + mgstr + " />");
 			msgSend.setData(data);
 			try {
 				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
@@ -164,7 +227,7 @@ public class basWXController extends BaseController {
 		j.setMsg(message);
 		System.out.println("下车提醒..."+";"+message);
 		return j;
-	}	
+	}	*/
 	
 	//未上车提醒
 	@RequestMapping(params = "doSendTMessage_WR")
@@ -758,8 +821,7 @@ public class basWXController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT a.id,a.bc_name,a.bs_name,IFNULL(a.bs_cardno,'--')bs_cardno,IFNULL(b.bc_datetime,'--')bc_datetime,  ");
-		/*sql.append("case IFNULL(c.bl_begdate,'--') WHEN '--' then 'X' ELSE 'V' END bl_begdate  from bas_student a ");*/
+		StringBuffer sql = new StringBuffer("SELECT a.id,a.bc_name,a.bs_name,IFNULL(a.bs_cardno,'--')bs_cardno,max(IFNULL(b.bc_datetime,'--'))bc_datetime, ");
 		sql.append("case CONCAT( IFNULL(c.bl_begdate,'--'), IFNULL(b.bc_datetime,'--')) WHEN '----' then 'X' ELSE 'V' END bl_begdate  from bas_student a ");
 		sql.append("LEFT JOIN bus_cardinfo b on a.bs_cardno=b.bc_cardno ");
 		sql.append("AND b.bc_datetime<=date_add(sysdate(), interval 1 hour) ");
@@ -768,7 +830,7 @@ public class basWXController extends BaseController {
 		sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) ");
 		sql.append("AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour) ");		
 		sql.append("WHERE a.bl_sizeid='" + sizeoid + "' ");
-		sql.append("ORDER BY bc_datetime DESC,bl_begdate DESC ");
+		sql.append(" GROUP BY bs_cardno ORDER BY bl_begdate DESC,bc_datetime DESC ");
 		System.out.println("getcardlist sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
@@ -780,7 +842,7 @@ public class basWXController extends BaseController {
 	//新增刷卡信息
 	@RequestMapping(params = "iCardData")
 	@ResponseBody
-	private int iCardData(String cardno,HttpServletRequest request,HttpServletResponse response){
+	public int iCardData(String cardno,HttpServletRequest request,HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		UUID ID = UUID.randomUUID();
@@ -792,7 +854,96 @@ public class basWXController extends BaseController {
 
 		int sc = this.systemService.executeSql(sql.toString());
 		System.out.println("iCardData sql..." + ";" + sql.toString()+";"+String.valueOf(sc));
+		
+		
+		//推送消息
+		try {
+			this.doSendTMessage_SK(ID.toString());
+		} catch (WexinReqException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return sc;
 		
 	}
+	
+	
+	//接收文件
+	@RequestMapping(params = "uploadFile")
+	@ResponseBody
+	public void uploadFile(String fileName,HttpServletRequest request, HttpServletResponse response) throws IOException {
+		System.out.println("uploadFile begging..."+fileName );
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		InputStream is = request.getInputStream();
+		DataInputStream dis = new DataInputStream(is);
+
+		String result = "";
+		try {
+			result = saveFile(dis,fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "uploaderror";
+		}
+
+		request.getSession().invalidate();
+		response.setContentType("text/html;charset=UTF-8");
+		ObjectOutputStream dos = new ObjectOutputStream(response.getOutputStream());
+		dos.writeObject(result);
+		dos.flush();
+		dos.close();
+		dis.close();
+		is.close();
+	}
+
+	/**
+	 * 保存文件
+	 * 
+	 * @param dis
+	 * @return
+	 */
+	private String saveFile(DataInputStream dis,String fileName) {
+		//String fileurl = "D:/t/a001.png";
+		String fileurl = wxutils.storePath+fileName;
+		System.out.println("saveFile begging..."+fileurl );
+		File file = new File(fileurl);
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		FileOutputStream fps = null;
+		try {
+			fps = new FileOutputStream(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		int bufferSize = 1024;
+		byte[] buffer = new byte[bufferSize];
+		int length = -1;
+
+		try {
+			while ((length = dis.read(buffer)) != -1) {
+				fps.write(buffer, 0, length);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			fps.flush();
+			fps.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "success";
+	}
+	
+	
+	
+	
+	
+	
 }
