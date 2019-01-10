@@ -152,11 +152,18 @@ public class BasStudentLocationController extends BaseController {
 					}
 				}
 			} else {
-				// opendid是老师，默认300个学生
-				sql = "select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_locationinfo bl where  bs.bs_cardno= bl.bl_cardno";
+				// opendid是老师
+
+				sql = "SELECT bs.bs_name, bs.bs_cardno, bs.bs_deviceid";
+				sql += " FROM bas_student bs, bus_openid bo";
+				sql += " WHERE bs.id = bo.bs_studentid";
 				sql += " and bs.bc_id in (SELECT bc.id FROM bas_class bc ,t_s_base_user tu where bc.bc_personid=tu.id";
-				sql += " and tu.openid='" + sopenid + "'";
-				sql += " ) order by bl.bl_commdatetime desc) vw  limit 0,300";
+				sql += " and tu.openid='" + sopenid + "')";
+				List<Map<String, Object>> studentList = new ArrayList<Map<String, Object>>();
+				studentList = systemService.findForJdbc(sql);
+				List<Map<String, Object>> json = this.LocationsDevice(studentList);
+				request.setAttribute("locationList", json);
+				return new ModelAndView("com/jeecg/basstudent/basStudentLocationList");
 			}
 		} else {
 			sql = "select * from(SELECT bs.bs_name,bs.bs_cardno,bl.bl_longitude,bl_latitude,DATE_FORMAT(bl.bl_commdatetime,'%Y-%c-%d %H:%i')bl_commdatetime FROM bas_student bs ,bus_locationinfo bl where  bs.bs_cardno= bl.bl_cardno";
@@ -236,20 +243,21 @@ public class BasStudentLocationController extends BaseController {
 		}
 		return locationList;
 	}
-	
+
 	/**
 	 * 电子围栏（多人）
+	 * 
 	 * @param stuList
 	 * @return
 	 */
 	private List<Map<String, Object>> LocationsDevice(List<Map<String, Object>> stuList) {
-		String deviceid = "";
+		String deviceids = "";
 		for (Map<String, Object> o : stuList)
 			if (o.get("bs_deviceid").toString().length() > 0)
-				deviceid += o.get("bs_deviceid").toString()+",";
+				deviceids += o.get("bs_deviceid").toString() + ",";
 		// "ced25eff-6f2d-4733-a2de-63a0f07e447c,8c6e4b68-cbf5-4f79-918c-37563822ca1e";
-		
-		System.out.println("开始执行:" + deviceid);
+
+		System.out.println("开始执行:" + deviceids);
 		JSONObject json = new JSONObject();
 		List<Map<String, Object>> dataObject = new ArrayList<Map<String, Object>>();
 		String s1 = "RemoteUrlGets";
@@ -261,7 +269,7 @@ public class BasStudentLocationController extends BaseController {
 		// 开始远程访问
 		String requestUrl = "";
 		RequestLocationsDevice rlsd = new RequestLocationsDevice();
-		rlsd.setDEVICEIDS(deviceid);
+		rlsd.setDEVICEIDS(deviceids);
 		for (Map<String, Object> o : dataObject) {
 			if (s1.equals(o.get("cf_code").toString()))
 				requestUrl = o.get("cf_value").toString();
@@ -275,31 +283,37 @@ public class BasStudentLocationController extends BaseController {
 			json = HttpRequestPost.doPost(requestUrl, ob);
 			System.out.println(json.toString());
 
-			String[] deviceArray = deviceid.split(",");
-			net.sf.json.JSONArray array = net.sf.json.JSONArray.fromObject(json.get("result").toString());// 将json字符串转成json数组
+			for (Map<String, Object> k : stuList) {
+				String deviceid = k.get("bs_deviceid").toString();
+				if (json.toString().contains(deviceid)) {
+					System.out.println(deviceid);
+					net.sf.json.JSONArray array = net.sf.json.JSONArray.fromObject(json.get(deviceid).toString());// 将json字符串转成json数组
 
-			for (int i = 0; i < array.size(); i++) {// 循环json数组
-				JSONObject job = (JSONObject) array.get(i);// 得到json对象
+					for (int i = 0; i < array.size(); i++) {// 循环json数组
+						JSONObject job = (JSONObject) array.get(i);// 得到json对象
 
-				// 时间转换
-				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-				df.setTimeZone(TimeZone.getTimeZone("UTC"));
+						// 时间转换
+						SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+						df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-				Map<String, Object> oo = new HashMap<String, Object>();
-				oo.put("bs_name", "");
-				oo.put("bs_cardno", "");
-				oo.put("bs_deviceid", job.getString("deviceId"));
-				oo.put("bl_longitude", job.getString("gps_longitude"));
-				oo.put("bl_latitude", job.getString("gps_latitude"));
-				try {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-					oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+						Map<String, Object> oo = new HashMap<String, Object>();
+						oo.put("bs_name", "");
+						oo.put("bs_cardno", "");
+						oo.put("bs_deviceid", job.getString("deviceId"));
+						oo.put("bl_longitude", job.getString("gps_longitude"));
+						oo.put("bl_latitude", job.getString("gps_latitude"));
+						try {
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+							oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						locationList.add(oo);
+					}
 				}
-				locationList.add(oo);
 			}
+
 		}
 		return locationList;
 	}

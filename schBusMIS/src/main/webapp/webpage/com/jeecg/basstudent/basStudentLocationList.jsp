@@ -81,7 +81,7 @@ p {
 		//初始化地图函数  自定义函数名init
 		function init() {
 			//惠州经济职业技术学院
-			var center = new qq.maps.LatLng(23.0767700000, 114.4736200000);
+			var center = new qq.maps.LatLng(22.5333200000, 113.9304100000);
 			var map = new qq.maps.Map(document.getElementById("container"), {
 				center : center,
 				zoom : 13
@@ -103,11 +103,11 @@ p {
 					animation : qq.maps.MarkerAnimation.BOUNCE
 				});
 			}
-
 			else {
 				var marker = new qq.maps.Marker({
 					position : position,
-					map : map
+					map : map,
+					animation : qq.maps.MarkerAnimation.BOUNCE
 				});
 			}
 			i++;
