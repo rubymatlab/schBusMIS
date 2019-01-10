@@ -112,7 +112,7 @@ public class basWXController extends BaseController {
 			data.put("remark", new TemplateData("点击详情，可查看照片！","#173177"));
 			msgSend.setTemplate_id(Templateid_SK);
 			msgSend.setTouser(o.get("bo_openid").toString());
-			msgSend.setUrl(wxutils.basurl+"/page/imges/carding.jpg");
+			msgSend.setUrl(wxutils.basurl+"/photos/"+o.get("id").toString()+".png");
 			msgSend.setData(data);
 			try {
 				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
@@ -842,13 +842,13 @@ public class basWXController extends BaseController {
 	//新增刷卡信息
 	@RequestMapping(params = "iCardData")
 	@ResponseBody
-	public int iCardData(String cardno,HttpServletRequest request,HttpServletResponse response){
+	public int iCardData(String OID,String cardno,HttpServletRequest request,HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
-		UUID ID = UUID.randomUUID();
+		//UUID ID = UUID.randomUUID();
 		StringBuffer sql = new StringBuffer(
 				"INSERT INTO `bus_cardinfo` (`id`, `bc_cardno`, `bc_datetime`) ");
-		sql.append("VALUES ('" + ID + "','" + cardno + "',now() );");
+		sql.append("VALUES ('" + OID + "','" + cardno + "',now() );");
 
 		//System.out.println("iCardData sql..." + ";" + sql.toString());
 
@@ -858,7 +858,7 @@ public class basWXController extends BaseController {
 		
 		//推送消息
 		try {
-			this.doSendTMessage_SK(ID.toString());
+			this.doSendTMessage_SK(OID);
 		} catch (WexinReqException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
