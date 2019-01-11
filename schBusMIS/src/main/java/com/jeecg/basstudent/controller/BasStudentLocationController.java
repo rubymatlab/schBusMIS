@@ -225,20 +225,22 @@ public class BasStudentLocationController extends BaseController {
 				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
 				df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-				Map<String, Object> oo = new HashMap<String, Object>();
-				oo.put("bs_name", bs_name);
-				oo.put("bs_cardno", bs_cardno);
-				oo.put("bs_deviceid", job.getString("deviceId"));
-				oo.put("bl_longitude", job.getString("gps_longitude"));
-				oo.put("bl_latitude", job.getString("gps_latitude"));
-				try {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-					oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (job.has("deviceId")) {
+					Map<String, Object> oo = new HashMap<String, Object>();
+					oo.put("bs_name", bs_name);
+					oo.put("bs_cardno", bs_cardno);
+					oo.put("bs_deviceid", job.getString("deviceId"));
+					oo.put("bl_longitude", job.getString("gps_longitude"));
+					oo.put("bl_latitude", job.getString("gps_latitude"));
+					try {
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+						oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					locationList.add(oo);
 				}
-				locationList.add(oo);
 			}
 		}
 		return locationList;
@@ -296,20 +298,22 @@ public class BasStudentLocationController extends BaseController {
 						SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
 						df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-						Map<String, Object> oo = new HashMap<String, Object>();
-						oo.put("bs_name", "");
-						oo.put("bs_cardno", "");
-						oo.put("bs_deviceid", job.getString("deviceId"));
-						oo.put("bl_longitude", job.getString("gps_longitude"));
-						oo.put("bl_latitude", job.getString("gps_latitude"));
-						try {
-							SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-							oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						if (job.has("deviceId")) {
+							Map<String, Object> oo = new HashMap<String, Object>();
+							oo.put("bs_name", "");
+							oo.put("bs_cardno", "");
+							oo.put("bs_deviceid", job.getString("deviceId"));
+							oo.put("bl_longitude", job.getString("gps_longitude"));
+							oo.put("bl_latitude", job.getString("gps_latitude"));
+							try {
+								SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+								oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							locationList.add(oo);
 						}
-						locationList.add(oo);
 					}
 				}
 			}
