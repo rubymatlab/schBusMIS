@@ -271,7 +271,7 @@ public class basWXController extends BaseController {
 				ri=1;
 			} catch (WexinReqException e) {
 				message = "发送消息模板失败";
-				ri=0;
+				ri=-1;
 				e.printStackTrace();
 			}
 		}
@@ -322,12 +322,13 @@ public class basWXController extends BaseController {
 				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
 				//issendcard(o.get("id").toString());
 				message = "发送消息模板成功";
-				ri=1;
+				ri++;
 			} catch (WexinReqException e) {
 				message = "发送消息模板失败";
-				ri=0;
+				ri--;
 				e.printStackTrace();
 			}
+			
 		}
 
 		//j.setMsg(message);

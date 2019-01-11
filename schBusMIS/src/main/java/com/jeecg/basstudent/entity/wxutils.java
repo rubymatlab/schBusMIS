@@ -43,10 +43,13 @@ public class wxutils {
 	public static  String appid = "wx682cc2749a11f4c1";
 	public static  String appscret = "b369bb95659591a7b69f213b4ac5e390";*/
 	
-	public static  String basurl="http://tdcq.natapp1.cc/schBusMIS";	
+	public static  String basurl="http://tdcq.natapp1.cc/schBusMIS";
+	//public static  String basurl="http://47.107.237.130/schBusMIS";
+	//public static  String basurl="http://nubiolite.com/schBusMIS";
+	//public static  String storePath="D:/Programs/schBusMIS/code/schBusMIS/src/main/webapp/photos/";
+	public static  String storePath="C:/apache-tomcat-7.0.92-windows-x64/apache-tomcat-7.0.92/webapps/schBusMIS/photos/";
 	public static  String appid = "wx2968e71a3e302dab";
 	public static  String appscret = "fdca7717bdd31d4c52feb67d82d8f700";
-	public static  String storePath="D:/Programs/schBusMIS/code/schBusMIS/src/main/webapp/photos/";
 
 	private static final String token = "JYWX";
 	
