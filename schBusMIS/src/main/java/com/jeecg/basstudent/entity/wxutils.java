@@ -81,12 +81,13 @@ public class wxutils {
 			System.out.println("acctoken-->" + acctoken);
 
 			List<WeixinButton> button = new ArrayList<WeixinButton>();
-			List<WeixinButton> sub_button1 = new ArrayList<WeixinButton>();
+			
+			/*List<WeixinButton> sub_button1 = new ArrayList<WeixinButton>();
 			WeixinButton o1_s1 = new WeixinButton();
-/*			o1_s1.setType("view");
+			o1_s1.setType("view");
 			o1_s1.setName("我的线路");
 			o1_s1.setUrl(basurl+"/page/being_devloped.html");
-			sub_button1.add(o1_s1);*/
+			sub_button1.add(o1_s1);
 			o1_s1.setType("view");
 			o1_s1.setName("上车提醒");
 			o1_s1.setUrl(basurl+"/baswxcontroller.do?doSendTMessage_UP");
@@ -105,7 +106,7 @@ public class wxutils {
 			WeixinButton o1 = new WeixinButton();
 			o1.setName("消息测试");
 			o1.setSub_button(sub_button1);
-			button.add(o1);
+			button.add(o1);*/
 			//******************************//*
 			List<WeixinButton> sub_button2 = new ArrayList<WeixinButton>();
 			WeixinButton o2_s1 = new WeixinButton();
