@@ -1,35 +1,35 @@
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgdynamgraph.dao.core.CgDynamGraphDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormFieldDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormVersionDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.upload.CgFormUploadDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgreport.dao.core.CgReportDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.DepartAuthGroupDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.JeecgDictDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.demo.dao.JeecgMinidaoDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ImDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
-[2019-01-12 10:11:24] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
-[2019-01-12 10:11:25] [INFO] [com.alibaba.druid.pool.DruidDataSource:928] {dataSource-1} inited
-[2019-01-12 10:11:27] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
-[2019-01-12 10:11:29] [WARN] [net.sf.ehcache.config.CacheConfiguration:698] Cache 'foreverCache' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'foreverCache' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
-[2019-01-12 10:11:31] [INFO] [org.quartz.impl.StdSchedulerFactory:1208] Using default implementation for ThreadExecutor
-[2019-01-12 10:11:31] [INFO] [org.quartz.core.SchedulerSignalerImpl:61] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
-[2019-01-12 10:11:31] [INFO] [org.quartz.core.QuartzScheduler:229] Quartz Scheduler v.2.3.0 created.
-[2019-01-12 10:11:31] [INFO] [org.quartz.simpl.RAMJobStore:155] RAMJobStore initialized.
-[2019-01-12 10:11:31] [INFO] [org.quartz.core.QuartzScheduler:294] Scheduler meta-data: Quartz Scheduler (v2.3.0) 'schedulerFactory' with instanceId 'NON_CLUSTERED'
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormFieldDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormVersionDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.upload.CgFormUploadDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgreport.dao.core.CgReportDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.DepartAuthGroupDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.JeecgDictDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.demo.dao.JeecgMinidaoDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2019-01-13 15:05:48] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2019-01-13 15:05:49] [INFO] [com.alibaba.druid.pool.DruidDataSource:928] {dataSource-1} inited
+[2019-01-13 15:05:51] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2019-01-13 15:05:53] [WARN] [net.sf.ehcache.config.CacheConfiguration:698] Cache 'foreverCache' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'foreverCache' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
+[2019-01-13 15:05:55] [INFO] [org.quartz.impl.StdSchedulerFactory:1208] Using default implementation for ThreadExecutor
+[2019-01-13 15:05:55] [INFO] [org.quartz.core.SchedulerSignalerImpl:61] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-01-13 15:05:55] [INFO] [org.quartz.core.QuartzScheduler:229] Quartz Scheduler v.2.3.0 created.
+[2019-01-13 15:05:55] [INFO] [org.quartz.simpl.RAMJobStore:155] RAMJobStore initialized.
+[2019-01-13 15:05:55] [INFO] [org.quartz.core.QuartzScheduler:294] Scheduler meta-data: Quartz Scheduler (v2.3.0) 'schedulerFactory' with instanceId 'NON_CLUSTERED'
   Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
   NOT STARTED.
   Currently in standby mode.
@@ -37,13 +37,143 @@
   Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
   Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
 
-[2019-01-12 10:11:31] [INFO] [org.quartz.impl.StdSchedulerFactory:1362] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
-[2019-01-12 10:11:31] [INFO] [org.quartz.impl.StdSchedulerFactory:1366] Quartz scheduler version: 2.3.0
-[2019-01-12 10:11:31] [INFO] [org.quartz.core.QuartzScheduler:2287] JobFactory set to: org.jeecgframework.web.system.sms.util.JQuartzJobFactory@7bdaca7e
-[2019-01-12 10:11:32] [INFO] [org.jeecgframework.core.timer.DynamicTask:252]  register time task class num is [0] 
-[2019-01-12 10:11:34] [INFO] [org.jeecgframework.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
-[2019-01-12 10:11:34] [INFO] [org.quartz.core.QuartzScheduler:547] Scheduler schedulerFactory_$_NON_CLUSTERED started.
-[2019-01-12 10:11:35] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:180]   ------ 初始化字典组 【系统缓存】-----------typeGroupsList-----size: [41]
-[2019-01-12 10:11:35] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:181]   ------ 初始化字典 【系统缓存】-----------typesList-----size: [41]
-[2019-01-12 10:11:36] [INFO] [org.jeecgframework.web.system.service.impl.MutiLangServiceImpl:43]   ------ 初始化国际化语言【系统缓存】  ------ size: [1211] 
-[2019-01-12 10:11:36] [INFO] [org.jeecgframework.web.system.service.impl.DynamicDataSourceServiceImpl:41]   ------ 初始化动态数据源配置【系统缓存】---------size: [2] 
+[2019-01-13 15:05:55] [INFO] [org.quartz.impl.StdSchedulerFactory:1362] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2019-01-13 15:05:55] [INFO] [org.quartz.impl.StdSchedulerFactory:1366] Quartz scheduler version: 2.3.0
+[2019-01-13 15:05:55] [INFO] [org.quartz.core.QuartzScheduler:2287] JobFactory set to: org.jeecgframework.web.system.sms.util.JQuartzJobFactory@4759ff6
+[2019-01-13 15:05:56] [INFO] [org.jeecgframework.core.timer.DynamicTask:252]  register time task class num is [0] 
+[2019-01-13 15:05:58] [INFO] [org.jeecgframework.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2019-01-13 15:05:58] [INFO] [org.quartz.core.QuartzScheduler:547] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2019-01-13 15:05:59] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:180]   ------ 初始化字典组 【系统缓存】-----------typeGroupsList-----size: [41]
+[2019-01-13 15:05:59] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:181]   ------ 初始化字典 【系统缓存】-----------typesList-----size: [41]
+[2019-01-13 15:06:00] [INFO] [org.jeecgframework.web.system.service.impl.MutiLangServiceImpl:43]   ------ 初始化国际化语言【系统缓存】  ------ size: [1211] 
+[2019-01-13 15:06:01] [INFO] [org.jeecgframework.web.system.service.impl.DynamicDataSourceServiceImpl:41]   ------ 初始化动态数据源配置【系统缓存】---------size: [2] 
+[2019-01-13 15:08:44] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword1":{"color":"#FF0000","value":"朱工同学"},"keyword2":{"color":"#173177","value":"C线路港惠新天地"},"remark":{"color":"#173177","value":"以上信息，特警示！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩未上下车。"}},"template_id":"kGXSFqpuvH630taku6OV4VtdPPH0vAi9DzgVdRvt1ow","url":""}}
+[2019-01-13 15:08:44] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1hvXDot-IZbOAipsnVbav8U","data":{"keyword1":{"color":"#FF0000","value":"周同学"},"keyword2":{"color":"#173177","value":"C线路港惠新天地"},"remark":{"color":"#173177","value":"以上信息，特警示！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩未上下车。"}},"template_id":"kGXSFqpuvH630taku6OV4VtdPPH0vAi9DzgVdRvt1ow","url":""}}
+[2019-01-13 15:08:44] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633695640991727616}}
+[2019-01-13 15:08:44] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633695641948012545}}
+[2019-01-13 15:14:33] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1hvXDot-IZbOAipsnVbav8U","data":{"keyword1":{"color":"#FF0000","value":"周同学"},"remark":{"color":"#173177","value":"以上信息，特提醒！"},"first":{"color":"#173177","value":"尊敬的家长，我们的车即将到达[C线路港惠新天地]，请做好上车准备。"}},"template_id":"MzZ2TukHYSs2Hqop7MLtoPH2uKuGSmHUHzChPi1ODnw","url":""}}
+[2019-01-13 15:14:33] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633701499931099138}}
+[2019-01-13 15:14:33] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword1":{"color":"#FF0000","value":"朱工同学"},"remark":{"color":"#173177","value":"以上信息，特提醒！"},"first":{"color":"#173177","value":"尊敬的家长，我们的车即将到达[C线路港惠新天地]，请做好上车准备。"}},"template_id":"MzZ2TukHYSs2Hqop7MLtoPH2uKuGSmHUHzChPi1ODnw","url":""}}
+[2019-01-13 15:14:34] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633701507027845120}}
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormFieldDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormVersionDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.upload.CgFormUploadDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgreport.dao.core.CgReportDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.DepartAuthGroupDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.JeecgDictDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.demo.dao.JeecgMinidaoDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2019-01-13 15:21:11] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2019-01-13 15:21:12] [INFO] [com.alibaba.druid.pool.DruidDataSource:928] {dataSource-1} inited
+[2019-01-13 15:21:15] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2019-01-13 15:21:16] [WARN] [net.sf.ehcache.config.CacheConfiguration:698] Cache 'foreverCache' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'foreverCache' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
+[2019-01-13 15:21:17] [INFO] [org.quartz.impl.StdSchedulerFactory:1208] Using default implementation for ThreadExecutor
+[2019-01-13 15:21:17] [INFO] [org.quartz.core.SchedulerSignalerImpl:61] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-01-13 15:21:17] [INFO] [org.quartz.core.QuartzScheduler:229] Quartz Scheduler v.2.3.0 created.
+[2019-01-13 15:21:17] [INFO] [org.quartz.simpl.RAMJobStore:155] RAMJobStore initialized.
+[2019-01-13 15:21:17] [INFO] [org.quartz.core.QuartzScheduler:294] Scheduler meta-data: Quartz Scheduler (v2.3.0) 'schedulerFactory' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-01-13 15:21:17] [INFO] [org.quartz.impl.StdSchedulerFactory:1362] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2019-01-13 15:21:17] [INFO] [org.quartz.impl.StdSchedulerFactory:1366] Quartz scheduler version: 2.3.0
+[2019-01-13 15:21:17] [INFO] [org.quartz.core.QuartzScheduler:2287] JobFactory set to: org.jeecgframework.web.system.sms.util.JQuartzJobFactory@36093211
+[2019-01-13 15:21:19] [INFO] [org.jeecgframework.core.timer.DynamicTask:252]  register time task class num is [0] 
+[2019-01-13 15:21:21] [INFO] [org.jeecgframework.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2019-01-13 15:21:21] [INFO] [org.quartz.core.QuartzScheduler:547] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2019-01-13 15:21:22] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:180]   ------ 初始化字典组 【系统缓存】-----------typeGroupsList-----size: [41]
+[2019-01-13 15:21:22] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:181]   ------ 初始化字典 【系统缓存】-----------typesList-----size: [41]
+[2019-01-13 15:21:23] [INFO] [org.jeecgframework.web.system.service.impl.MutiLangServiceImpl:43]   ------ 初始化国际化语言【系统缓存】  ------ size: [1211] 
+[2019-01-13 15:21:23] [INFO] [org.jeecgframework.web.system.service.impl.DynamicDataSourceServiceImpl:41]   ------ 初始化动态数据源配置【系统缓存】---------size: [2] 
+[2019-01-13 15:21:50] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword1":{"color":"#FF0000","value":"朱工同学"},"keyword2":{"color":"#173177","value":"C线路港惠新天地"},"remark":{"color":"#173177","value":"以上信息，特警示！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩未刷卡。"}},"template_id":"adEMn2SjI_B3R_ckc9oqfDR7DPQ_t7znxiJxi9pSmoA","url":""}}
+[2019-01-13 15:21:50] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1hvXDot-IZbOAipsnVbav8U","data":{"keyword1":{"color":"#FF0000","value":"周同学"},"keyword2":{"color":"#173177","value":"C线路港惠新天地"},"remark":{"color":"#173177","value":"以上信息，特警示！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩未刷卡。"}},"template_id":"adEMn2SjI_B3R_ckc9oqfDR7DPQ_t7znxiJxi9pSmoA","url":""}}
+[2019-01-13 15:21:51] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633708840181202948}}
+[2019-01-13 15:21:51] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633708841389146114}}
+[2019-01-13 15:22:48] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1hvXDot-IZbOAipsnVbav8U","data":{"keyword1":{"color":"#FF0000","value":"周同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:22:48"},"remark":{"color":"#173177","value":"以上信息，特提醒！"},"first":{"color":"#173177","value":"尊敬的家长，我们的车即将到达[C线路港惠新天地]，请做好上车准备。"}},"template_id":"uocevTOp3GEooEc6AK0Me1Fk1shv4y8Uk0Gn5lIi9f8","url":""}}
+[2019-01-13 15:22:48] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633709808176234499}}
+[2019-01-13 15:22:48] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword1":{"color":"#FF0000","value":"朱工同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:22:48"},"remark":{"color":"#173177","value":"以上信息，特提醒！"},"first":{"color":"#173177","value":"尊敬的家长，我们的车即将到达[C线路港惠新天地]，请做好上车准备。"}},"template_id":"uocevTOp3GEooEc6AK0Me1Fk1shv4y8Uk0Gn5lIi9f8","url":""}}
+[2019-01-13 15:22:49] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633709815105208320}}
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgdynamgraph.dao.core.CgDynamGraphDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormFieldDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.config.CgFormVersionDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgform.dao.upload.CgFormUploadDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.cgreport.dao.core.CgReportDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.DepartAuthGroupDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { org.jeecgframework.web.system.dao.JeecgDictDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.demo.dao.JeecgMinidaoDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.mutiLang.dao.P3MutiLangDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.dict.dao.TSTypeDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.tag.select.table.dao.CustomTableDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.core.biz.dao.TSOperationDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.actInvite.dao.WxActInviteDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.auth.dao.JwSystemAuthDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderCustomDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderMainDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.domo.order.dao.JpDemoOrderProductDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ChatMessageHistoryDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.chat.dao.ImDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailAttachDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailJformInnerMailReceiverDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSBaseUserDao }
+[2019-01-13 15:23:47] [INFO] [org.jeecgframework.minidao.factory.MiniDaoClassPathMapperScanner:48] register minidao name is { com.jeecg.mail.dao.P3MailTSUserDao }
+[2019-01-13 15:23:48] [INFO] [com.alibaba.druid.pool.DruidDataSource:928] {dataSource-1} inited
+[2019-01-13 15:23:50] [WARN] [org.hibernate.id.UUIDHexGenerator:59] HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+[2019-01-13 15:23:51] [WARN] [net.sf.ehcache.config.CacheConfiguration:698] Cache 'foreverCache' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'foreverCache' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
+[2019-01-13 15:23:53] [INFO] [org.quartz.impl.StdSchedulerFactory:1208] Using default implementation for ThreadExecutor
+[2019-01-13 15:23:53] [INFO] [org.quartz.core.SchedulerSignalerImpl:61] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-01-13 15:23:53] [INFO] [org.quartz.core.QuartzScheduler:229] Quartz Scheduler v.2.3.0 created.
+[2019-01-13 15:23:53] [INFO] [org.quartz.simpl.RAMJobStore:155] RAMJobStore initialized.
+[2019-01-13 15:23:53] [INFO] [org.quartz.core.QuartzScheduler:294] Scheduler meta-data: Quartz Scheduler (v2.3.0) 'schedulerFactory' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-01-13 15:23:53] [INFO] [org.quartz.impl.StdSchedulerFactory:1362] Quartz scheduler 'schedulerFactory' initialized from an externally provided properties instance.
+[2019-01-13 15:23:53] [INFO] [org.quartz.impl.StdSchedulerFactory:1366] Quartz scheduler version: 2.3.0
+[2019-01-13 15:23:53] [INFO] [org.quartz.core.QuartzScheduler:2287] JobFactory set to: org.jeecgframework.web.system.sms.util.JQuartzJobFactory@768b48da
+[2019-01-13 15:23:54] [INFO] [org.jeecgframework.core.timer.DynamicTask:252]  register time task class num is [0] 
+[2019-01-13 15:23:56] [INFO] [org.jeecgframework.core.timer.DataBaseSchedulerFactoryBean:648] Starting Quartz Scheduler now
+[2019-01-13 15:23:56] [INFO] [org.quartz.core.QuartzScheduler:547] Scheduler schedulerFactory_$_NON_CLUSTERED started.
+[2019-01-13 15:23:57] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:180]   ------ 初始化字典组 【系统缓存】-----------typeGroupsList-----size: [41]
+[2019-01-13 15:23:57] [INFO] [org.jeecgframework.web.system.service.impl.SystemServiceImpl:181]   ------ 初始化字典 【系统缓存】-----------typesList-----size: [41]
+[2019-01-13 15:23:58] [INFO] [org.jeecgframework.web.system.service.impl.MutiLangServiceImpl:43]   ------ 初始化国际化语言【系统缓存】  ------ size: [1211] 
+[2019-01-13 15:23:59] [INFO] [org.jeecgframework.web.system.service.impl.DynamicDataSourceServiceImpl:41]   ------ 初始化动态数据源配置【系统缓存】---------size: [2] 
+[2019-01-13 15:24:39] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1hvXDot-IZbOAipsnVbav8U","data":{"keyword3":{"color":"#173177","value":"C线路港惠新天地"},"keyword1":{"color":"#FF0000","value":"周同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:24:39"},"remark":{"color":"#173177","value":"以上信息，特警示！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩未刷卡。"}},"template_id":"adEMn2SjI_B3R_ckc9oqfDR7DPQ_t7znxiJxi9pSmoA","url":""}}
+[2019-01-13 15:24:39] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword3":{"color":"#173177","value":"C线路港惠新天地"},"keyword1":{"color":"#FF0000","value":"朱工同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:24:39"},"remark":{"color":"#173177","value":"以上信息，特警示！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩未刷卡。"}},"template_id":"adEMn2SjI_B3R_ckc9oqfDR7DPQ_t7znxiJxi9pSmoA","url":""}}
+[2019-01-13 15:24:39] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633711662360592386}}
+[2019-01-13 15:24:39] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633711663417540610}}
+[2019-01-13 15:25:02] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1hvXDot-IZbOAipsnVbav8U","data":{"keyword1":{"color":"#FF0000","value":"周同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:25:02"},"remark":{"color":"#173177","value":"以上信息，特提醒！"},"first":{"color":"#173177","value":"尊敬的家长，我们的车即将到达[C线路港惠新天地]，请做好上车准备。"}},"template_id":"uocevTOp3GEooEc6AK0Me1Fk1shv4y8Uk0Gn5lIi9f8","url":""}}
+[2019-01-13 15:25:02] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633712048169451520}}
+[2019-01-13 15:25:02] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword1":{"color":"#FF0000","value":"朱工同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:25:02"},"remark":{"color":"#173177","value":"以上信息，特提醒！"},"first":{"color":"#173177","value":"尊敬的家长，我们的车即将到达[C线路港惠新天地]，请做好上车准备。"}},"template_id":"uocevTOp3GEooEc6AK0Me1Fk1shv4y8Uk0Gn5lIi9f8","url":""}}
+[2019-01-13 15:25:02] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633712056071503872}}
+[2019-01-13 15:26:40] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword3":{"color":"#173177","value":"C线路港惠新天地"},"keyword1":{"color":"#FF0000","value":"朱工同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:29:10"},"remark":{"color":"#173177","value":"点击详情，可查看照片！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩已刷卡。"}},"template_id":"2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc","url":"http://tdcq.natapp1.cc/schBusMIS/photos/fe9d569b-c09f-4cc5-bca7-e970795c9f35.png"}}
+[2019-01-13 15:26:40] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633713699064266753}}
+[2019-01-13 15:28:29] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword3":{"color":"#173177","value":"C线路港惠新天地"},"keyword1":{"color":"#FF0000","value":"朱工同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:30:58"},"remark":{"color":"#173177","value":"点击详情，可查看照片！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩已刷卡。"}},"template_id":"2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc","url":"http://tdcq.natapp1.cc/schBusMIS/photos/1f3a4f8b-40a8-4389-a2c9-9897c3f3fbf6.png"}}
+[2019-01-13 15:28:29] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633715519861964801}}
+[2019-01-13 15:31:40] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword3":{"color":"#173177","value":"C线路港惠新天地"},"keyword1":{"color":"#FF0000","value":"朱工同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:34:09"},"remark":{"color":"#173177","value":"点击详情，可查看照片！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩已刷卡。"}},"template_id":"2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc","url":"http://tdcq.natapp1.cc/schBusMIS/photos/5efd232c-c4f8-4ed8-b7cd-707da8586f81.png"}}
+[2019-01-13 15:31:40] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633718726004719616}}
+[2019-01-13 15:34:34] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:171] 发送模板消息方法执行前json参数 :{obj :{"touser":"oDV9S1uPSSiGJSBgM81-tGP99qvE","data":{"keyword3":{"color":"#173177","value":"C线路港惠新天地"},"keyword1":{"color":"#FF0000","value":"朱工同学"},"keyword2":{"color":"#173177","value":"2019-01-13 15:37:03"},"remark":{"color":"#173177","value":"点击详情，可查看照片！"},"first":{"color":"#173177","value":"尊敬的家长，你的小孩已刷卡。"}},"template_id":"2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc","url":"http://tdcq.natapp1.cc/schBusMIS/photos/bf8a6eca-6358-4519-b6a6-1902ddb0695f.png"}}
+[2019-01-13 15:34:34] [INFO] [org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI:179] 发送模板消息方法执行后json参数 :{result :{"errcode":0,"errmsg":"ok","msgid":633721646649589760}}

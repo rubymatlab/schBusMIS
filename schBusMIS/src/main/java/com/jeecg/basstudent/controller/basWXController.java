@@ -51,10 +51,10 @@ import net.sf.json.JSONObject;
 @RequestMapping("/baswxcontroller")
 public class basWXController extends BaseController {
 	
-	private static final String Templateid_UP="J_1DwXtF8IorKSmpxR3I2v_kb-rLykW4kb8-7E0RQpw";
-	private static final String Templateid_LO="SYi3dsdmvq7CUw3M3E0Mfl63xLl7wAo-4oJY5v126O0";
-	private static final String Templateid_WR="jqFKmBdfNU-KhMW4n36iBk5el3Qd_DPVtpvR5GRfDyM";
-	private static final String Templateid_NextUp="qDsUOPzKc93AjGAKNXDWItWyU0x4wM_q4zR6ME1AdT4";
+/*	private static final String Templateid_UP="J_1DwXtF8IorKSmpxR3I2v_kb-rLykW4kb8-7E0RQpw";
+	private static final String Templateid_LO="SYi3dsdmvq7CUw3M3E0Mfl63xLl7wAo-4oJY5v126O0";*/
+	private static final String Templateid_WR="adEMn2SjI_B3R_ckc9oqfDR7DPQ_t7znxiJxi9pSmoA";
+	private static final String Templateid_NextUp="uocevTOp3GEooEc6AK0Me1Fk1shv4y8Uk0Gn5lIi9f8";
 	private static final String Templateid_SK="2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc";
 	@Autowired
 	private SystemService systemService;
@@ -130,112 +130,17 @@ public class basWXController extends BaseController {
 		return ri;
 	}	
 	
-/*
-	
-	//上车通知
-	@RequestMapping(params = "doSendTMessage_UP")
-	@ResponseBody
-	public AjaxJson doSendTMessage_UP(HttpServletRequest request) throws WexinReqException {
-		String accessToken=wxutils.getAcctonken();
-		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
-		
-		String message = null;
-		AjaxJson j = new AjaxJson();
-		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
-		//getData				
-		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid,a.bc_photo from bus_cardinfo a ");
-		sql.append("left join bas_student b on a.bc_cardno=b.bs_cardno ");
-		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
-		sql.append("Where bc_sended=0 AND c.bo_openid is not NULL ");
-		sql.append("AND bc_datetime >=CONCAT(DATE_FORMAT(a.bc_datetime,'%Y-%m-%d'),' 07:00') ");
-		sql.append("AND bc_datetime <=CONCAT(DATE_FORMAT(a.bc_datetime,'%Y-%m-%d'),' 09:00') ");
-		//System.out.println("getDate sql..."+";"+sql.toString());
-		
-		listTree = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
-		
-		for (Map<String, Object> o : listTree) {			
-			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-			data.put("first", new TemplateData("尊敬的家长，你的小孩已刷卡上车。","#173177"));
-			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
-			data.put("keyword2", new TemplateData(o.get("bc_datetime").toString(),"#173177"));
-			data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
-			data.put("remark", new TemplateData("点击详情，可查看上车照片！","#173177"));
-			msgSend.setTemplate_id(Templateid_UP);
-			msgSend.setTouser(o.get("bo_openid").toString());
-			//System.out.println("bc_photo..."+o.get("bc_photo").toString());
-			//msgSend.setUrl("http://tdcq.natapp1.cc/schBusMIS/page/viewphoto.html?photo="+o.get("bc_photo").toString());
-			//msgSend.setUrl("<img src=" + mgstr + " />");
-			msgSend.setData(data);
-			try {
-				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
-				//issendcard(o.get("id").toString());
-				message = "发送消息模板成功";
-			} catch (WexinReqException e) {
-				message = "发送消息模板失败";
-				e.printStackTrace();
-			}
-		}
-
-		j.setMsg(message);
-		System.out.println("上车通知..."+";"+message);
-		return j;
-	}	
 	
-	//下车提醒
-	@RequestMapping(params = "doSendTMessage_LO")
-	@ResponseBody
-	public AjaxJson doSendTMessage_LO(HttpServletRequest request) throws WexinReqException {
-		String accessToken=wxutils.getAcctonken();
-		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
-		
-		String message = null;
-		AjaxJson j = new AjaxJson();
-		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-
-		//getData				
-		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bus_cardinfo a ");
-		sql.append("left join bas_student b on a.bc_cardno=b.bs_cardno ");
-		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
-		sql.append("Where bc_sended=0 AND c.bo_openid is not NULL ");
-		sql.append("AND bc_datetime >=CONCAT(DATE_FORMAT(a.bc_datetime,'%Y-%m-%d'),' 17:00') ");
-		sql.append("AND bc_datetime <=CONCAT(DATE_FORMAT(a.bc_datetime,'%Y-%m-%d'),' 19:00') ");
-		System.out.println("getDate sql..."+";"+sql.toString());
-		
-		listTree = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
-		
-		for (Map<String, Object> o : listTree) {			
-			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-			data.put("first", new TemplateData("尊敬的家长，你的小孩已刷卡下车。","#173177"));
-			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
-			data.put("keyword2", new TemplateData(o.get("bc_datetime").toString(),"#173177"));
-			data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
-			data.put("remark", new TemplateData("点击详情，可查看下车照片！","#173177"));
-			msgSend.setTemplate_id(Templateid_LO);
-			msgSend.setTouser(o.get("bo_openid").toString());
-			msgSend.setUrl("https://www.baidu.com");
-			msgSend.setData(data);
-			try {
-				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
-				//issendcard(o.get("id").toString());
-				message = "发送消息模板成功";
-			} catch (WexinReqException e) {
-				message = "发送消息模板失败";
-				e.printStackTrace();
-			}
-		}
-		j.setMsg(message);
-		System.out.println("下车提醒..."+";"+message);
-		return j;
-	}	*/
-	
-	//未上车提醒
+	//未上车提醒-->未刷卡通知
 	@RequestMapping(params = "doSendTMessage_WR")
 	@ResponseBody
 	public int doSendTMessage_WR(String id,HttpServletRequest request,HttpServletResponse response) throws WexinReqException {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
-		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		//System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+		 
 		int ri=0;
 		String accessToken=wxutils.getAcctonken();
 		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
@@ -255,9 +160,9 @@ public class basWXController extends BaseController {
 			
 		for (Map<String, Object> o : listTree) {			
 			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-			data.put("first", new TemplateData("尊敬的家长，你的小孩未上车。","#173177"));
+			data.put("first", new TemplateData("尊敬的家长，你的小孩未刷卡。","#173177"));
 			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
-			data.put("keyword2", new TemplateData("-----","#173177"));
+			data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));				//当前时间
 			data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
 			data.put("remark", new TemplateData("以上信息，特警示！","#173177"));
 			msgSend.setTemplate_id(Templateid_WR);
@@ -281,12 +186,14 @@ public class basWXController extends BaseController {
 		return ri;
 	}	
 	
-	//下一站上车提醒
+	//下一站上车提醒-->上车准备提醒
 	@RequestMapping(params = "doSendTMessage_NextUp")
 	@ResponseBody
 	public int doSendTMessage_NextUp(String sizeoid,HttpServletRequest request,HttpServletResponse response) throws WexinReqException {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		//System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
 		
 		int ri=0;
 		String accessToken=wxutils.getAcctonken();
@@ -310,9 +217,9 @@ public class basWXController extends BaseController {
 			
 		for (Map<String, Object> o : listTree) {			
 			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-			data.put("first", new TemplateData("尊敬的家长，我们的车尽将到达下一站，请做好上车准备。","#173177"));
+			data.put("first", new TemplateData("尊敬的家长，我们的车即将到达["+o.get("place").toString()+"]，请做好上车准备。","#173177"));
 			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
-			data.put("keyword2", new TemplateData(o.get("place").toString(),"#173177"));
+			data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));    //通知时间
 			data.put("remark", new TemplateData("以上信息，特提醒！","#173177"));
 			msgSend.setTemplate_id(Templateid_NextUp);
 			msgSend.setTouser(o.get("bo_openid").toString());
