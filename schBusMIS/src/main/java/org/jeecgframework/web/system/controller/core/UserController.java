@@ -527,6 +527,15 @@ public class UserController extends BaseController {
         cq.eq("deleteFlag", Globals.Delete_Normal);
         cq.eq("userType", Globals.USER_TYPE_SYSTEM);//用户列表不显示接口类型的用户
         
+        CriteriaQuery roleCq=new CriteriaQuery(TSRole.class);
+		roleCq.setProjection(Property.forName("id"));
+		roleCq.notEq("roleCode", "admin");
+		roleCq.add();
+        CriteriaQuery managerCq = new CriteriaQuery(TSRoleUser.class);
+        managerCq.setProjection(Property.forName("TSUser.id"));
+        managerCq.add(Property.forName("TSRole.id").in(roleCq.getDetachedCriteria()));
+        cq.add(Property.forName("id").in(managerCq.getDetachedCriteria()));
+        
         String orgIds = request.getParameter("orgIds");
         List<String> orgIdList = extractIdListByComma(orgIds);
         // 获取 当前组织机构的用户信息
