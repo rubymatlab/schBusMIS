@@ -863,6 +863,7 @@ public class UserController extends BaseController {
 		//查询条件组装器
 
 		cq.eq("roleType", OrgConstants.SYSTEM_ROLE_TYPE);//默认只查询系统角色
+		cq.notEq("roleCode", "admin");
 
 		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, tsRole);
 		this.systemService.getDataGridReturn(cq, true);
