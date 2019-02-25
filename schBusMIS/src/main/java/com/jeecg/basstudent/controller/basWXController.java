@@ -56,6 +56,7 @@ public class basWXController extends BaseController {
 	private static final String Templateid_WR="adEMn2SjI_B3R_ckc9oqfDR7DPQ_t7znxiJxi9pSmoA";
 	private static final String Templateid_NextUp="uocevTOp3GEooEc6AK0Me1Fk1shv4y8Uk0Gn5lIi9f8";
 	private static final String Templateid_SK="2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc";
+	private static final String Templateid_QryBusLoc="7_gJwIOoSclWvtUsgFTkTtGSHO-zuXHeO3978m2bPoA";
 	@Autowired
 	private SystemService systemService;
 	
@@ -243,7 +244,43 @@ public class basWXController extends BaseController {
 		return ri;
 	}	
 
+	//车辆实时位置查询
+	@RequestMapping(params = "doSendTMessage_QryBusLoc")
+	@ResponseBody
+	private void doSendTMessage_QryBusLoc(String lineName,String sizeName,String reDatetime,String openid) throws WexinReqException {
 
+		int ri=0;
+		String accessToken=wxutils.getAcctonken();
+		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
+		
+		String message = null;
+		
+		Map<String, TemplateData> data = new HashMap<String, TemplateData>();
+		data.put("first", new TemplateData("尊敬的家长，您所查询的车辆位置如下：","#173177"));
+		data.put("keyword1", new TemplateData(lineName,"#FF0000"));
+		data.put("keyword2", new TemplateData(sizeName,"#FF0000"));    	
+		data.put("keyword3", new TemplateData(reDatetime,"#173177"));    	
+		data.put("remark", new TemplateData("以上信息，请知悉！","#173177"));
+		msgSend.setTemplate_id(Templateid_QryBusLoc);
+		msgSend.setTouser(openid);
+
+		msgSend.setData(data);
+		try {
+			JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+			message = "发送消息模板成功";
+			ri++;
+		} catch (WexinReqException e) {
+			message = "发送消息模板失败";
+			ri--;
+			e.printStackTrace();
+		}
+			
+		//j.setMsg(message);
+		System.out.println("wxoputing..."+message+";"+accessToken);
+		//return ri;
+	}
+	
+	
 	//个人中心入口
 	@RequestMapping(params = "gopenid")
 	@ResponseBody
@@ -849,9 +886,64 @@ public class basWXController extends BaseController {
 		return "success";
 	}
 	
+	//查询车辆位置
+	@RequestMapping(params = "getBusloc")
+	@ResponseBody
+	public ModelAndView getBusloc(String code,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		String sopenid=wxutils.OAuthGetOpenid(code);
+		if(sopenid!=""){
+			String[] sc=new String[3];
+			sc=qryBusLoc(sopenid);
+			if (sc!=null){
+				try {
+					doSendTMessage_QryBusLoc(sc[0],sc[1],sc[2],sopenid);
+				} catch (WexinReqException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else{
+				try {
+					doSendTMessage_QryBusLoc("---","---","---",sopenid);
+				} catch (WexinReqException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		String url = "redirect:"+wxutils.basurl+"/page/msg.html"; 
+		System.out.println("url-->:"+url);
+		return new ModelAndView(url);		
+	}
 	
-	
-	
+	private String[] qryBusLoc(String openid){
+		String[] sc=new String[3];
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT a.bc_cardno,bc_datetime,b.bl_sizeid,b.bl_name,b.bl_size,c.bs_seq ");
+		sql.append(" from bus_cardinfo a ");
+		sql.append(" LEFT JOIN bas_student b ON a.bc_cardno=b.bs_cardno ");
+		sql.append(" LEFT JOIN bas_size c ON b.bl_sizeid=c.id ");
+		sql.append(" where bl_name=(SELECT b.bl_name ");
+		sql.append(" from bus_openid a LEFT JOIN bas_student b ON a.bs_studentid=b.id ");
+		sql.append(" WHERE a.bo_openid='"+openid+"') ");
+		sql.append(" order by c.bs_seq desc LIMIT 1 ");
+		System.out.println("qryBusLoc sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		if(listTree.size()==1){
+			sc[0]=listTree.get(0).get("bl_name").toString();
+			sc[1]=listTree.get(0).get("bl_size").toString();
+			sc[2]=listTree.get(0).get("bc_datetime").toString();			
+		}else{
+			sc=null;
+		}
+
+
+		return sc;	
+		
+	}
 	
 	
 }

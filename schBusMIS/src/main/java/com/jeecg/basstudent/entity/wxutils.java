@@ -54,6 +54,7 @@ public class wxutils {
 	private static final String token = "JYWX";
 	
 	private static final String openidurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/baswxcontroller.do?gopenid&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+	private static final String qrybusurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/baswxcontroller.do?getBusloc&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 	//地图地址openid
 	private static final String openidurlLocation = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/basStudentLocationController.do?list&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 	
@@ -112,10 +113,18 @@ public class wxutils {
 			WeixinButton o2_s1 = new WeixinButton();
 			o2_s1.setType("view");
 			o2_s1.setName("电子围栏");
-			//o2_s1.setKey("PostHere");
-			//o2_s1.setUrl(basurl+"/basStudentLocationController.do?list");
 			o2_s1.setUrl(openidurlLocation);
 			sub_button2.add(o2_s1);
+			WeixinButton o2_s2 = new WeixinButton();
+			o2_s2.setType("view");
+			o2_s2.setName("车辆位置");
+			o2_s2.setUrl(qrybusurl);
+			sub_button2.add(o2_s2);
+/*			WeixinButton o2_s3 = new WeixinButton();
+			o2_s3.setType("view");
+			o2_s3.setName("test");
+			o2_s3.setUrl("http://tdcq.natapp1.cc/schBusMIS/page/leave01.html");
+			sub_button2.add(o2_s3);	*/		
 			WeixinButton o2 = new WeixinButton();
 			o2.setName("位置");
 			o2.setSub_button(sub_button2);

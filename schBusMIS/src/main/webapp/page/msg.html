@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+        <link href="./css/mywx.css" rel="stylesheet" type="text/css" />
+        <link href="./css/weui.min.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+        <!-- <script src="./js/zepto.min.js"></script> -->
+        
+        <title>提示</title>
+    </head>
+    <body onload="closeWindow();">
+         <div class="weui_msg">
+            <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+                        <div class="weui_text_area">
+                <h2 class="weui_msg_title">查询成功</h2>  
+            </div>
+        </div>
+</body>
+<script type="text/javascript">
+function closeWindow(){
+	//alert('hi1');
+	//WeixinJSBridge.call('closeWindow');   // 关闭微信页面窗口
+	//WeixinJSBridge.call('closeWindow');
+	//wx.closeWindow();
+	//alert('hi');
+ 	//window.close();
+/* 	WeixinJSBridge.invoke('closeWindow',{},function(res){
+
+    alert(res.err_msg);
+
+	});	 */
+	//alert('hi');
+/* 	window.opener=null;
+	window.open('','_self');
+	window.close(); */
+	//history.back(-1);
+
+}
+</script>
+
+</html>
