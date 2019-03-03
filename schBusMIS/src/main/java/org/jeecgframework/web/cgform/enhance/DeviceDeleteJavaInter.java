@@ -14,17 +14,18 @@ import com.jeecg.basstudent.entity.HttpRequestPost;
 import com.jeecg.basstudent.entity.RequestDelDevice;
 
 import net.sf.json.JSONObject;
+
 @Service("DeleteDevice")
-public class DeviceDeleteJavaInter implements CgformEnhanceJavaInter {
-	
+public class DeviceDeleteJavaInter implements CgformEnhanceReturnJavaInter {
+
 	@Autowired
 	private SystemService systemService;
-	
-    @Override
-    public void execute(String tableName,Map map) throws BusinessException {
-    	LogUtil.info("============调用[java增强]成功!========tableName:"+tableName+"===map==="+map);
-    	
-    	String deviceid = map.get("bs_deviceid").toString();//"ced25eff-6f2d-4733-a2de-63a0f07e447c";
+
+	@Override
+	public JSONObject execute(String tableName, Map map) throws BusinessException {
+		LogUtil.info("============调用[java增强]成功!========tableName:" + tableName + "===map===" + map);
+
+		String deviceid = map.get("bs_deviceid").toString();// "ced25eff-6f2d-4733-a2de-63a0f07e447c";
 		System.out.println("开始执行:" + deviceid);
 		JSONObject json = new JSONObject();
 		List<Map<String, Object>> dataObject = new ArrayList<Map<String, Object>>();
@@ -54,13 +55,30 @@ public class DeviceDeleteJavaInter implements CgformEnhanceJavaInter {
 		if (requestUrl != "") {
 			JSONObject ob = JSONObject.fromObject(rdd);
 			json = HttpRequestPost.doPost(requestUrl, ob);
-			if(json.get("msg").toString().equals("1"))
-			{
+			if (json.get("msg").toString().equals("1")) {
 				StringBuffer updatesql = new StringBuffer(
-						"update bas_student set bs_deviceid=null ,bs_cardno=null where bs_deviceid='"+deviceid+"'");
+						"update bas_student set bs_deviceid=null ,bs_cardno=null where bs_deviceid='" + deviceid + "'");
 				this.systemService.executeSql(updatesql.toString());
 			}
+			if (json.getString("status").equals("1"))
+				json.put("msg", "解绑成功");
+			else {
+				if (json.getString("msg").equals("1"))
+					json.put("msg", "删除设备成功");
+				if (json.getString("msg").equals("2"))
+					json.put("msg", "用户不存在");
+				if (json.getString("msg").equals("3"))
+					json.put("msg", "设备不存在");
+				if (json.getString("msg").equals("4"))
+					json.put("msg", "用户没有这个设备");
+				if (json.getString("msg").equals("5"))
+					json.put("msg", "用户不允许删除设备");
+				else
+					json.put("msg", "设备为空或不存在，解绑不成功");
+			}
 			System.out.println(json.toString());
-		}
-    }
+		} else
+			json.put("msg", "物联网Iot远程url为空");
+		return json;
+	}
 }

@@ -25,6 +25,7 @@ import org.jeecgframework.minidao.util.FreemarkerParseFactory;
 import org.jeecgframework.web.cgform.common.CgAutoListConstant;
 import org.jeecgframework.web.cgform.common.CommUtils;
 import org.jeecgframework.web.cgform.enhance.CgformEnhanceJavaInter;
+import org.jeecgframework.web.cgform.enhance.CgformEnhanceReturnJavaInter;
 import org.jeecgframework.web.cgform.entity.button.CgformButtonSqlEntity;
 import org.jeecgframework.web.cgform.entity.config.CgFormFieldEntity;
 import org.jeecgframework.web.cgform.entity.config.CgFormHeadEntity;
@@ -40,6 +41,8 @@ import org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrem
 import org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import net.sf.json.JSONObject;
 
 
 /**
@@ -737,6 +740,13 @@ public class DataBaseServiceImpl extends CommonServiceImpl implements DataBaseSe
 						javaInter.execute(head.getTableName(),data);
 
 					}
+					if(obj instanceof CgformEnhanceReturnJavaInter){
+
+						CgFormHeadEntity head = this.get(CgFormHeadEntity.class, formId);
+						CgformEnhanceReturnJavaInter javaReturnInter = (CgformEnhanceReturnJavaInter) obj;
+						JSONObject json=javaReturnInter.execute(head.getTableName(),data);
+
+					}
 				} catch (Exception e) {
 					logger.error(e.getMessage());
 					e.printStackTrace();
@@ -745,6 +755,42 @@ public class DataBaseServiceImpl extends CommonServiceImpl implements DataBaseSe
 			}
 
 		}
+	}
+	
+	/**
+	 * 执行JAVA增强实现类
+	 */
+	@Override
+	public JSONObject executeJavaReturnExtend(String formId, String buttonCode,Map<String, Object> data) throws BusinessException{
+		CgformEnhanceJavaEntity cgformEnhanceJavaEntity = getCgformEnhanceJavaEntityByCodeFormId(buttonCode,formId);
+		JSONObject json=new JSONObject();
+		if(cgformEnhanceJavaEntity!=null){
+			String cgJavaType = cgformEnhanceJavaEntity.getCgJavaType();
+			String cgJavaValue = cgformEnhanceJavaEntity.getCgJavaValue();
+
+			if(StringUtil.isNotEmpty(cgJavaValue)){
+				Object obj = null;
+				try {
+					if("class".equals(cgJavaType)){
+						//因新增时已经校验了实例化是否可以成功，所以这块就不需要再做一次判断
+						obj = MyClassLoader.getClassByScn(cgJavaValue).newInstance();
+					}else if("spring".equals(cgJavaType)){
+						obj = ApplicationContextUtil.getContext().getBean(cgJavaValue);
+					}
+					if(obj instanceof CgformEnhanceReturnJavaInter){
+						CgFormHeadEntity head = this.get(CgFormHeadEntity.class, formId);
+						CgformEnhanceReturnJavaInter javaReturnInter = (CgformEnhanceReturnJavaInter) obj;
+						json=javaReturnInter.execute(head.getTableName(),data);
+					}
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+					e.printStackTrace();
+					throw new BusinessException("执行JAVA增强出现异常！");
+				} 
+			}
+
+		}
+		return json;
 	}
 	
 	public CgformEnhanceJavaEntity getCgformEnhanceJavaEntityByCodeFormId(String buttonCode, String formId) {

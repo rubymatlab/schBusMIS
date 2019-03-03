@@ -53,6 +53,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import net.sf.json.JSONObject;
 
 /**
  * @ClassName: formBuildController
@@ -682,6 +683,7 @@ public class CgFormBuildController extends BaseController {
 			String tableName = request.getParameter("tableName");
 			String id = request.getParameter("id");
 			Map<String,Object> data  = dataBaseService.findOneForJdbc(tableName, id);
+			message = "操作成功";
 			if(data!=null){
 				//打印测试
 			    Iterator it=data.entrySet().iterator();
@@ -693,12 +695,16 @@ public class CgFormBuildController extends BaseController {
 			    }
 				data = CommUtils.mapConvert(data);
 				dataBaseService.executeSqlExtend(formId, buttonCode, data);
-
-				dataBaseService.executeJavaExtend(formId, buttonCode, data);
-
+				//针对校车管理添加设备绑定
+				if(buttonCode.contains("Device"))
+				{
+					JSONObject json=dataBaseService.executeJavaReturnExtend(formId, buttonCode, data);
+					message=json.getString("msg");
+				}
+				else
+					dataBaseService.executeJavaExtend(formId, buttonCode, data);
 			}
 			j.setSuccess(true);
-			message = "操作成功";
 			logger.info("["+IpUtil.getIpAddr(request)+"][online表单自定义按钮action触发]"+message+"表名："+tableName);
 		} catch (Exception e) {
 			e.printStackTrace();
