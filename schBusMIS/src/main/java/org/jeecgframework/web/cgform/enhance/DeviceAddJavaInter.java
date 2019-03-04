@@ -26,7 +26,7 @@ public class DeviceAddJavaInter implements CgformEnhanceReturnJavaInter {
 	public JSONObject execute(String tableName, Map map) throws BusinessException {
 		LogUtil.info("============调用[java增强]成功!========tableName:" + tableName + "===map===" + map);
 
-		String imei = map.get("bs_cardno").toString();// "M6//jDTq/0mKKk+Jelx9Dg==";
+		String imei = map.get("bs_imei").toString();// "M6//jDTq/0mKKk+Jelx9Dg==";
 
 		JSONObject json = new JSONObject();
 		List<Map<String, Object>> dataObject = new ArrayList<Map<String, Object>>();
