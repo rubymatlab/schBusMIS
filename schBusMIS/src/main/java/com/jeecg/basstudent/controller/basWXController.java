@@ -39,6 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jeecg.basstudent.entity.WeixinUserInfo;
 import com.jeecg.basstudent.entity.wxutils;
+import com.sun.star.awt.Size;
 
 import net.sf.json.JSONObject;
 
@@ -195,52 +196,63 @@ public class basWXController extends BaseController {
 		response.setCharacterEncoding("utf-8");
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		//System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-		
 		int ri=0;
-		String accessToken=wxutils.getAcctonken();
-		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
 		
-		String message = null;
-		//AjaxJson j = new AjaxJson();
-		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-
-		//getData				
-		StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,CONCAT(bl_name,bl_size)as place,b.bo_openid from bas_student a ");
-		sql.append("left join bus_openid b on a.id=b.bs_studentid ");
-		sql.append("LEFT JOIN bus_leave c ON a.id=c.bl_studentid ");
-		sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour)  ");	
-		sql.append("WHERE a.bl_sizeid='" + sizeoid + "' ");
-		sql.append("AND a.bs_cardno is not NULL and c.bl_begdate is NULL AND b.bo_openid is not NULL ");
-		sql.append("ORDER BY id ");
-		System.out.println("doSendTMessage_NextUp sql..."+";"+sql.toString());
-		
-		listTree = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
+		//根据站点oid判断是上车线路还是下车线路？1:上学;2:放学
+		int lt=getSizeIsUporDown(sizeoid);		
+		//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
+		int lt1=getSizeIsBorE(sizeoid);
+		if((lt!=1)&&(lt1!=0)){
+			//放学+下车不发送信息
+			System.out.println("doSendTMessage_NextUp...未发送");
+		}else{	
 			
-		for (Map<String, Object> o : listTree) {			
-			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-			data.put("first", new TemplateData("尊敬的家长，我们的车即将到达["+o.get("place").toString()+"]，请做好上车准备。","#173177"));
-			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
-			data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));    //通知时间
-			data.put("remark", new TemplateData("以上信息，特提醒！","#173177"));
-			msgSend.setTemplate_id(Templateid_NextUp);
-			msgSend.setTouser(o.get("bo_openid").toString());
-
-			msgSend.setData(data);
-			try {
-				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
-				//issendcard(o.get("id").toString());
-				message = "发送消息模板成功";
-				ri++;
-			} catch (WexinReqException e) {
-				message = "发送消息模板失败";
-				ri--;
-				e.printStackTrace();
+			String accessToken=wxutils.getAcctonken();
+			TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
+			
+			String message = null;
+			//AjaxJson j = new AjaxJson();
+			List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+	
+			//getData				
+			StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,CONCAT(bl_name,bl_size)as place,b.bo_openid from bas_student a ");
+			sql.append("left join bus_openid b on a.id=b.bs_studentid ");
+			sql.append("LEFT JOIN bus_leave c ON a.id=c.bl_studentid ");
+			sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour)  ");	
+			sql.append("WHERE a.bl_sizeid='" + sizeoid + "' ");
+			sql.append("AND a.bs_cardno is not NULL and c.bl_begdate is NULL AND b.bo_openid is not NULL ");
+			sql.append("ORDER BY id ");
+			System.out.println("doSendTMessage_NextUp sql..."+";"+sql.toString());
+			
+			listTree = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
+				
+			for (Map<String, Object> o : listTree) {			
+				Map<String, TemplateData> data = new HashMap<String, TemplateData>();
+				data.put("first", new TemplateData("尊敬的家长，我们的车即将到达["+o.get("place").toString()+"]，请做好上车准备。","#173177"));
+				data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
+				data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));    //通知时间
+				data.put("remark", new TemplateData("以上信息，特提醒！","#173177"));
+				msgSend.setTemplate_id(Templateid_NextUp);
+				msgSend.setTouser(o.get("bo_openid").toString());
+	
+				msgSend.setData(data);
+				try {
+					JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+					//issendcard(o.get("id").toString());
+					message = "发送消息模板成功";
+					ri++;
+				} catch (WexinReqException e) {
+					message = "发送消息模板失败";
+					ri--;
+					e.printStackTrace();
+				}
+				
 			}
-			
+			System.out.println("doSendTMessage_NextUp..."+message+";"+accessToken);
 		}
-
+		
 		//j.setMsg(message);
-		System.out.println("wxoputing..."+message+";"+accessToken);
+		
 		return ri;
 	}	
 
@@ -726,7 +738,7 @@ public class basWXController extends BaseController {
 		return listTree;				
 	}	
 		
-	//根据登录者，获取其管理的线路下所有站点
+	//根据登录者，获取其管理的线路下所有站点(未使用)
 	@RequestMapping(params = "getstudentlist")
 	@ResponseBody	
 	public List<Map<String, Object>> getstudentlist(String userid,HttpServletRequest request,HttpServletResponse response){
@@ -751,7 +763,7 @@ public class basWXController extends BaseController {
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 		StringBuffer sql = new StringBuffer("SELECT a.id,CONCAT(bl_name, bl_desc) as linename,bs_name FROM bas_size a LEFT JOIN bas_line b ON a.fk_bl_id=b.id ");
-		sql.append("WHERE b.id='" + lineid + "' ORDER BY bs_desc");
+		sql.append("WHERE b.id='" + lineid + "' ORDER BY bs_seq");
 		System.out.println("getsizelist sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
@@ -765,35 +777,110 @@ public class basWXController extends BaseController {
 	public List<Map<String, Object>> getcardlist(String sizeoid,HttpServletRequest request,HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
+		//根据站点oid判断是上车线路还是下车线路？1:上学;2:放学
+		int lt=getSizeIsUporDown(sizeoid);
+		
+		//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
+		int lt1=getSizeIsBorE(sizeoid);
+		
+		
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT a.id,a.bc_name,a.bs_name,IFNULL(a.bs_cardno,'--')bs_cardno,max(IFNULL(b.bc_datetime,'--'))bc_datetime, ");
-		sql.append("case CONCAT( IFNULL(c.bl_begdate,'--'), IFNULL(b.bc_datetime,'--')) WHEN '----' then 'X' ELSE 'V' END bl_begdate  from bas_student a ");
-		sql.append("LEFT JOIN bus_cardinfo b on a.bs_cardno=b.bc_cardno ");
-		sql.append("AND b.bc_datetime<=date_add(sysdate(), interval 1 hour) ");
-		sql.append("AND b.bc_datetime>=date_sub(sysdate(), interval 1 hour) ");
-		sql.append("LEFT JOIN bus_leave c ON a.id=c.bl_studentid ");
-		sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) ");
-		sql.append("AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour) ");		
-		sql.append("WHERE a.bl_sizeid='" + sizeoid + "' ");
-		sql.append(" GROUP BY bs_cardno ORDER BY bl_begdate DESC,bc_datetime DESC ");
+		StringBuffer sql = new StringBuffer();
+		if (lt1==0){  //普通站点 +当天的刷卡时间+当前站点
+			if (lt==1){	//上学
+				sql.append(" SELECT id,bc_name,bs_name,bs_cardno,'--' bc_datetime,'--'bl_begdate ");
+				sql.append(" from bas_student where bl_sizeid='" + sizeoid + "' ");
+				sql.append(" And bs_cardno not in( ");
+				sql.append(" select bc_cardno from bus_cardinfo where size_oid='" + sizeoid + "'  ");
+				sql.append(" and size_status=0 and to_days(bc_datetime) = to_days(now())) ");
+			
+			}else if(lt==2){
+				sql.append(" SELECT id,bc_name,bs_name,bs_cardno,'--' bc_datetime,'--'bl_begdate ");
+				sql.append(" from bas_student where bl_sizeid1='" + sizeoid + "'");
+				sql.append(" and bs_cardno in(");
+				sql.append(" select bc_cardno from bus_cardinfo where size_oid=(");
+				sql.append(" select id from bas_size ");
+				sql.append(" where fk_bl_id =(select fk_bl_id from bas_size where id='" + sizeoid + "')");
+				sql.append(" and size_status=1) and to_days(bc_datetime) = to_days(now()) )");
+				sql.append(" AND bs_cardno not in (select bc_cardno from bus_cardinfo where size_oid='" + sizeoid + "' and size_status=0 ");
+				sql.append(" AND to_days(bc_datetime) = to_days(now()) )");	
+			}			
+		}else if (lt1==1){	
+			if (lt==1){	//终点下车				
+				sql.append("SELECT A1.* from ( ");
+				sql.append(" SELECT DISTINCT b.id,b.bc_name,b.bs_name,IFNULL(b.bs_cardno,'--')as bs_cardno,'--' bc_datetime,'--'bl_begdate from bus_cardinfo A ");
+				sql.append(" LEFT JOIN bas_student b  on b.bs_cardno=a.bc_cardno");
+				sql.append(" where size_oid in(");
+				sql.append(" select id from bas_size ");
+				sql.append(" where fk_bl_id =(select fk_bl_id from bas_size where id='" + sizeoid + "' ))");
+				sql.append(" and size_status=0 AND to_days(bc_datetime) = to_days(now())) A1 ");
+				sql.append(" WHERE A1.bs_cardno NOT IN(");
+				sql.append(" SELECT bc_cardno from bus_cardinfo Where size_status=1 AND to_days(bc_datetime) = to_days(now()))");				
+			}else if (lt==2){	//起点上车
+				sql.append("select id,bc_name,bs_name,bs_cardno,'--' bc_datetime,'--'bl_begdate ");
+				sql.append(" from bas_student where bl_sizeid1 in( ");
+				sql.append(" select id from bas_size  ");
+				sql.append(" where fk_bl_id =(select fk_bl_id from bas_size where id='" + sizeoid + "')) ");
+				sql.append(" AND id not in( ");
+				sql.append(" select bl_studentid from bus_leave where to_days(bl_begdate) = to_days(now())) ");
+				sql.append(" AND bs_cardno not in( ");
+				sql.append(" SELECT bc_cardno from bus_cardinfo where size_oid ='" + sizeoid + "'  ");
+				sql.append(" AND  size_status=1 AND to_days(bc_datetime) = to_days(now())) ");				
+			}
+			
+		}
+		
+			
 		System.out.println("getcardlist sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
 
 		return listTree;				
 	}	
+	//根据站点oid判断是上车线路还是下车线路？1:上学;2:放学
+	private int getSizeIsUporDown(String sizeoid){
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT IFNULL(line_status,0) as t from bas_line a  LEFT JOIN bas_size b on a.id=b.fk_bl_id ");
+		sql.append("WHERE b.id='" + sizeoid + "'");
+
+		System.out.println("getSizeIsUporDown sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("t").toString();
+
+		return Integer.parseInt(sc);			
+	}
+	//根据站点oid判断是上车(下车)还是普通站点 	0普通站点;1上学下车/放学上车
+	private int getSizeIsBorE(String sizeoid){
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer();
+		sql.append("select IFNULL(size_status,0)as t from bas_size ");
+		sql.append("WHERE id='" + sizeoid + "'");
+
+		System.out.println("getSizeIsBorE sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("t").toString();
+
+		return Integer.parseInt(sc);			
+	}	
+	
 	
 	
 	//新增刷卡信息
 	@RequestMapping(params = "iCardData")
 	@ResponseBody
-	public int iCardData(String OID,String cardno,HttpServletRequest request,HttpServletResponse response){
+	public int iCardData(String OID,String cardno,String sizeoid,HttpServletRequest request,HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
+		//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
+		int lt1=getSizeIsBorE(sizeoid);
+		
 		//UUID ID = UUID.randomUUID();
 		StringBuffer sql = new StringBuffer(
-				"INSERT INTO `bus_cardinfo` (`id`, `bc_cardno`, `bc_datetime`) ");
-		sql.append("VALUES ('" + OID + "','" + cardno + "',now() );");
+				"INSERT INTO `bus_cardinfo` (`id`, `bc_cardno`, `bc_datetime`, `size_oid`,`size_status`) ");
+		sql.append("VALUES ('" + OID + "','" + cardno + "',now(),'"+sizeoid+"','"+lt1+"' );");
 
 		//System.out.println("iCardData sql..." + ";" + sql.toString());
 
@@ -942,6 +1029,7 @@ public class basWXController extends BaseController {
 
 
 		return sc;	
+		
 		
 	}
 	
