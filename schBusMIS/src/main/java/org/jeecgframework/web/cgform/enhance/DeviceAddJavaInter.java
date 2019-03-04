@@ -55,7 +55,7 @@ public class DeviceAddJavaInter implements CgformEnhanceReturnJavaInter {
 			json = HttpRequestPost.doPost(requestUrl, ob);
 			if (json.get("msg").toString().equals("1")) {
 				StringBuffer updatesql = new StringBuffer("update bas_student set bs_deviceid='"
-						+ json.get("deviceid").toString() + "' where bs_cardno='" + imei + "'");
+						+ json.get("deviceid").toString() + "' where bs_imei='" + imei + "'");
 				this.systemService.executeSql(updatesql.toString());
 			}
 			if (json.getString("status").equals("1"))
