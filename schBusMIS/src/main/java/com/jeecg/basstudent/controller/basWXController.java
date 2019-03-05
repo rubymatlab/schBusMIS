@@ -56,6 +56,7 @@ public class basWXController extends BaseController {
 	private static final String Templateid_LO="SYi3dsdmvq7CUw3M3E0Mfl63xLl7wAo-4oJY5v126O0";*/
 	private static final String Templateid_WR="adEMn2SjI_B3R_ckc9oqfDR7DPQ_t7znxiJxi9pSmoA";
 	private static final String Templateid_NextUp="uocevTOp3GEooEc6AK0Me1Fk1shv4y8Uk0Gn5lIi9f8";
+	private static final String Templateid_NextDw="7gNUN4ACrn0bogzgtnSQHWfjTMvCR57J7iaR05_OnqU";
 	private static final String Templateid_SK="2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc";
 	private static final String Templateid_QryBusLoc="7_gJwIOoSclWvtUsgFTkTtGSHO-zuXHeO3978m2bPoA";
 	@Autowired
@@ -83,11 +84,25 @@ public class basWXController extends BaseController {
 	//刷卡通知
 	@RequestMapping(params = "doSendTMessage_SK")
 	@ResponseBody
-	private int doSendTMessage_SK(String id) throws WexinReqException {
+	private int doSendTMessage_SK(String id,String sizeoid) throws WexinReqException {
 		System.out.println("doSendTMessage_SK begging...");
 		
 		//response.addHeader("Access-Control-Allow-Origin", "*");
 		//response.setCharacterEncoding("utf-8");
+		
+		//根据站点oid判断是上车线路还是下车线路？1:上学;2:放学
+		int lt=getSizeIsUporDown(sizeoid);
+		String place="";
+		if (lt==1){
+			place="b.bl_name,bl_size";
+		}else if(lt==2){
+			place="b.bl_name1,bl_size1";
+		}else{
+			//
+		}
+		//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
+		int lt1=getSizeIsBorE(sizeoid);
+		
 		
 		int ri=0;
 		String accessToken=wxutils.getAcctonken();
@@ -96,8 +111,9 @@ public class basWXController extends BaseController {
 		String message = null;
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
-		//getData				
-		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bus_cardinfo a ");
+		//getData	
+		
+		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT("+place+")as place ,c.bo_openid from bus_cardinfo a ");
 		sql.append("left join bas_student b on a.bc_cardno=b.bs_cardno ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
 		sql.append("Where c.bo_openid is not NULL AND a.id='"+id+"' ");
@@ -110,7 +126,19 @@ public class basWXController extends BaseController {
 			data.put("first", new TemplateData("尊敬的家长，你的小孩已刷卡。","#173177"));
 			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
 			data.put("keyword2", new TemplateData(o.get("bc_datetime").toString(),"#173177"));
-			data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
+			if(lt1==0){
+				data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
+			}else if(lt1==1){
+				if(lt==1){
+					data.put("keyword3", new TemplateData("上学终点下车","#173177"));
+				}else if(lt==2){
+					data.put("keyword3", new TemplateData("放学起点上车","#173177"));
+				}else{
+					data.put("keyword3", new TemplateData("--","#173177"));
+				}
+			}else{
+				data.put("keyword3", new TemplateData("--","#173177"));
+			}
 			data.put("remark", new TemplateData("点击详情，可查看照片！","#173177"));
 			msgSend.setTemplate_id(Templateid_SK);
 			msgSend.setTouser(o.get("bo_openid").toString());
@@ -137,12 +165,23 @@ public class basWXController extends BaseController {
 	//未上车提醒-->未刷卡通知
 	@RequestMapping(params = "doSendTMessage_WR")
 	@ResponseBody
-	public int doSendTMessage_WR(String id,HttpServletRequest request,HttpServletResponse response) throws WexinReqException {
+	public int doSendTMessage_WR(String id,String sizeoid,HttpServletRequest request,HttpServletResponse response) throws WexinReqException {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		//System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-		 
+		int lt=getSizeIsUporDown(sizeoid);
+		String place="";
+		if (lt==1){
+			place="b.bl_name,bl_size";
+		}else if(lt==2){
+			place="b.bl_name1,bl_size1";
+		}else{
+			//
+		}	
+		//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
+		int lt1=getSizeIsBorE(sizeoid);
+				
 		int ri=0;
 		String accessToken=wxutils.getAcctonken();
 		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
@@ -152,7 +191,7 @@ public class basWXController extends BaseController {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
 		//getData				
-		StringBuffer sql = new StringBuffer("SELECT b.id, b.bs_name,CONCAT(b.bl_name,bl_size)as place ,c.bo_openid from bas_student b ");
+		StringBuffer sql = new StringBuffer("SELECT b.id, b.bs_name,CONCAT("+place+")as place ,c.bo_openid from bas_student b ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
 		sql.append("Where c.bo_openid is not NULL ");
 		sql.append("AND b.id='"+id+"'");
@@ -165,7 +204,20 @@ public class basWXController extends BaseController {
 			data.put("first", new TemplateData("尊敬的家长，你的小孩未刷卡。","#173177"));
 			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
 			data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));				//当前时间
-			data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
+			if(lt1==0){
+				data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
+			}else if(lt1==1){
+				if(lt==1){
+					data.put("keyword3", new TemplateData("上学终点下车","#173177"));
+				}else if(lt==2){
+					data.put("keyword3", new TemplateData("放学起点上车","#173177"));
+				}else{
+					data.put("keyword3", new TemplateData("--","#173177"));
+				}
+			}else{
+				data.put("keyword3", new TemplateData("--","#173177"));
+			}
+			
 			data.put("remark", new TemplateData("以上信息，特警示！","#173177"));
 			msgSend.setTemplate_id(Templateid_WR);
 			msgSend.setTouser(o.get("bo_openid").toString());
@@ -199,7 +251,21 @@ public class basWXController extends BaseController {
 		int ri=0;
 		
 		//根据站点oid判断是上车线路还是下车线路？1:上学;2:放学
-		int lt=getSizeIsUporDown(sizeoid);		
+		int lt=getSizeIsUporDown(sizeoid);	
+		String place="";
+		String place1="";
+		String templateidType="";
+		if (lt==1){
+			place="a.bl_name,bl_size";
+			place1="a.bl_sizeid";
+			templateidType=Templateid_NextUp;
+		}else if(lt==2){
+			place="a.bl_name1,bl_size1";
+			place1="a.bl_sizeid1";
+			templateidType=Templateid_NextDw;
+		}else{
+			//
+		}	
 		//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
 		int lt1=getSizeIsBorE(sizeoid);
 		if((lt!=1)&&(lt1!=0)){
@@ -215,11 +281,11 @@ public class basWXController extends BaseController {
 			List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 	
 			//getData				
-			StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,CONCAT(bl_name,bl_size)as place,b.bo_openid from bas_student a ");
+			StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,CONCAT("+place+")as place,b.bo_openid from bas_student a ");
 			sql.append("left join bus_openid b on a.id=b.bs_studentid ");
 			sql.append("LEFT JOIN bus_leave c ON a.id=c.bl_studentid ");
 			sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour)  ");	
-			sql.append("WHERE a.bl_sizeid='" + sizeoid + "' ");
+			sql.append("WHERE "+place1+"='" + sizeoid + "' ");
 			sql.append("AND a.bs_cardno is not NULL and c.bl_begdate is NULL AND b.bo_openid is not NULL ");
 			sql.append("ORDER BY id ");
 			System.out.println("doSendTMessage_NextUp sql..."+";"+sql.toString());
@@ -228,11 +294,11 @@ public class basWXController extends BaseController {
 				
 			for (Map<String, Object> o : listTree) {			
 				Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-				data.put("first", new TemplateData("尊敬的家长，我们的车即将到达["+o.get("place").toString()+"]，请做好上车准备。","#173177"));
+				data.put("first", new TemplateData("尊敬的家长，我们的车即将到达["+o.get("place").toString()+"]，请做好接送准备。","#173177"));
 				data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
 				data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));    //通知时间
 				data.put("remark", new TemplateData("以上信息，特提醒！","#173177"));
-				msgSend.setTemplate_id(Templateid_NextUp);
+				msgSend.setTemplate_id(templateidType);
 				msgSend.setTouser(o.get("bo_openid").toString());
 	
 				msgSend.setData(data);
@@ -792,7 +858,7 @@ public class basWXController extends BaseController {
 				sql.append(" from bas_student where bl_sizeid='" + sizeoid + "' ");
 				sql.append(" And bs_cardno not in( ");
 				sql.append(" select bc_cardno from bus_cardinfo where size_oid='" + sizeoid + "'  ");
-				sql.append(" and size_status=0 and to_days(bc_datetime) = to_days(now())) ");
+				sql.append(" and size_status=0 and to_days(bc_datetime) = to_days(now())) AND bs_cardno is not null");
 			
 			}else if(lt==2){
 				sql.append(" SELECT id,bc_name,bs_name,bs_cardno,'--' bc_datetime,'--'bl_begdate ");
@@ -803,7 +869,7 @@ public class basWXController extends BaseController {
 				sql.append(" where fk_bl_id =(select fk_bl_id from bas_size where id='" + sizeoid + "')");
 				sql.append(" and size_status=1) and to_days(bc_datetime) = to_days(now()) )");
 				sql.append(" AND bs_cardno not in (select bc_cardno from bus_cardinfo where size_oid='" + sizeoid + "' and size_status=0 ");
-				sql.append(" AND to_days(bc_datetime) = to_days(now()) )");	
+				sql.append(" AND to_days(bc_datetime) = to_days(now()) ) AND bs_cardno is not null");	
 			}			
 		}else if (lt1==1){	
 			if (lt==1){	//终点下车				
@@ -815,7 +881,7 @@ public class basWXController extends BaseController {
 				sql.append(" where fk_bl_id =(select fk_bl_id from bas_size where id='" + sizeoid + "' ))");
 				sql.append(" and size_status=0 AND to_days(bc_datetime) = to_days(now())) A1 ");
 				sql.append(" WHERE A1.bs_cardno NOT IN(");
-				sql.append(" SELECT bc_cardno from bus_cardinfo Where size_status=1 AND to_days(bc_datetime) = to_days(now()))");				
+				sql.append(" SELECT bc_cardno from bus_cardinfo Where size_status=1 AND to_days(bc_datetime) = to_days(now())) AND bs_cardno is not null");				
 			}else if (lt==2){	//起点上车
 				sql.append("select id,bc_name,bs_name,bs_cardno,'--' bc_datetime,'--'bl_begdate ");
 				sql.append(" from bas_student where bl_sizeid1 in( ");
@@ -825,7 +891,7 @@ public class basWXController extends BaseController {
 				sql.append(" select bl_studentid from bus_leave where to_days(bl_begdate) = to_days(now())) ");
 				sql.append(" AND bs_cardno not in( ");
 				sql.append(" SELECT bc_cardno from bus_cardinfo where size_oid ='" + sizeoid + "'  ");
-				sql.append(" AND  size_status=1 AND to_days(bc_datetime) = to_days(now())) ");				
+				sql.append(" AND  size_status=1 AND to_days(bc_datetime) = to_days(now())) AND bs_cardno is not null");				
 			}
 			
 		}
@@ -890,7 +956,7 @@ public class basWXController extends BaseController {
 		
 		//推送消息
 		try {
-			this.doSendTMessage_SK(OID);
+			this.doSendTMessage_SK(OID,sizeoid);
 		} catch (WexinReqException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
