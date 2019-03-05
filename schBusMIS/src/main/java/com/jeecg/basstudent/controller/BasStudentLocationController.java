@@ -1,6 +1,7 @@
 package com.jeecg.basstudent.controller;
 
 import com.jeecg.basstudent.entity.BasStudentLocationEntity;
+import com.jeecg.basstudent.entity.ConvertionUtils;
 import com.jeecg.basstudent.entity.HttpRequestPost;
 import com.jeecg.basstudent.entity.RequestLocationDevice;
 import com.jeecg.basstudent.entity.RequestLocationsDevice;
@@ -230,8 +231,9 @@ public class BasStudentLocationController extends BaseController {
 					oo.put("bs_name", bs_name);
 					oo.put("bs_cardno", bs_cardno);
 					oo.put("bs_deviceid", job.getString("deviceId"));
-					oo.put("bl_longitude", job.getString("gps_longitude"));
-					oo.put("bl_latitude", job.getString("gps_latitude"));
+					double[] clearLocation=ConvertionUtils.getClear(ob.getString("gps_latitude"), job.getString("gps_longitude"));
+					oo.put("bl_latitude", clearLocation[0]);
+					oo.put("bl_longitude", clearLocation[1]);
 					try {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
 						oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));

@@ -68,11 +68,11 @@ public class DeviceAddJavaInter implements CgformEnhanceReturnJavaInter {
 				if (json.getString("msg").equals("3"))
 					json.put("msg", "设备不存在");
 				if (json.getString("msg").equals("4"))
-					json.put("msg", "用户已添加了这个设备");
+					json.put("msg", "用户已添加了这个加密卡号");
 				if (json.getString("msg").equals("5"))
-					json.put("msg", "设备已被其它人绑定");
+					json.put("msg", "加密卡号已被其它人绑定");
 				else
-					json.put("msg", "设备为空或已被绑定，绑定不成功");
+					json.put("msg", "加密卡号为空或已被绑定，绑定不成功");
 			}
 			System.out.println(json.toString());
 		} else

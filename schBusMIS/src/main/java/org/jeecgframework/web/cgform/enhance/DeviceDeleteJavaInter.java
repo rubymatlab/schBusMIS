@@ -70,11 +70,11 @@ public class DeviceDeleteJavaInter implements CgformEnhanceReturnJavaInter {
 				if (json.getString("msg").equals("3"))
 					json.put("msg", "设备不存在");
 				if (json.getString("msg").equals("4"))
-					json.put("msg", "用户没有这个设备");
+					json.put("msg", "用户没有这个加密卡号");
 				if (json.getString("msg").equals("5"))
-					json.put("msg", "用户不允许删除设备");
+					json.put("msg", "用户不允许删除加密卡号");
 				else
-					json.put("msg", "设备为空或不存在，解绑不成功");
+					json.put("msg", "加密卡号为空或不存在，解绑不成功");
 			}
 			System.out.println(json.toString());
 		} else
