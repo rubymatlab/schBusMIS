@@ -231,7 +231,7 @@ public class BasStudentLocationController extends BaseController {
 					oo.put("bs_name", bs_name);
 					oo.put("bs_cardno", bs_cardno);
 					oo.put("bs_deviceid", job.getString("deviceId"));
-					double[] clearLocation=ConvertionUtils.getClear(ob.getString("gps_latitude"), job.getString("gps_longitude"));
+					double[] clearLocation=ConvertionUtils.getClear(job.getString("gps_latitude"), job.getString("gps_longitude"));
 					oo.put("bl_latitude", clearLocation[0]);
 					oo.put("bl_longitude", clearLocation[1]);
 					try {
@@ -305,8 +305,9 @@ public class BasStudentLocationController extends BaseController {
 							oo.put("bs_name", "");
 							oo.put("bs_cardno", "");
 							oo.put("bs_deviceid", job.getString("deviceId"));
-							oo.put("bl_longitude", job.getString("gps_longitude"));
-							oo.put("bl_latitude", job.getString("gps_latitude"));
+							double[] clearLocation=ConvertionUtils.getClear(job.getString("gps_latitude"), job.getString("gps_longitude"));
+							oo.put("bl_latitude", clearLocation[0]);
+							oo.put("bl_longitude", clearLocation[1]);
 							try {
 								SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
 								oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
