@@ -81,16 +81,27 @@ p {
 		//初始化地图函数  自定义函数名init
 		function init() {
 			//惠州经济职业技术学院
-			var center = new qq.maps.LatLng(22.5333200000, 113.9304100000);
+			var centerJ = 0;
+			var center = null;
+			<c:forEach items="${locationList}" var="item">
+			if (centerJ == 0) {
+				center = new qq.maps.LatLng("${item.bl_latitude}",
+						"${item.bl_longitude}");
+			}
+			centerJ++;
+			</c:forEach>
+			if (centerJ == 0)
+				center = new qq.maps.LatLng(22.5333200000, 113.9304100000);
+			
 			var map = new qq.maps.Map(document.getElementById("container"), {
 				center : center,
 				zoom : 13
 			});
-			var cirle = new qq.maps.Circle({
+			/* var cirle = new qq.maps.Circle({
 				center : center,
 				radius : 2000,
 				map : map
-			});
+			}); */
 
 			var i = 0;
 			<c:forEach items="${locationList}" var="item">
@@ -102,8 +113,7 @@ p {
 					map : map,
 					animation : qq.maps.MarkerAnimation.BOUNCE
 				});
-			}
-			else {
+			} else {
 				var marker = new qq.maps.Marker({
 					position : position,
 					map : map,
