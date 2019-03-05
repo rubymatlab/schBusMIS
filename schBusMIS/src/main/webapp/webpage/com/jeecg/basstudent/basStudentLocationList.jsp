@@ -84,11 +84,15 @@ p {
 			var centerJ = 0;
 			var center = null;
 			<c:forEach items="${locationList}" var="item">
-			if (centerJ == 0) {
-				center = new qq.maps.LatLng("${item.bl_latitude}",
-						"${item.bl_longitude}");
-			}
-			centerJ++;
+				<c:if test="${item.bl_latitude>0 }">
+					<c:if test="${item.bl_longitude>0 }">
+					if (centerJ == 0) {
+						center = new qq.maps.LatLng("${item.bl_latitude}",
+								"${item.bl_longitude}");
+					}
+					centerJ++;
+					</c:if>
+				</c:if>
 			</c:forEach>
 			if (centerJ == 0)
 				center = new qq.maps.LatLng(22.5333200000, 113.9304100000);
@@ -105,34 +109,38 @@ p {
 
 			var i = 0;
 			<c:forEach items="${locationList}" var="item">
-			var position = new qq.maps.LatLng("${item.bl_latitude}",
-					"${item.bl_longitude}");
-			if (i == 0) {
-				var marker = new qq.maps.Marker({
-					position : position,
-					map : map,
-					animation : qq.maps.MarkerAnimation.BOUNCE
-				});
-			} else {
-				var marker = new qq.maps.Marker({
-					position : position,
-					map : map,
-					animation : qq.maps.MarkerAnimation.BOUNCE
-				});
-			}
-			i++;
-			var label = new qq.maps.Label({
-				//如果为true，表示可点击，默认true。
-				clickable : true,
-				position : position,
-				//标签的文本。
-				content : '${item.bs_name} ${item.bl_commdatetime}打卡',
-				//显示标签的地图。
-				map : map,
-				//如果为true，表示标签可见，默认为true。
-				visible : true
-
-			});
+				<c:if test="${item.bl_latitude>0 }">
+					<c:if test="${item.bl_longitude>0 }">
+						var position = new qq.maps.LatLng("${item.bl_latitude}",
+								"${item.bl_longitude}");
+						if (i == 0) {
+							var marker = new qq.maps.Marker({
+								position : position,
+								map : map,
+								animation : qq.maps.MarkerAnimation.BOUNCE
+							});
+						} else {
+							var marker = new qq.maps.Marker({
+								position : position,
+								map : map,
+								animation : qq.maps.MarkerAnimation.BOUNCE
+							});
+						}
+						i++;
+						var label = new qq.maps.Label({
+							//如果为true，表示可点击，默认true。
+							clickable : true,
+							position : position,
+							//标签的文本。
+							content : '${item.bs_name} ${item.bl_commdatetime}打卡',
+							//显示标签的地图。
+							map : map,
+							//如果为true，表示标签可见，默认为true。
+							visible : true
+			
+						});
+					</c:if>
+				</c:if>
 			</c:forEach>
 
 			//惠州东江沙公园

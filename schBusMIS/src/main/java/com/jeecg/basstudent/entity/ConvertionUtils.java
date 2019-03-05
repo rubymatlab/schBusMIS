@@ -5,6 +5,8 @@ public class ConvertionUtils {
 
 	public static double[] getClear(String la,String lo)
 	{
+		la=la.replace(".", "");
+		lo=lo.replace(".", "");
 		double[] sl = gps84_To_Gcj02(convertToDegree(trm(la)), convertToDegree(trm(lo)));// 坐标系转换成高德坐标系
 		return sl;
 	}

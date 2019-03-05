@@ -145,8 +145,9 @@ public class BasStudentLocationController extends BaseController {
 				sql += " AND bo.bo_openid = '" + sopenid + "'";
 				List<Map<String, Object>> studentList = new ArrayList<Map<String, Object>>();
 				studentList = systemService.findForJdbc(sql);
+				System.out.println(sql);
 				for (Map<String, Object> stu : studentList) {
-					if (stu.get("bs_deviceid").toString().length() > 0) {
+					if (stu.get("bs_deviceid")!=null) {
 						List<Map<String, Object>> json = this.LocationDevice(stu);
 						request.setAttribute("locationList", json);
 						return new ModelAndView("com/jeecg/basstudent/basStudentLocationList");
