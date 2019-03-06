@@ -15,7 +15,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>电子围栏</title>
+<title>学生位置</title>
 <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 
 
@@ -83,6 +83,7 @@ p {
 			//惠州经济职业技术学院
 			var centerJ = 0;
 			var center = null;
+			var content="";
 			<c:forEach items="${locationList}" var="item">
 				<c:if test="${item.bl_latitude>0 }">
 					<c:if test="${item.bl_longitude>0 }">
@@ -90,6 +91,7 @@ p {
 						center = new qq.maps.LatLng("${item.bl_latitude}",
 								"${item.bl_longitude}");
 					}
+					content+="${item.bs_name} ${item.bl_commdatetime}<br/>";
 					centerJ++;
 					</c:if>
 				</c:if>
@@ -101,30 +103,45 @@ p {
 				center : center,
 				zoom : 13
 			});
-			/* var cirle = new qq.maps.Circle({
-				center : center,
-				radius : 2000,
-				map : map
-			}); */
+			//提示框
+			var infoWin = new qq.maps.InfoWindow({
+				map: map
+			});
 
 			var i = 0;
+			
 			<c:forEach items="${locationList}" var="item">
 				<c:if test="${item.bl_latitude>0 }">
 					<c:if test="${item.bl_longitude>0 }">
 						var position = new qq.maps.LatLng("${item.bl_latitude}",
 								"${item.bl_longitude}");
+						
 						if (i == 0) {
 							var marker = new qq.maps.Marker({
 								position : position,
 								map : map,
 								animation : qq.maps.MarkerAnimation.BOUNCE
 							});
+							//提示框
+							qq.maps.event.addListener(marker, 'click', function() {
+				                infoWin.open();
+				                infoWin.setContent('<div style="text-align:center;white-space:'+
+				                'nowrap;margin:4px;"> ' +content+ '</div>');
+				                infoWin.setPosition(position);
+				            });
 						} else {
 							var marker = new qq.maps.Marker({
 								position : position,
 								map : map,
 								animation : qq.maps.MarkerAnimation.BOUNCE
 							});
+							//提示框
+							qq.maps.event.addListener(marker, 'click', function() {
+				                infoWin.open();
+				                infoWin.setContent('<div style="text-align:center;white-space:'+
+				                'nowrap;margin:4px;"> ' +content+ '</div>');
+				                infoWin.setPosition(position);
+				            });
 						}
 						i++;
 						var label = new qq.maps.Label({
@@ -132,7 +149,7 @@ p {
 							clickable : true,
 							position : position,
 							//标签的文本。
-							content : '${item.bs_name} ${item.bl_commdatetime}打卡',
+							content : '${item.bs_name} ${item.bl_commdatetime}',
 							//显示标签的地图。
 							map : map,
 							//如果为true，表示标签可见，默认为true。
@@ -142,6 +159,8 @@ p {
 					</c:if>
 				</c:if>
 			</c:forEach>
+			
+
 
 			//惠州东江沙公园
 			/* var marker = new qq.maps.Marker({

@@ -237,7 +237,7 @@ public class BasStudentLocationController extends BaseController {
 					oo.put("bl_latitude", clearLocation[0]);
 					oo.put("bl_longitude", clearLocation[1]);
 					try {
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
@@ -305,15 +305,15 @@ public class BasStudentLocationController extends BaseController {
 
 							if (job.has("deviceId")) {
 								Map<String, Object> oo = new HashMap<String, Object>();
-								oo.put("bs_name", "");
-								oo.put("bs_cardno", "");
+								oo.put("bs_name", k.get("bs_name"));
+								oo.put("bs_cardno", k.get("bs_cardno"));
 								oo.put("bs_deviceid", job.getString("deviceId"));
 								double[] clearLocation = ConvertionUtils.getClear(job.getString("gps_latitude"),
 										job.getString("gps_longitude"));
 								oo.put("bl_latitude", clearLocation[0]);
 								oo.put("bl_longitude", clearLocation[1]);
 								try {
-									SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+									SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 									oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
 								} catch (ParseException e) {
 									// TODO Auto-generated catch block
