@@ -258,7 +258,7 @@ public class BasStudentLocationController extends BaseController {
 	private List<Map<String, Object>> LocationsDevice(List<Map<String, Object>> stuList) {
 		String deviceids = "";
 		for (Map<String, Object> o : stuList)
-			if (o.get("bs_deviceid").toString().length() > 0)
+			if (o.get("bs_deviceid")!=null)
 				deviceids += o.get("bs_deviceid").toString() + ",";
 		// "ced25eff-6f2d-4733-a2de-63a0f07e447c,8c6e4b68-cbf5-4f79-918c-37563822ca1e";
 
