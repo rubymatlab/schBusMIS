@@ -147,7 +147,7 @@ public class BasStudentLocationController extends BaseController {
 				studentList = systemService.findForJdbc(sql);
 				System.out.println(sql);
 				for (Map<String, Object> stu : studentList) {
-					if (stu.get("bs_deviceid")!=null) {
+					if (stu.get("bs_deviceid") != null) {
 						List<Map<String, Object>> json = this.LocationDevice(stu);
 						request.setAttribute("locationList", json);
 						return new ModelAndView("com/jeecg/basstudent/basStudentLocationList");
@@ -232,7 +232,8 @@ public class BasStudentLocationController extends BaseController {
 					oo.put("bs_name", bs_name);
 					oo.put("bs_cardno", bs_cardno);
 					oo.put("bs_deviceid", job.getString("deviceId"));
-					double[] clearLocation=ConvertionUtils.getClear(job.getString("gps_latitude"), job.getString("gps_longitude"));
+					double[] clearLocation = ConvertionUtils.getClear(job.getString("gps_latitude"),
+							job.getString("gps_longitude"));
 					oo.put("bl_latitude", clearLocation[0]);
 					oo.put("bl_longitude", clearLocation[1]);
 					try {
@@ -258,7 +259,7 @@ public class BasStudentLocationController extends BaseController {
 	private List<Map<String, Object>> LocationsDevice(List<Map<String, Object>> stuList) {
 		String deviceids = "";
 		for (Map<String, Object> o : stuList)
-			if (o.get("bs_deviceid")!=null)
+			if (o.get("bs_deviceid") != null)
 				deviceids += o.get("bs_deviceid").toString() + ",";
 		// "ced25eff-6f2d-4733-a2de-63a0f07e447c,8c6e4b68-cbf5-4f79-918c-37563822ca1e";
 
@@ -289,34 +290,37 @@ public class BasStudentLocationController extends BaseController {
 			System.out.println(json.toString());
 
 			for (Map<String, Object> k : stuList) {
-				String deviceid = k.get("bs_deviceid").toString();
-				if (json.toString().contains(deviceid)) {
-					System.out.println(deviceid);
-					net.sf.json.JSONArray array = net.sf.json.JSONArray.fromObject(json.get(deviceid).toString());// 将json字符串转成json数组
+				if (k.get("bs_deviceid") != null) {
+					String deviceid = k.get("bs_deviceid").toString();
+					if (json.toString().contains(deviceid)) {
+						System.out.println(deviceid);
+						net.sf.json.JSONArray array = net.sf.json.JSONArray.fromObject(json.get(deviceid).toString());// 将json字符串转成json数组
 
-					for (int i = 0; i < array.size(); i++) {// 循环json数组
-						JSONObject job = (JSONObject) array.get(i);// 得到json对象
+						for (int i = 0; i < array.size(); i++) {// 循环json数组
+							JSONObject job = (JSONObject) array.get(i);// 得到json对象
 
-						// 时间转换
-						SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-						df.setTimeZone(TimeZone.getTimeZone("UTC"));
+							// 时间转换
+							SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+							df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-						if (job.has("deviceId")) {
-							Map<String, Object> oo = new HashMap<String, Object>();
-							oo.put("bs_name", "");
-							oo.put("bs_cardno", "");
-							oo.put("bs_deviceid", job.getString("deviceId"));
-							double[] clearLocation=ConvertionUtils.getClear(job.getString("gps_latitude"), job.getString("gps_longitude"));
-							oo.put("bl_latitude", clearLocation[0]);
-							oo.put("bl_longitude", clearLocation[1]);
-							try {
-								SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-								oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+							if (job.has("deviceId")) {
+								Map<String, Object> oo = new HashMap<String, Object>();
+								oo.put("bs_name", "");
+								oo.put("bs_cardno", "");
+								oo.put("bs_deviceid", job.getString("deviceId"));
+								double[] clearLocation = ConvertionUtils.getClear(job.getString("gps_latitude"),
+										job.getString("gps_longitude"));
+								oo.put("bl_latitude", clearLocation[0]);
+								oo.put("bl_longitude", clearLocation[1]);
+								try {
+									SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+									oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
+								} catch (ParseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								locationList.add(oo);
 							}
-							locationList.add(oo);
 						}
 					}
 				}
