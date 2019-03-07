@@ -22,12 +22,12 @@
     var begin = new Date();
     var end = new Date();
     //new Date(begin.setMonth((new Date().getMonth() - 1)));
-    new Date(begin.setDate((new Date().getDate() - 1)));
+    new Date(begin.setDate((new Date().getDate() +1)));
 /*    var begintime = begin.format("yyyy-MM-dd");
     var endtime = end.format("yyyy-MM-dd");
     $('#begb').val(begintime);
     $('#bege').val(endtime);*/
-    var begintime = begin.format("yyyy-MM-dd hh:mm");
+    var begintime = begin.format("yyyy-MM-dd");
     //var endtime = end.format("yyyy-MM-dd hh:mm");
     $('#begb').val(begintime);
     //$('#bege').val(endtime);
@@ -47,10 +47,11 @@ function getUrl() {
 	//var bege=document.getElementById('bege').value;
     var reason=document.getElementById('reason').value;
     var openid = GetQueryString("Open");
+    var linetype= $("input[name='linetype']:checked").val(); 
     //alert(openid+";"+begb+";"+bege+";"+reason);
     var postUrl = path+"/baswxcontroller.do?leave";//请求路径
     if (openid != "" || openid!=null) {
-        var postData = { begb: begb,reason: reason, openid:openid};//请求数据
+        var postData = { begb: begb,reason: reason, openid:openid,linetype:linetype};//请求数据
         $.ajaxSettings.async = false;
         $.ajax({
             type: 'POST',

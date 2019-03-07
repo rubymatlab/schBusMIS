@@ -139,10 +139,10 @@ public class basWXController extends BaseController {
 			}else{
 				data.put("keyword3", new TemplateData("--","#173177"));
 			}
-			data.put("remark", new TemplateData("点击详情，可查看照片！","#173177"));
+			//data.put("remark", new TemplateData("点击详情，可查看照片！","#173177"));
 			msgSend.setTemplate_id(Templateid_SK);
 			msgSend.setTouser(o.get("bo_openid").toString());
-			msgSend.setUrl(wxutils.basurl+"/photos/"+o.get("id").toString()+".png");
+			//msgSend.setUrl(wxutils.basurl+"/photos/"+o.get("id").toString()+".png");
 			msgSend.setData(data);
 			try {
 				JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
@@ -191,17 +191,23 @@ public class basWXController extends BaseController {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
 		//getData				
-		StringBuffer sql = new StringBuffer("SELECT b.id, b.bs_name,CONCAT("+place+")as place ,c.bo_openid from bas_student b ");
+		StringBuffer sql = new StringBuffer("SELECT b.id, b.bs_name,CONCAT("+place+")as place ,c.bo_openid,'尊敬的家长，您的小孩未刷卡。'as msg from bas_student b ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
-		sql.append("Where c.bo_openid is not NULL ");
-		sql.append("AND b.id='"+id+"'");
+		sql.append("Where c.bo_openid is not NULL AND c.bo_openid<>'' ");
+		sql.append("AND b.id='"+id+"' ");
+		sql.append("UNION ");
+		sql.append(" SELECT b.id, b.bs_name,CONCAT(b.bl_name,bl_size)as place,d.openid as bo_openid,'尊敬的班主任，您班的学生未刷卡。'as msg from bas_student b ");
+		sql.append(" LEFT JOIN bas_class c on c.id=b.bc_id ");
+		sql.append(" LEFT JOIN t_s_base_user d on d.id=c.bc_personid ");
+		sql.append(" Where d.openid is not NULL AND d.openid<>'' ");
+		sql.append("AND b.id='"+id+"' ");
 		System.out.println("getDate sql..."+";"+sql.toString());
 		
 		listTree = this.systemService.findForJdbc(sql.toString());// this.systemService.findHql(hql.toString());
 			
 		for (Map<String, Object> o : listTree) {			
 			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-			data.put("first", new TemplateData("尊敬的家长，你的小孩未刷卡。","#173177"));
+			data.put("first", new TemplateData(o.get("msg").toString() ,"#173177"));
 			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
 			data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));				//当前时间
 			if(lt1==0){
@@ -284,7 +290,8 @@ public class basWXController extends BaseController {
 			StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,CONCAT("+place+")as place,b.bo_openid from bas_student a ");
 			sql.append("left join bus_openid b on a.id=b.bs_studentid ");
 			sql.append("LEFT JOIN bus_leave c ON a.id=c.bl_studentid ");
-			sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour)  ");	
+			sql.append(" AND (to_days(c.bl_begdate) != to_days(now()) and bl_linetype!="+lt+") ");
+			//sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour)  ");	
 			sql.append("WHERE "+place1+"='" + sizeoid + "' ");
 			sql.append("AND a.bs_cardno is not NULL and c.bl_begdate is NULL AND b.bo_openid is not NULL ");
 			sql.append("ORDER BY id ");
@@ -325,7 +332,7 @@ public class basWXController extends BaseController {
 	//车辆实时位置查询
 	@RequestMapping(params = "doSendTMessage_QryBusLoc")
 	@ResponseBody
-	private void doSendTMessage_QryBusLoc(String lineName,String sizeName,String reDatetime,String openid) throws WexinReqException {
+	private void doSendTMessage_QryBusLoc(String msg,String lineName,String sizeName,String reDatetime,String openid) throws WexinReqException {
 
 		int ri=0;
 		String accessToken=wxutils.getAcctonken();
@@ -334,7 +341,7 @@ public class basWXController extends BaseController {
 		String message = null;
 		
 		Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-		data.put("first", new TemplateData("尊敬的家长，您所查询的车辆位置如下：","#173177"));
+		data.put("first", new TemplateData(msg,"#173177"));
 		data.put("keyword1", new TemplateData(lineName,"#FF0000"));
 		data.put("keyword2", new TemplateData(sizeName,"#FF0000"));    	
 		data.put("keyword3", new TemplateData(reDatetime,"#173177"));    	
@@ -444,7 +451,7 @@ public class basWXController extends BaseController {
 
 		System.out.println("getStudent sql..." + ";" + sql.toString());
 		listTree = this.systemService.findForJdbc(sql.toString());
-		System.out.println("getStudent:"+listTree.get(0).get("bs_name").toString()+";"+listTree.get(0).get("bs_tel").toString());
+		//System.out.println("getStudent:"+listTree.get(0).get("bs_name").toString()+";"+listTree.get(0).get("bs_tel").toString());
 		return listTree;
 	}
 
@@ -487,9 +494,9 @@ public class basWXController extends BaseController {
 	//请假
 	@RequestMapping(params = "leave")
 	@ResponseBody		
-	public int leave(String begb,String reason,String openid,HttpServletRequest request){
-		System.out.println(begb + ";" + reason + openid);
-		int i = ilevel(begb, reason, openid);
+	public int leave(String begb,String reason,String openid,String linetype,HttpServletRequest request){
+		System.out.println(begb + ";" + reason + openid+linetype);
+		int i = ilevel(begb, reason, openid,linetype);
 		return i;
 	}	
 	//请假记录
@@ -502,13 +509,13 @@ public class basWXController extends BaseController {
 		// getData
 		if(ruletype.equals("1")){		//家长
 			sql.append("SELECT a.bl_begdate,a.bl_enddate,a.bl_reason, ");
-			sql.append("case  when a.bl_status='0' then '待批' when a.bl_status='1' then '已通过'  when a.bl_status='2' then '未通过' else '其他' END as status from bus_leave a ");
+			sql.append("case  when a.bl_linetype='1' then '上学' when a.bl_linetype='2' then '放学'  else '其他' END as types from bus_leave a ");
 			sql.append("LEFT JOIN bus_openid b ON a.bl_studentid=b.bs_studentid ");
 			sql.append("WHERE b.bo_openid='" + openid + "'  ");
 			sql.append("order by bl_begdate desc ");
 		}else if(ruletype.equals("2")){	//班主任
 			sql.append("SELECT a.id,b.bs_name,a.bl_begdate,a.bl_enddate,a.bl_reason,  ");
-			sql.append("case  when a.bl_status='0' then '待批' when a.bl_status='1' then '已通过'  when a.bl_status='2' then '未通过' else '其他' END as status  from bus_leave a ");
+			sql.append("case  when a.bl_linetype='1' then '上学' when a.bl_linetype='2' then '放学'  else '其他' END as types  from bus_leave a ");
 			sql.append("LEFT JOIN bas_student b on a.bl_studentid=b.id ");
 			sql.append("LEFT JOIN bas_class c on c.id=b.bc_id ");
 			sql.append("LEFT JOIN t_s_base_user d on d.id=c.bc_personid ");
@@ -684,16 +691,16 @@ public class basWXController extends BaseController {
 		return sc;
 	}	
 	//新增请假信息
-	private int ilevel(String begb,String reason,String openid){
+	private int ilevel(String begb,String reason,String openid,String linetype){
 		String status = "0";
 		Map<String,Object> ob=getStudenID02(openid);
 		String stuID = ob.get("id").toString();
 		String stuName=ob.get("bs_name").toString();
 		UUID ID = UUID.randomUUID();
 		StringBuffer sql = new StringBuffer(
-				"INSERT INTO `bus_leave` (`id`, `bl_studentid`,`bl_student`,  `bl_reason`, `bl_begdate`, `bl_status`) ");
+				"INSERT INTO `bus_leave` (`id`, `bl_studentid`,`bl_student`,  `bl_reason`, `bl_begdate`, `bl_status`,`bl_linetype`) ");
 		sql.append("VALUES ('" + ID + "','" + stuID + "','"+stuName+"','" + reason + "','" + begb + "','" + status
-				+ "');");
+				+ "',"+linetype+");");
 
 		System.out.println("ilevel sql..." + ";" + sql.toString());
 
@@ -859,7 +866,8 @@ public class basWXController extends BaseController {
 				sql.append(" And bs_cardno not in( ");
 				sql.append(" select bc_cardno from bus_cardinfo where size_oid='" + sizeoid + "'  ");
 				sql.append(" and size_status=0 and to_days(bc_datetime) = to_days(now())) AND bs_cardno is not null");
-			
+				sql.append(" AND id not in( ");
+				sql.append(" select bl_studentid from bus_leave where to_days(bl_begdate) = to_days(now()) and bl_linetype=1) ");
 			}else if(lt==2){
 				sql.append(" SELECT id,bc_name,bs_name,bs_cardno,'--' bc_datetime,'--'bl_begdate ");
 				sql.append(" from bas_student where bl_sizeid1='" + sizeoid + "'");
@@ -888,7 +896,7 @@ public class basWXController extends BaseController {
 				sql.append(" select id from bas_size  ");
 				sql.append(" where fk_bl_id =(select fk_bl_id from bas_size where id='" + sizeoid + "')) ");
 				sql.append(" AND id not in( ");
-				sql.append(" select bl_studentid from bus_leave where to_days(bl_begdate) = to_days(now())) ");
+				sql.append(" select bl_studentid from bus_leave where to_days(bl_begdate) = to_days(now()) and bl_linetype=2) ");
 				sql.append(" AND bs_cardno not in( ");
 				sql.append(" SELECT bc_cardno from bus_cardinfo where size_oid ='" + sizeoid + "'  ");
 				sql.append(" AND  size_status=1 AND to_days(bc_datetime) = to_days(now())) AND bs_cardno is not null");				
@@ -1048,22 +1056,32 @@ public class basWXController extends BaseController {
 		String sopenid=wxutils.OAuthGetOpenid(code);
 		if(sopenid!=""){
 			String[] sc=new String[3];
-			sc=qryBusLoc(sopenid);
-			if (sc!=null){
-				try {
-					doSendTMessage_QryBusLoc(sc[0],sc[1],sc[2],sopenid);
-				} catch (WexinReqException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			int isT=isTecher(sopenid);
+			if(isT<=0){
+				sc=qryBusLoc(sopenid);
+				if (sc!=null){
+					try {
+						doSendTMessage_QryBusLoc("尊敬的家长，您所查询的车辆位置如下：",sc[0],sc[1],sc[2],sopenid);
+					} catch (WexinReqException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else{
+					try {
+						doSendTMessage_QryBusLoc("尊敬的家长，您所查询的车辆位置如下：","---","未发车","---",sopenid);
+					} catch (WexinReqException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}else{
 				try {
-					doSendTMessage_QryBusLoc("---","---","---",sopenid);
+					doSendTMessage_QryBusLoc("尊敬的班主任，您没有权限查询！","---","---","---",sopenid);
 				} catch (WexinReqException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-			}
+				}				
+			}	
 			
 		}
 		String url = "redirect:"+wxutils.basurl+"/page/msg.html"; 
@@ -1074,7 +1092,7 @@ public class basWXController extends BaseController {
 	private String[] qryBusLoc(String openid){
 		String[] sc=new String[3];
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT a.bc_cardno,bc_datetime,b.bl_sizeid,b.bl_name,b.bl_size,c.bs_seq ");
+/*		StringBuffer sql = new StringBuffer("SELECT a.bc_cardno,bc_datetime,b.bl_sizeid,b.bl_name,b.bl_size,c.bs_seq ");
 		sql.append(" from bus_cardinfo a ");
 		sql.append(" LEFT JOIN bas_student b ON a.bc_cardno=b.bs_cardno ");
 		sql.append(" LEFT JOIN bas_size c ON b.bl_sizeid=c.id ");
@@ -1082,12 +1100,50 @@ public class basWXController extends BaseController {
 		sql.append(" from bus_openid a LEFT JOIN bas_student b ON a.bs_studentid=b.id ");
 		sql.append(" WHERE a.bo_openid='"+openid+"') ");
 		sql.append(" order by c.bs_seq desc LIMIT 1 ");
+		System.out.println("qryBusLoc sql..." + ";" + sql.toString());*/
+		/*
+		StringBuffer sql = new StringBuffer("SELECT * FROM ( ");
+		sql.append(" SELECT a.bc_cardno,bc_datetime,b.bl_sizeid,b.bl_name,b.bl_size,c.bs_seq ");  
+		sql.append(" from bus_cardinfo a  LEFT JOIN bas_student b ON a.bc_cardno=b.bs_cardno ");  
+		sql.append(" LEFT JOIN bas_size c ON b.bl_sizeid=c.id ");  
+		sql.append(" where bl_name= ");
+		sql.append(" (SELECT b.bl_name  from bus_openid a LEFT JOIN bas_student b ON a.bs_studentid=b.id  WHERE a.bo_openid='"+openid+"') ");  
+		sql.append(" AND to_days(bc_datetime) = to_days(now())  ");
+		sql.append(" UNION ");
+		sql.append(" SELECT a.bc_cardno,bc_datetime,b.bl_sizeid,b.bl_name,b.bl_size1 as bl_size,c.bs_seq*6 as bs_seq  ");
+		sql.append(" from bus_cardinfo a  LEFT JOIN bas_student b ON a.bc_cardno=b.bs_cardno ");  
+		sql.append(" LEFT JOIN bas_size c ON b.bl_sizeid=c.id   ");
+		sql.append(" where bl_name= ");
+		sql.append(" (SELECT b.bl_name  from bus_openid a LEFT JOIN bas_student b ON a.bs_studentid=b.id  WHERE a.bo_openid='"+openid+"') ");  
+		sql.append(" AND to_days(bc_datetime) = to_days(now()) ");
+		sql.append(" ) A1 order by A1.bs_seq desc LIMIT 1 ");
 		System.out.println("qryBusLoc sql..." + ";" + sql.toString());
-
 		listTree = this.systemService.findForJdbc(sql.toString());
+		*/
+		
+		
+		//获取此学生上学/放学站点id
+		String size=getSizeid(openid,1);
+		String size1=getSizeid(openid,2);
+		System.out.println("站点id:"+size+";"+size1);
+		//获取线路id
+		String line=getLineid(size);
+		String line1=getLineid(size1);
+		System.out.println("线路id:"+line+";"+line1);
+		
+		StringBuffer sql = new StringBuffer("SELECT DATE_FORMAT(A1.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,B1.place,B1.bs_name,B1.fk_bl_id FROM(");
+		sql.append(" SELECT bc_datetime,size_oid,size_status from bus_cardinfo ");
+		sql.append(" where to_days(bc_datetime) = to_days(now()) ) A1 ");
+		sql.append(" left join ( ");
+		sql.append(" SELECT a.id,a.fk_bl_id,a.bs_name,CONCAT(b.bl_name,b.bl_desc)as place from bas_size a ");
+		sql.append(" left join bas_line b on b.id=a.fk_bl_id) B1 on B1.id=A1.size_oid ");
+		sql.append(" Where fk_bl_id='"+line+"' or fk_bl_id='"+line1+"' ");
+		sql.append(" order by bc_datetime desc LIMIT 1");
+		System.out.println("qryBusLoc sql..." + ";" + sql.toString());
+		listTree = this.systemService.findForJdbc(sql.toString());		
 		if(listTree.size()==1){
-			sc[0]=listTree.get(0).get("bl_name").toString();
-			sc[1]=listTree.get(0).get("bl_size").toString();
+			sc[0]=listTree.get(0).get("place").toString();
+			sc[1]=listTree.get(0).get("bs_name").toString();
 			sc[2]=listTree.get(0).get("bc_datetime").toString();			
 		}else{
 			sc=null;
@@ -1099,5 +1155,55 @@ public class basWXController extends BaseController {
 		
 	}
 	
+	private String getSizeid(String openid,int type){
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer();
+		String sizename="";
+		if (type==1){
+			sizename="bl_sizeid";
+		}else{
+			sizename="bl_sizeid1";
+		}
+		sql.append("SELECT "+sizename+" as bl_sizeid from bas_student a ");
+		sql.append("WHERE id =(SELECT bs_studentid from bus_openid where bo_openid='"+openid+"')");
+
+		System.out.println("getSizeid sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("bl_sizeid").toString();	
+		return sc;
+	}
+	private String getLineid(String sizeid){
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer();
+
+		sql.append("SELECT fk_bl_id from bas_size where id='"+sizeid+"' ");
+
+
+		System.out.println("getLineid sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("fk_bl_id").toString();	
+		return sc;		
+		
+	}
+	
+	
+	
+	
+	//是否是老师
+	private int isTecher(String openid){
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT count(*) as c From ");
+		sql.append("t_s_base_user  WHERE openid='" + openid + "'");
+		System.out.println("isTecher sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("c").toString();
+		int isc = Integer.parseInt(sc);
+
+		return isc;		
+		
+	}
 	
 }

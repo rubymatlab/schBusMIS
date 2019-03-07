@@ -21,7 +21,7 @@ if (openid != "" || openid != null) {
 	                    cour = cour + ' <tbody > ' +
 	                                        '  <tr> ' +
 	                                            '  <td style="width:150px">' + data[i].bl_begdate + '</td> ' +
-	                                          /*  '  <td style="width:150px">' + data[i].bl_enddate + '</td> ' +*/
+	                                            '  <td style="width:50px">' + data[i].types + '</td> ' +
 	                                            '  <td style="width:300px">' + data[i].bl_reason + '</td> ' +
 	                                           /* '  <td style="width:50px">' + data[i].status + '</td> ' +*/
 	                                        '  </tr> ' +
@@ -45,7 +45,7 @@ if (openid != "" || openid != null) {
 	                                            ' <thead> ' +
 	                                                ' <tr> ' +
 	                                                    ' <th style="width:150px" >日期</th> ' +
-	                                                    /*' <th style="width:150px" >结束日期</th> ' +*/
+	                                                    ' <th style="width:50px" >线路</th> '+
 	                                                    ' <th style="width:300px" >申请原因</th> ' +
 	                                                    /*' <th style="width:50px" >状态</th> ' +*/
 	                                                ' </tr> ' +

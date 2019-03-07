@@ -84,6 +84,7 @@ p {
 			var centerJ = 0;
 			var center = null;
 			var content="";
+			//设置中心点
 			<c:forEach items="${locationList}" var="item">
 				<c:if test="${item.bl_latitude>0 }">
 					<c:if test="${item.bl_longitude>0 }">
@@ -109,41 +110,13 @@ p {
 			});
 
 			var i = 0;
-			
+			var markers =new qq.maps.MVCArray();
 			<c:forEach items="${locationList}" var="item">
 				<c:if test="${item.bl_latitude>0 }">
 					<c:if test="${item.bl_longitude>0 }">
 						var position = new qq.maps.LatLng("${item.bl_latitude}",
 								"${item.bl_longitude}");
-						
-						if (i == 0) {
-							var marker = new qq.maps.Marker({
-								position : position,
-								map : map,
-								animation : qq.maps.MarkerAnimation.BOUNCE
-							});
-							//提示框
-							qq.maps.event.addListener(marker, 'click', function() {
-				                infoWin.open();
-				                infoWin.setContent('<div style="text-align:center;white-space:'+
-				                'nowrap;margin:4px;"> ' +content+ '</div>');
-				                infoWin.setPosition(position);
-				            });
-						} else {
-							var marker = new qq.maps.Marker({
-								position : position,
-								map : map,
-								animation : qq.maps.MarkerAnimation.BOUNCE
-							});
-							//提示框
-							qq.maps.event.addListener(marker, 'click', function() {
-				                infoWin.open();
-				                infoWin.setContent('<div style="text-align:center;white-space:'+
-				                'nowrap;margin:4px;"> ' +content+ '</div>');
-				                infoWin.setPosition(position);
-				            });
-						}
-						i++;
+
 						var label = new qq.maps.Label({
 							//如果为true，表示可点击，默认true。
 							clickable : true,
@@ -154,24 +127,72 @@ p {
 							map : map,
 							//如果为true，表示标签可见，默认为true。
 							visible : true
-			
 						});
+						
+						if (i == 0) {
+							var marker = new qq.maps.Marker({
+								'position' : position,
+								map : map,
+								animation : qq.maps.MarkerAnimation.BOUNCE
+							});
+							//提示框
+							qq.maps.event.addListener(marker, 'click', function() {
+				                infoWin.open();
+				                infoWin.setContent('<div style="text-align:center;white-space:'+
+				                'nowrap;margin:4px;"> ' +content+ '</div>');
+				                infoWin.setPosition(position);
+				            });
+							
+							//标签是否隐藏
+							/* qq.maps.event.addListener(marker, 'map_changed', function(e) {
+				              if (e.target.isClustered) {
+				                label.setVisible(false)
+				              } else {
+				                label.setVisible(true)
+				              }
+				            }) */
+							markers.push(marker);
+						} else {
+							var marker = new qq.maps.Marker({
+								'position' : position,
+								map : map,
+								animation : qq.maps.MarkerAnimation.BOUNCE
+							});
+							//提示框
+							qq.maps.event.addListener(marker, 'click', function() {
+				                infoWin.open();
+				                infoWin.setContent('<div style="text-align:center;white-space:'+
+				                'nowrap;margin:4px;"> ' +content+ '</div>');
+				                infoWin.setPosition(position);
+				            });
+							//标签是否隐藏
+							/* qq.maps.event.addListener(marker, 'map_changed', function(e) {
+				              if (e.target.isClustered) {
+				                label.setVisible(false)
+				              } else {
+				                label.setVisible(true)
+				              }
+				            }) */
+							markers.push(marker);
+						}
+						i++;
 					</c:if>
 				</c:if>
 			</c:forEach>
-			
 
-
-			//惠州东江沙公园
-			/* var marker = new qq.maps.Marker({
-				position : new qq.maps.LatLng(23.0923800000, 114.4253600000),
-				map : map
-			});
-			var marker = new qq.maps.Marker({
-				position : new qq.maps.LatLng(23.0662400000, 114.4318100000),
-				map : map
-			}); */
-
+		    var markerCluster = new qq.maps.MarkerCluster({
+	            map: map,
+	            minimumClusterSize: 2, //默认2
+	            markers: markers,
+	            zoomOnClick: true, //默认为true
+	            gridSize: 30, //默认60
+	            averageCenter: true, //默认false
+	            maxZoom: 18 //默认18
+	        });
+	 
+	        qq.maps.event.addListener(markerCluster, 'clusterclick', function(evt) {
+	            var ss = evt;
+	        });
 		}
 		//调用初始化函数地图
 		init();
