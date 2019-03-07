@@ -112,7 +112,7 @@ public class wxutils {
 			List<WeixinButton> sub_button2 = new ArrayList<WeixinButton>();
 			WeixinButton o2_s1 = new WeixinButton();
 			o2_s1.setType("view");
-			o2_s1.setName("电子围栏");
+			o2_s1.setName("学生位置");
 			o2_s1.setUrl(openidurlLocation);
 			sub_button2.add(o2_s1);
 			WeixinButton o2_s2 = new WeixinButton();
@@ -126,7 +126,7 @@ public class wxutils {
 			o2_s3.setUrl("http://tdcq.natapp1.cc/schBusMIS/page/leave01.html");
 			sub_button2.add(o2_s3);	*/		
 			WeixinButton o2 = new WeixinButton();
-			o2.setName("位置");
+			o2.setName("查询位置");
 			o2.setSub_button(sub_button2);
 			button.add(o2);
 
