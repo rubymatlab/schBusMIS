@@ -225,7 +225,7 @@ public class BasStudentLocationController extends BaseController {
 
 				// 时间转换
 				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-				df.setTimeZone(TimeZone.getTimeZone("UTC"));
+				//df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 				if (job.has("deviceId")) {
 					Map<String, Object> oo = new HashMap<String, Object>();
@@ -238,7 +238,7 @@ public class BasStudentLocationController extends BaseController {
 					oo.put("bl_longitude", clearLocation[1]);
 					try {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
+						oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("device_time"))));
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -301,7 +301,7 @@ public class BasStudentLocationController extends BaseController {
 
 							// 时间转换
 							SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-							df.setTimeZone(TimeZone.getTimeZone("UTC"));
+							//df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 							if (job.has("deviceId")) {
 								Map<String, Object> oo = new HashMap<String, Object>();
@@ -314,7 +314,7 @@ public class BasStudentLocationController extends BaseController {
 								oo.put("bl_longitude", clearLocation[1]);
 								try {
 									SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-									oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("timestamp"))));
+									oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("device_time"))));
 								} catch (ParseException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
