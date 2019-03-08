@@ -102,7 +102,10 @@ public class basWXController extends BaseController {
 		}
 		//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
 		int lt1=getSizeIsBorE(sizeoid);
-		
+		String sizename="";
+		if (lt1==0){
+			sizename=getLineSizeName(sizeoid);
+		}
 		
 		int ri=0;
 		String accessToken=wxutils.getAcctonken();
@@ -127,7 +130,8 @@ public class basWXController extends BaseController {
 			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
 			data.put("keyword2", new TemplateData(o.get("bc_datetime").toString(),"#173177"));
 			if(lt1==0){
-				data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
+				//data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
+				data.put("keyword3", new TemplateData(sizename,"#173177"));	//实际刷卡地点
 			}else if(lt1==1){
 				if(lt==1){
 					data.put("keyword3", new TemplateData("上学终点下车","#173177"));
@@ -1187,8 +1191,18 @@ public class basWXController extends BaseController {
 		return sc;		
 		
 	}
-	
-	
+	private String getLineSizeName(String sizeid){
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT CONCAT(b.bl_name,bl_desc,bs_name) place from bas_size a  LEFT JOIN bas_line b on b.id=a.fk_bl_id where a.id='"+sizeid+"' ");
+
+		System.out.println("getLineSizeName sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("place").toString();	
+		return sc;		
+		
+	}	
 	
 	
 	//是否是老师
