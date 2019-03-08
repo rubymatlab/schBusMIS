@@ -64,9 +64,12 @@ public class wxutils {
 	private static final String openidurlLocation = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/basStudentLocationController.do?list&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 	
 	
+	//创建静态对象Token
+	private static Token accessToken=new Token();
+	
 	//获取Acctonken
 	public static String getAcctonken() throws WexinReqException {
-		String strAcctonken="";
+		/*String strAcctonken="";
 		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");		
 		String[] sc=new String[2];
 		Date expiresTime = new Date();
@@ -86,8 +89,21 @@ public class wxutils {
 			strAcctonken=JwTokenAPI.getAccessToken(appid, appscret);
 			bwx.updateAcctooken(strAcctonken);
 		}
-		System.out.println("getAcctonken:"+strAcctonken+";"+df.format(expiresTime));		
-		return strAcctonken;
+		System.out.println("getAcctonken:"+strAcctonken+";"+df.format(expiresTime));*/
+		
+		//判断时间是否超过1小时
+		Date times=new Date();
+		long diffTs=times.getTime()-accessToken.getTs();
+		//System.out.println(diffTs);
+		if(diffTs>3600*1000)
+		{
+			String strToken=JwTokenAPI.getAccessToken(appid, appscret);
+			accessToken.setAccessToken(strToken);
+			accessToken.setExpiresIn(7200);
+			accessToken.setTs(times.getTime());
+		}
+		//System.out.println("当前token值为:"+accessToken.getAccessToken()+",时间差为："+diffTs);
+		return accessToken.getAccessToken();
 	}
 
 	//获取菜单 

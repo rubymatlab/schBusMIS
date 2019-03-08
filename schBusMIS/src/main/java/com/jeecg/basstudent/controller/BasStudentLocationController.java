@@ -113,10 +113,10 @@ public class BasStudentLocationController extends BaseController {
 		String access_token = null;
 		if (access_token == null)
 			try {
-				access_token = JwTokenAPI.getAccessToken(wxutils.appid, wxutils.appscret);
-			} catch (WexinReqException e1) {
+				access_token=wxutils.getAcctonken();
+			} catch (WexinReqException e) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				e.printStackTrace();
 			}
 		String ticket = JsapiTicketUtil.getJSApiTicket(access_token);
 
