@@ -144,7 +144,7 @@
 		<tr>
 			<td align="right"><label class="Validform_label"> <t:mutiLang langKey="common.common.mail"/>: </label></td>
 			<td class="value">
-                <input class="inputxt" name="email" value="${user.email}"  validType="t_s_user,email,id" datatype="e" errormsg="邮箱格式不正确!" />
+                <input class="inputxt" name="email" value="${user.email}"  validType="t_s_user,email,id" datatype="e" errormsg="邮箱格式不正确!" ignore="ignore"/>
                 <span class="Validform_checktip"></span>
             </td>
 		</tr>
