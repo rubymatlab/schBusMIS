@@ -13,8 +13,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -28,6 +31,8 @@ import org.jeewx.api.core.req.model.menu.MenuCreate;
 import org.jeewx.api.core.req.model.menu.WeixinButton;
 import org.jeewx.api.wxbase.wxtoken.JwTokenAPI;
 import org.jeewx.api.wxmenu.JwMenuAPI;
+
+import com.jeecg.basstudent.controller.basWXController;
 
 import net.sf.json.JSONObject;
 
@@ -61,8 +66,28 @@ public class wxutils {
 	
 	//获取Acctonken
 	public static String getAcctonken() throws WexinReqException {
-		String s = JwTokenAPI.getAccessToken(appid, appscret);
-		return s;
+		String strAcctonken="";
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");		
+		String[] sc=new String[2];
+		Date expiresTime = new Date();
+		Date curTime=new Date();
+		basWXController bwx=new basWXController();
+		sc=bwx.qryAcctooken();
+		try {
+			expiresTime=df.parse(sc[1]);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(expiresTime.getTime()>curTime.getTime()){
+			strAcctonken=sc[0];			
+		}else{
+			strAcctonken=JwTokenAPI.getAccessToken(appid, appscret);
+			bwx.updateAcctooken(strAcctonken);
+		}
+		System.out.println("getAcctonken:"+strAcctonken+";"+df.format(expiresTime));		
+		return strAcctonken;
 	}
 
 	//获取菜单 

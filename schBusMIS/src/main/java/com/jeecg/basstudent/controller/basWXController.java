@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +31,7 @@ import org.jeecgframework.web.system.service.SystemService;
 import org.jeewx.api.core.exception.WexinReqException;
 import org.jeewx.api.core.req.model.message.TemplateData;
 import org.jeewx.api.core.req.model.message.TemplateMessageSendResult;
+import org.jeewx.api.wxbase.wxtoken.JwTokenAPI;
 import org.jeewx.api.wxsendmsg.JwSendTemplateMsgAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -545,7 +547,7 @@ public class basWXController extends BaseController {
 		return sc;
 	}	
 	//test
-	@RequestMapping(params = "test")
+	@RequestMapping(params = "test1")
 	@ResponseBody
 	public String test(HttpServletRequest request){
 		//String  s=wxutils.getAcctonken();
@@ -1220,4 +1222,65 @@ public class basWXController extends BaseController {
 		
 	}
 	
+	
+	public String[] qryAcctooken(){
+		String[] sc = new String[2];
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer(
+				"SELECT cf_value,DATE_FORMAT(cf_desc,'%Y-%m-%d %H:%i:%s')as cf_desc from bus_config where cf_code='accesstoken'");
+
+		System.out.println("qryacctooken sql..." + ";" + sql.toString());
+		listTree = this.systemService.findForJdbc(sql.toString());
+		if (listTree.size() == 1) {
+			sc[0] = listTree.get(0).get("cf_value").toString();
+			sc[1] = listTree.get(0).get("cf_desc").toString();
+		} else {
+			sc = null;
+		}				
+		return sc;
+	}
+	//更新Acctooken
+	public int updateAcctooken(String acctonken){
+		long sysdt=System.currentTimeMillis()+60*60*1000;
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String etime = df.format(new Date(sysdt));// 
+		StringBuffer sql = new StringBuffer(
+				"UPDATE bus_config SET cf_desc='" + etime + "', cf_value='"+acctonken+"' where cf_code='accesstoken'");
+
+		System.out.println("updateAcctooken sql..." + ";" + sql.toString());
+
+		int sc = this.systemService.executeSql(sql.toString());
+		return sc;
+	}	
+	
+	
+	
+	
+	@RequestMapping(params = "test")
+	@ResponseBody
+	public String testing(HttpServletRequest request){
+		String strAcctonken="";
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");		
+		String[] sc=new String[2];
+		Date expiresTime = new Date();
+		Date curTime=new Date();
+		//basWXController bwx=new basWXController();
+		sc=qryAcctooken();
+		try {
+			expiresTime=df.parse(sc[1]);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(expiresTime.getTime()>curTime.getTime()){
+			strAcctonken=sc[0];			
+		}else{
+			strAcctonken="12345678";
+			updateAcctooken(strAcctonken);
+		}
+		System.out.println("getAcctonken:"+strAcctonken+";"+df.format(curTime));		
+		return strAcctonken;
+		
+	};
 }
