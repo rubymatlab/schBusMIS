@@ -102,7 +102,16 @@ p {
 			
 			var map = new qq.maps.Map(document.getElementById("container"), {
 				center : center,
-				zoom : 13
+				zoom : 13,
+				//启用缩放控件
+				zoomControl: true,
+		        //设置缩放控件的位置和样式
+		        zoomControlOptions: {
+		            //设置缩放控件的位置为相对左方中间位置对齐.
+		            position: qq.maps.ControlPosition.LEFT_CENTER,
+		            //设置缩放控件样式为仅包含放大缩小两个按钮
+		            style: qq.maps.ZoomControlStyle.SMALL
+		        }
 			});
 			//提示框
 			var infoWin = new qq.maps.InfoWindow({
