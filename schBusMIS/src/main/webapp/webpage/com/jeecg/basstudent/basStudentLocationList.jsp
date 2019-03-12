@@ -196,7 +196,7 @@ p {
 	            zoomOnClick: true, //默认为true
 	            gridSize: 30, //默认60
 	            averageCenter: true, //默认false
-	            maxZoom: 18 //默认18
+	            maxZoom: 16 //默认18
 	        });
 	 
 	        qq.maps.event.addListener(markerCluster, 'clusterclick', function(evt) {
