@@ -238,7 +238,8 @@ public class BasStudentLocationController extends BaseController {
 					oo.put("bl_longitude", clearLocation[1]);
 					try {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("device_time"))));
+						String time_and_power=sdf.format(df.parse(job.getString("device_time")))+" "+job.getString("batteryVoltage")+"%";
+						oo.put("bl_commdatetime", time_and_power);
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -315,7 +316,8 @@ public class BasStudentLocationController extends BaseController {
 								oo.put("bl_longitude", clearLocation[1]);
 								try {
 									SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-									oo.put("bl_commdatetime", sdf.format(df.parse(job.getString("device_time"))));
+									String time_and_power=sdf.format(df.parse(job.getString("device_time")));
+									oo.put("bl_commdatetime", time_and_power);
 								} catch (ParseException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
