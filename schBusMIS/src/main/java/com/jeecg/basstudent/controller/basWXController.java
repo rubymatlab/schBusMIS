@@ -672,13 +672,16 @@ public class basWXController extends BaseController {
 	
 	//新增openid(家长)
 	private int iopenid(String stuid,String openid){
+		//isBinded
+		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String sysdt = df.format(new Date());// new Date()为获取当前系统时间
 		UUID ID = UUID.randomUUID();
 		StringBuffer sql = new StringBuffer(
 				"INSERT INTO bus_openid  (`id`,`bs_studentid`, `bo_openid`, `bo_binddatetime`) ");
-		sql.append("VALUES ('" + ID + "','" + stuid + "','" + openid + "','" + sysdt + "');");
-
+		//sql.append("VALUES ('" + ID + "','" + stuid + "','" + openid + "','" + sysdt + "');");
+		sql.append("SELECT '" + ID + "', '" + stuid + "', '" + openid + "', '" + sysdt + "' ");
+		sql.append(" WHERE NOT EXISTS(select * from bus_openid where bus_openid.bo_openid = '" + openid + "')");
 		System.out.println("iopenid sql..." + ";" + sql.toString());
 
 		int sc = this.systemService.executeSql(sql.toString());
