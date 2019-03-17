@@ -7,7 +7,7 @@
     <link href="./css/weui.css" rel="stylesheet" type="text/css" />
     <link href="./css/mui.min.css" rel="stylesheet" type="text/css" />
    <!--  <link href="./css/mui.picker.min.css" rel="stylesheet" type="text/css"/> -->
-    <!-- <script type="text/javascript" src="./js/jquery-3.2.1.min.js" ></script> -->
+   <script type="text/javascript" src="./js/jquery-3.2.1.min.js" ></script>
    <!--  <script src="./js/mui.min.js"></script> -->
     <!-- <script src="./js/mui.picker.min.js"></script> -->
     <script src="./js/zepto.min.js"></script>
@@ -33,13 +33,14 @@
 		</div>		
 	</form>
 	
-   <div class="weui_cells weui_cells_radio">
+   <!-- <div class="weui_cells weui_cells_radio"> -->
+   <div class="weui_cells weui_cells_checkbox">
 	    <label class="weui_cell weui_check_label" for="x11">
 	        <div class="weui_cell_bd weui_cell_primary">
 	            <p>上学</p>
 	        </div>
 	        <div class="weui_cell_ft">
-	            <input type="radio" name="linetype" class="weui_check" id="x11" value="1" checked="checked">
+	            <input type="checkbox" name="linetype" class="weui_check" id="x11" value="1" checked="checked">
 	            <span class="weui_icon_checked"></span>
 	        </div>
 	    </label>
@@ -48,11 +49,33 @@
 	            <p>放学</p>
 	        </div>
 	        <div class="weui_cell_ft">
-	            <input type="radio" name="linetype" class="weui_check" id="x12" value="2">
+	            <input type="checkbox" name="linetype" class="weui_check" id="x12" value="2">
 	            <span class="weui_icon_checked"></span>
 	        </div>
 	    </label>
 	</div>
+	
+<!-- 	        <div class="weui_cells weui_cells_checkbox">
+            <label class="weui_cell weui_check_label" for="s11">
+                <div class="weui_cell_hd">
+                    <input type="checkbox" class="weui_check" name="checkbox1" id="s11" checked="checked">
+                    <i class="weui_icon_checked"></i>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>a</p>
+                </div>
+            </label>
+            <label class="weui_cell weui_check_label" for="s12">
+                <div class="weui_cell_hd">
+                    <input type="checkbox" name="checkbox1" class="weui_check" id="s12">
+                    <i class="weui_icon_checked"></i>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>b</p>
+                </div>
+            </label>
+        </div> -->
+	
 		 
 	<div class="mui-input-row" style="margin: 10px 5px;">
 		<textarea id="reason" rows="5" placeholder="不坐车原因"></textarea>

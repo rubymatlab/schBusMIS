@@ -47,36 +47,54 @@ function getUrl() {
 	//var bege=document.getElementById('bege').value;
     var reason=document.getElementById('reason').value;
     var openid = GetQueryString("Open");
-    var linetype= $("input[name='linetype']:checked").val(); 
-    //alert(openid+";"+begb+";"+bege+";"+reason);
-    var postUrl = path+"/baswxcontroller.do?leave";//请求路径
-    if (openid != "" || openid!=null) {
-        var postData = { begb: begb,reason: reason, openid:openid,linetype:linetype};//请求数据
-        $.ajaxSettings.async = false;
-        $.ajax({
-            type: 'POST',
-            url: postUrl,
-            data: postData,
-            dataType: 'json',
-            timeout: 15000,
-            success: function (data) {
-            	var re=JSON.stringify(data);
-                if (re == "" || re == 0 || re== "0" || re == null) {
-                	window.location.href = "error.html";
-                } else {
-                	 window.location.href = "leavelist.html?Open=" + openid;
-                }
-            },
-            error: function () {
-                //showDialog('请求出错!');
-            	alert('请求出错!');
-            }
-        });
-        //alert("03");
-    } else {
-        //alert("请输入手机号码！");
-        window.location.href = "error.html";
-    }
+    //var linetype= $("input[name='linetype']:checked").val();
+    var reason=document.getElementById('reason').value;
+    
+	var linetype="";
+	var dd ="";
+	var radio = document.getElementsByName("linetype");
+	for(var i = 0;i<radio.length;i++)
+	{
+		if(radio[i].checked==true)
+		{
+			dd = radio[i].value;
+			linetype= linetype+dd;
+		}
+	} 
+  
+    //alert("linetype:"+linetype);
+	if(linetype!=""){
+	    var postUrl = path+"/baswxcontroller.do?leave";//请求路径
+	    if (openid != "" || openid!=null) {
+	        var postData = { begb: begb,reason: reason, openid:openid,linetype:linetype};//请求数据
+	        $.ajaxSettings.async = false;
+	        $.ajax({
+	            type: 'POST',
+	            url: postUrl,
+	            data: postData,
+	            dataType: 'json',
+	            timeout: 15000,
+	            success: function (data) {
+	            	var re=JSON.stringify(data);
+	                if (re == "" || re == null) {
+	                	window.location.href = "error.html";
+	                } else {
+	                	 window.location.href = "leavelist.html?Open=" + openid;
+	                }
+	            },
+	            error: function () {
+	            	alert('请求出错!');
+	            }
+	        });
+	        //alert("03");
+	    } else {
+	        //alert("请输入手机号码！");
+	        window.location.href = "error.html";
+	    }		
+	}else{
+		alert('请选择您要申请的类型！');
+	}
+
 }
 
 function getHistory() {

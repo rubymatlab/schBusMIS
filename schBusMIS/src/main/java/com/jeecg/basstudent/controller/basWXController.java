@@ -61,6 +61,7 @@ public class basWXController extends BaseController {
 	private static final String Templateid_NextDw="7gNUN4ACrn0bogzgtnSQHWfjTMvCR57J7iaR05_OnqU";
 	private static final String Templateid_SK="2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc";
 	private static final String Templateid_QryBusLoc="7_gJwIOoSclWvtUsgFTkTtGSHO-zuXHeO3978m2bPoA";
+	private static final String Templateid_leave="2FADaZxNLxG8U4eCHt70tBTBDKuRryTo-L06AsJn4A8";
 	@Autowired
 	private SystemService systemService;
 	
@@ -267,14 +268,17 @@ public class basWXController extends BaseController {
 		String place="";
 		String place1="";
 		String templateidType="";
+		String msg="";
 		if (lt==1){
 			place="a.bl_name,bl_size";
 			place1="a.bl_sizeid";
 			templateidType=Templateid_NextUp;
+			msg="请做好上车的准备";
 		}else if(lt==2){
 			place="a.bl_name1,bl_size1";
 			place1="a.bl_sizeid1";
 			templateidType=Templateid_NextDw;
+			msg="请做好接车的准备";
 		}else{
 			//
 		}	
@@ -307,7 +311,7 @@ public class basWXController extends BaseController {
 				
 			for (Map<String, Object> o : listTree) {			
 				Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-				data.put("first", new TemplateData("尊敬的家长，我们的车即将到达["+o.get("place").toString()+"]，请做好接送准备。","#173177"));
+				data.put("first", new TemplateData("尊敬的家长，我们的车即将到达["+o.get("place").toString()+"]，"+msg,"#173177"));
 				data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
 				data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));    //通知时间
 				data.put("remark", new TemplateData("以上信息，特提醒！","#173177"));
@@ -371,6 +375,37 @@ public class basWXController extends BaseController {
 		//return ri;
 	}
 	
+	//请假信息推送 msg,className,studentName,leaveDate,openid
+	@RequestMapping(params = "doSendTMessage_leave")
+	@ResponseBody
+	private void doSendTMessage_leave(String msg,String className,String studentName,String leaveDate,String openid) throws WexinReqException {
+		String accessToken=wxutils.getAcctonken();
+		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
+		
+		String message = null;
+		
+		Map<String, TemplateData> data = new HashMap<String, TemplateData>();
+		data.put("first", new TemplateData(msg,"#173177"));
+		data.put("keyword1", new TemplateData(className,"#FF0000"));
+		data.put("keyword2", new TemplateData(studentName,"#FF0000"));    	
+		data.put("keyword3", new TemplateData(leaveDate,"#173177"));    	
+		data.put("remark", new TemplateData("以上信息，请知悉！","#173177"));
+		msgSend.setTemplate_id(Templateid_leave);
+		msgSend.setTouser(openid);
+
+		msgSend.setData(data);
+		try {
+			JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+			message = "发送消息模板成功";
+		} catch (WexinReqException e) {
+			message = "发送消息模板失败";
+			e.printStackTrace();
+		}
+			
+		//j.setMsg(message);
+		System.out.println("doSendTMessage_leave..."+message+";"+accessToken);
+		//return ri;
+	}	
 	
 	//个人中心入口
 	@RequestMapping(params = "gopenid")
@@ -500,7 +535,10 @@ public class basWXController extends BaseController {
 	//请假
 	@RequestMapping(params = "leave")
 	@ResponseBody		
-	public int leave(String begb,String reason,String openid,String linetype,HttpServletRequest request){
+	public int leave(String begb,String reason,String openid,String linetype,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		
 		System.out.println(begb + ";" + reason + openid+linetype);
 		int i = ilevel(begb, reason, openid,linetype);
 		return i;
@@ -700,20 +738,69 @@ public class basWXController extends BaseController {
 		return sc;
 	}	
 	//新增请假信息
-	private int ilevel(String begb,String reason,String openid,String linetype){
+	private int ilevel(String begb,String reason,String openid,String linetype){		
 		String status = "0";
 		Map<String,Object> ob=getStudenID02(openid);
 		String stuID = ob.get("id").toString();
 		String stuName=ob.get("bs_name").toString();
-		UUID ID = UUID.randomUUID();
-		StringBuffer sql = new StringBuffer(
-				"INSERT INTO `bus_leave` (`id`, `bl_studentid`,`bl_student`,  `bl_reason`, `bl_begdate`, `bl_status`,`bl_linetype`) ");
-		sql.append("VALUES ('" + ID + "','" + stuID + "','"+stuName+"','" + reason + "','" + begb + "','" + status
-				+ "',"+linetype+");");
+		StringBuffer sql = new StringBuffer("");
+		StringBuffer sql1 = new StringBuffer("");
+		int sc=0;
+		if(!linetype.equals("12")){
+			//UUID ID = UUID.randomUUID();
+			sql.append("INSERT INTO `bus_leave` (`id`, `bl_studentid`,`bl_student`,  `bl_reason`, `bl_begdate`, `bl_status`,`bl_linetype`) ");
+/*			sql.append("VALUES (UUID(),'" + stuID + "','"+stuName+"','" + reason + "','" + begb + "','" + status
+					+ "',"+linetype+");");*/		
+			sql.append("SELECT UUID(), '" + stuID + "', '" + stuName + "', '" + reason + "','" + begb + "','" + status+ "',"+linetype);
+			sql.append(" WHERE NOT EXISTS(select * from bus_leave where DATEDIFF(bl_begdate,'" + begb + "')=0 AND bl_linetype="+linetype+" AND bl_studentid='"+stuID+"')");
+			System.out.println("ilevel sql..." + ";" + sql.toString());
+			sc = this.systemService.executeSql(sql.toString());
+		}else{
+			sql.append("INSERT INTO `bus_leave` (`id`, `bl_studentid`,`bl_student`,  `bl_reason`, `bl_begdate`, `bl_status`,`bl_linetype`) ");
+/*			sql.append("VALUES (UUID(),'" + stuID + "','"+stuName+"','" + reason + "','" + begb + "','" + status
+					+ "',1); ");*/
+			sql.append("SELECT UUID(), '" + stuID + "', '" + stuName + "', '" + reason + "','" + begb + "','" + status+ "',1");
+			sql.append(" WHERE NOT EXISTS(select * from bus_leave where DATEDIFF(bl_begdate,'" + begb + "')=0 AND bl_linetype=1 AND bl_studentid='"+stuID+"')");
+			System.out.println("ilevel sql..." + ";" + sql.toString());
+			sc=this.systemService.executeSql(sql.toString());
+			
+			sql1.append("INSERT INTO `bus_leave` (`id`, `bl_studentid`,`bl_student`,  `bl_reason`, `bl_begdate`, `bl_status`,`bl_linetype`) ");
+/*			sql1.append("VALUES (UUID(),'" + stuID + "','"+stuName+"','" + reason + "','" + begb + "','" + status
+					+ "',2);");	*/	
+			sql1.append("SELECT UUID(), '" + stuID + "', '" + stuName + "', '" + reason + "','" + begb + "','" + status+ "',2");
+			sql1.append(" WHERE NOT EXISTS(select * from bus_leave where DATEDIFF(bl_begdate,'" + begb + "')=0 AND bl_linetype=2 AND bl_studentid='"+stuID+"')");			
+			System.out.println("ilevel sql1..." + ";" + sql1.toString());
+			sc=this.systemService.executeSql(sql1.toString());
+		}
 
-		System.out.println("ilevel sql..." + ";" + sql.toString());
 
-		int sc = this.systemService.executeSql(sql.toString());
+		
+
+		//int sc = this.systemService.executeSql(sql.toString());
+		if(sc!=0){
+			String[] msgs = new String[4];
+			//姓名;班;老师;openid
+			msgs = qryTeacherInfo(stuID);
+			if (msgs != null) {
+				String msg = "尊敬的" + msgs[2] + ",您的学生提交不坐车申请,详细如下：";
+				System.out.println("linetype:"+linetype);
+				if (linetype.equals("1") ) {
+					begb = begb + "(上学)";
+				} else if (linetype.equals("2"))
+					begb = begb + "(放学)";
+				else if (linetype.equals("12")) {
+					begb = begb + "(上/放学)";
+				} else {
+				}
+
+				try {
+					doSendTMessage_leave(msg, msgs[1], msgs[0], begb, msgs[3]);
+				} catch (WexinReqException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		return sc;
 	}
 	
@@ -1255,8 +1342,27 @@ public class basWXController extends BaseController {
 		int sc = this.systemService.executeSql(sql.toString());
 		return sc;
 	}	
-	
-	
+	//姓名;班;老师;openid
+	public String[] qryTeacherInfo(String stuID){
+		String[] sc = new String[4];
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer(
+				"SELECT a.bs_name,CONCAT(b.bc_grade,b.bc_name) as bcname,c.realname as teacher,c.openid from bas_student a");
+		sql.append(" LEFT JOIN bas_class b on b.id=a.bc_id LEFT JOIN t_s_base_user c on c.id=b.bc_personid");
+		sql.append(" where a.id='"+stuID+"' and c.openid is not NULL");
+
+		System.out.println("qryTeacherInfo sql..." + ";" + sql.toString());
+		listTree = this.systemService.findForJdbc(sql.toString());
+		if (listTree.size() == 1) {
+			sc[0] = listTree.get(0).get("bs_name").toString();
+			sc[1] = listTree.get(0).get("bcname").toString();
+			sc[2] = listTree.get(0).get("teacher").toString();
+			sc[3] = listTree.get(0).get("openid").toString();
+		} else {
+			sc = null;
+		}				
+		return sc;
+	}	
 	
 	
 	@RequestMapping(params = "test")

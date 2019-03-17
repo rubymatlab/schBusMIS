@@ -25,7 +25,8 @@ function getUrl() {
             	var re=JSON.stringify(data);
             	if (re == 1){
             		localStorage.setItem("ruletype", ruletype);		//本地存储ruletype
-            		window.location.href = "ok.html"; 
+            		//window.location.href = "ok.html"; 
+            		 window.location.href = "unmemberlist.html?Open=" + openid;
             		//window.location.href = "index.html?openid=" + openid;
             	}else if (re==0){
             		alert("该手机号码不存在，请重新输入！");
