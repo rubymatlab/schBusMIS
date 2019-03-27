@@ -115,7 +115,8 @@
                 </form>
               </div>
             </div>
-            <div class="center"><h4 class="blue" id="id-company-text">&copy; 版权:___ Ver0.9</h4></div>
+            <div class="center"><h4 class="blue" id="id-company-text">&copy; 版权:___ Ver0.9</h4></div><br>
+            <div class="center"><a href="http://www.miitbeian.gov.cn/" >备案/许可证编号为：粤ICP备19028633号</a></div>
             <div class="navbar-fixed-top align-right">
               <br />
               &nbsp;
