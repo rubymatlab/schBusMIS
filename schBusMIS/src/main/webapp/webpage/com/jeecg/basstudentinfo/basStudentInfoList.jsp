@@ -41,6 +41,7 @@
    <t:dgToolBar title="模板下载" icon="icon-putout" funname="ExportXlsByT"></t:dgToolBar>
      	<t:dgToolBar title="绑定设备" icon="icon-edit"  url="basStudentInfoController.do?doAddDevice" funname="doAddDevice" ></t:dgToolBar>
      	<t:dgToolBar title="解绑设备" icon="icon-edit"  url="basStudentInfoController.do?doDeleteDevice" funname="doDeleteDevice" ></t:dgToolBar>
+     	<t:dgToolBar title="下发策略" icon="icon-edit"  url="basStudentInfoController.do?doSendDevice" funname="doSendDevice" ></t:dgToolBar>
   </t:datagrid>
   </div>
  </div>
@@ -67,6 +68,17 @@
 				return;
 			}
 			url = url+"&id="+rowData['id'];
+	 		createdialog('确认 ', '确定'+title+'吗 ?', url,gridname);
+	 	}
+     	
+	 	//自定义按钮-下发策略
+	 	function doSendDevice(title,url,gridname){
+	 		/*var rowData = $('#'+gridname).datagrid('getSelected');
+			if (!rowData) {
+				tip('请选择下发策略设备项目');
+				return;
+			}
+			url = url+"&id="+rowData['id'];*/
 	 		createdialog('确认 ', '确定'+title+'吗 ?', url,gridname);
 	 	}
    

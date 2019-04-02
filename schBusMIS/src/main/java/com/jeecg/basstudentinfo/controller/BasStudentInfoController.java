@@ -284,6 +284,31 @@ public class BasStudentInfoController extends BaseController {
 		j.setMsg(message);
 		return j;
 	}
+	
+	/**
+	 * 自定义按钮-[下发策略]业务
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(params = "doSendDevice")
+	@ResponseBody
+	public AjaxJson doSendDevice(BasStudentInfoEntity basStudentInfo, HttpServletRequest request) {
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		message = "下发策略成功";
+		//BasStudentInfoEntity t = basStudentInfoService.get(BasStudentInfoEntity.class, basStudentInfo.getId());
+		BasStudentInfoEntity t=new BasStudentInfoEntity();
+		try{
+			JSONObject json=basStudentInfoService.doSendDeviceBus(t);
+			message=json.getString("msg");
+			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "下发策略失败";
+		}
+		j.setMsg(message);
+		return j;
+	}
 
 	/**
 	 * 学生资料新增页面跳转

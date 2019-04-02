@@ -27,4 +27,10 @@ public interface BasStudentInfoServiceI extends CommonService{
 	 * @return
 	 */
 	 public JSONObject doDeleteDeviceBus(BasStudentInfoEntity t) throws Exception;
+ 	/**
+	 * 自定义按钮-[下发策略]业务处理
+	 * @param id
+	 * @return
+	 */
+	 public JSONObject doSendDeviceBus(BasStudentInfoEntity t) throws Exception;
 }

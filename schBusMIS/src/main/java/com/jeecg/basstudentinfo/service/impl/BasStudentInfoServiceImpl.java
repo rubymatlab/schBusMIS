@@ -76,6 +76,22 @@ public class BasStudentInfoServiceImpl extends CommonServiceImpl implements BasS
 	 		return json;
 	 	//-----------------java增强 end-----------------------------
 	 }
+	 
+	 /**
+	 * 自定义按钮-[下发策略]业务处理
+	 * @param id
+	 * @return
+	 */
+	 public JSONObject doSendDeviceBus(BasStudentInfoEntity t) throws Exception{
+	 	//-----------------sql增强 start----------------------------
+	 	//-----------------sql增强 end------------------------------
+	 	
+	 	//-----------------java增强 start---------------------------
+	 		Map<String,Object> data = populationMap(t);
+	 		JSONObject json=executeJavaExtend("spring","SendDevice",data);
+	 		return json;
+	 	//-----------------java增强 end-----------------------------
+	 }
  	
  	/**
 	 * 新增操作增强业务
