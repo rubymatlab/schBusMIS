@@ -289,7 +289,7 @@ public class BasStudentLocationController extends BaseController {
 		if (requestUrl != "") {
 			JSONObject ob = JSONObject.fromObject(rlsd);
 			json = HttpRequestPost.doPost(requestUrl, ob);
-			System.out.println(json.toString());
+			//System.out.println(json.toString());
 
 			for (Map<String, Object> k : stuList) {
 				if (k.get("bs_deviceid") != null) {
