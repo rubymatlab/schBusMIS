@@ -220,6 +220,7 @@ public class BasContrailController extends BaseController {
 							job.getString("gps_longitude"));
 					job.put("gps_latitude", clearLocation[0]);
 					job.put("gps_longitude", clearLocation[1]);
+					job.put("number", i+1);
 					try {
 						String time_and_power = sdf.format(df.parse(job.getString("device_time")));
 						job.put("device_time", t.getBsName() + " " + time_and_power);

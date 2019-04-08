@@ -21,13 +21,15 @@
 			<td align="right"><label class="Validform_label"> 开始时间:
 			</label></td>
 			<td class="value"><input id="createDate" name="createDate"
-				type="text" maxlength="24" style="width: 150px" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+				type="text" maxlength="24" style="width: 150px" class="Wdate"
+				onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
 				ignore="ignore" /> <span class="Validform_checktip"></span> <label
 				class="Validform_label" style="display: none;">开始时间</label></td>
 			<td align="right"><label class="Validform_label"> 结束时间:
 			</label></td>
 			<td class="value"><input id="updateDate" name="updateDate"
-				type="text" maxlength="24" style="width: 150px" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+				type="text" maxlength="24" style="width: 150px" class="Wdate"
+				onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
 				ignore="ignore" /> <span class="Validform_checktip"></span> <label
 				class="Validform_label" style="display: none;">结束时间</label></td>
 			<td><a href="#" class="easyui-linkbutton l-btn"
@@ -35,7 +37,10 @@
 
 		</tr>
 	</table>
-	<div id="map_canvas"></div>
+	<div id="panel">
+		<div id="map_canvas"></div>
+		<div style='width: 80%; height: 700px' id="infoDiv"></div>
+	</div>
 </body>
 
 <style type="text/css">
@@ -45,9 +50,13 @@
 	width: 98%;
 	min-height: 700px;
 }
+
+#panel {
+	padding: 5px;
+}
 </style>
 <script charset="utf-8"
-	src="https://map.qq.com/api/js?v=2.exp&libraries=drawing&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
+	src="https://map.qq.com/api/js?v=2.exp&libraries=drawing&key=ACEBZ-EM33F-CEYJL-NAU2E-RM65Q-GSBD5"></script>
 <script>
 	var markersArray = [];
 	function basClassListsearch() {
@@ -64,52 +73,102 @@
 			dataType : "JSON",
 			success : function(data) {
 				deleteOverlays();
-				var arrayobject=data.obj;
-				var lineobject = new Array();
-				for (var i = 0; i < arrayobject.length; i++) {
-					//console.log(arrayobject[i].gps_latitude);
-					var position = new qq.maps.LatLng(arrayobject[i].gps_latitude,arrayobject[i].gps_longitude);
+				var arrayobject = data.obj;
+				/* for (var i = 0; i < arrayobject.length; i++) {
+					var position = new qq.maps.LatLng(
+							arrayobject[i].gps_latitude,
+							arrayobject[i].gps_longitude);
+					var decoration = new qq.maps.MarkerDecoration(
+							arrayobject[i].number, new qq.maps.Point(0,
+									-5))
+
 					var marker = new qq.maps.Marker({
 						position : position,
-						map : map
+						map : map,
+						decoration : decoration
 					});
-					
-					
+
 					var label = new qq.maps.Label({
 						position : position,
 						//标签的文本。
 						content : arrayobject[i].device_time,
-						//显示标签的地图。
 						map : map,
 						//如果为true，表示标签可见，默认为true。
 						visible : true
 					});
-					lineobject.push(position);
 					markersArray.push(marker);
 					markersArray.push(label);
-					if(i==0)
+					if (i == 0) {
+						map.panTo(position);
+					}
+				} */
+				for (var i = 1; i < arrayobject.length; i++) {
+					//设置获取驾车线路方案的服务
+					var drivingService = new qq.maps.TransferService({
+						map : map,
+						complete : function(response) {
+							//console.log(response);
+						}
+					});
+					//设置驾车方案
+					drivingService
+							.setPolicy(qq.maps.TransferPolicy["LEAST_WALKING"]);
+					var start = new qq.maps.LatLng(
+							arrayobject[i - 1].gps_latitude,
+							arrayobject[i - 1].gps_longitude);
+					var end = new qq.maps.LatLng(arrayobject[i].gps_latitude,
+							arrayobject[i].gps_longitude);
+					drivingService.search(start, end);
+
+					drivingService.clear();
+
+					var position = new qq.maps.LatLng(
+							arrayobject[i].gps_latitude,
+							arrayobject[i].gps_longitude);
+					var decoration = new qq.maps.MarkerDecoration(
+							arrayobject[i].number, new qq.maps.Point(0, -5))
+
+					var marker = new qq.maps.Marker({
+						position : position,
+						map : map,
+						decoration : decoration
+					});
+
+					var label = new qq.maps.Label({
+						position : position,
+						//标签的文本。
+						content : arrayobject[i].device_time,
+						map : map,
+						//如果为true，表示标签可见，默认为true。
+						visible : true
+					});
+
+					markersArray.push(drivingService);
+					markersArray.push(marker);
+					markersArray.push(label);
+					if (i == 1)
 						map.panTo(position);
 				}
-				var polyline = new qq.maps.Polyline({
-			        path: lineobject,
-			        strokeColor: '#0040FF',
-			        strokeWeight: 3,
-			        editable:false,
-			        map: map
-			    });
-
-				markersArray.push(polyline);
 			}
 		});
 	}
+
+	//清除地图上的marker
+	function clearOverlay(overlays) {
+		var overlay;
+		while (overlay = overlays.pop()) {
+			overlay.setMap(null);
+		}
+	}
+
 	//删除覆盖物
 	function deleteOverlays() {
-	    if (markersArray) {
-	        for (i in markersArray) {
-	            markersArray[i].setMap(null);
-	        }
-	        markersArray.length = 0;
-	    }
+		if (markersArray) {
+			for (i in markersArray) {
+				markersArray[i].setMap(null);
+			}
+			markersArray.length = 0;
+		}
 	}
 	window.init = function() {
 		//直接加载地图
