@@ -74,7 +74,7 @@
 			success : function(data) {
 				deleteOverlays();
 				var arrayobject = data.obj;
-				/* for (var i = 0; i < arrayobject.length; i++) {
+				for (var i = 0; i < arrayobject.length; i++) {
 					var position = new qq.maps.LatLng(
 							arrayobject[i].gps_latitude,
 							arrayobject[i].gps_longitude);
@@ -101,13 +101,16 @@
 					if (i == 0) {
 						map.panTo(position);
 					}
-				} */
-				for (var i = 1; i < arrayobject.length; i++) {
+				} 
+				//hello=[];
+				/*for (var i = 1; i < arrayobject.length; i++) {
+					//hello.push([arrayobject[i - 1].gps_longitude,
+						//		arrayobject[i - 1].gps_latitude]); 
 					//设置获取驾车线路方案的服务
 					var drivingService = new qq.maps.TransferService({
 						map : map,
-						complete : function(response) {
-							//console.log(response);
+						complete : function(res) {
+							//console.log(res);
 						}
 					});
 					//设置驾车方案
@@ -148,9 +151,10 @@
 					markersArray.push(label);
 					if (i == 1)
 						map.panTo(position);
-				}
+				}*/
+				//console.log(hello);
 			}
-		});
+		})
 	}
 
 	//清除地图上的marker
