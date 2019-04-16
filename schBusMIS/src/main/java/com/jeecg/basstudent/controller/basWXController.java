@@ -253,7 +253,7 @@ public class basWXController extends BaseController {
 		return ri;
 	}	
 	
-	//下一站上车提醒-->上车准备提醒
+	//下一站上车提醒-->上、接车准备提醒
 	@RequestMapping(params = "doSendTMessage_NextUp")
 	@ResponseBody
 	public int doSendTMessage_NextUp(String sizeoid,HttpServletRequest request,HttpServletResponse response) throws WexinReqException {
@@ -406,6 +406,10 @@ public class basWXController extends BaseController {
 		System.out.println("doSendTMessage_leave..."+message+";"+accessToken);
 		//return ri;
 	}	
+	
+	
+	
+	
 	
 	//个人中心入口
 	@RequestMapping(params = "gopenid")
