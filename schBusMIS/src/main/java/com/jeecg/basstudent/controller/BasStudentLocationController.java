@@ -1,5 +1,6 @@
 package com.jeecg.basstudent.controller;
 
+import com.jeecg.bascontrail.entity.BusConfigEntity;
 import com.jeecg.basstudent.entity.BasStudentLocationEntity;
 import com.jeecg.basstudent.entity.ConvertionUtils;
 import com.jeecg.basstudent.entity.HttpRequestPost;
@@ -128,6 +129,13 @@ public class BasStudentLocationController extends BaseController {
 		request.setAttribute("timestamp", o.get("timestamp"));
 		request.setAttribute("nonceStr", o.get("nonceStr"));
 		request.setAttribute("signature", o.get("signature"));
+		List<BusConfigEntity> bceLat=systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLatitude");
+		List<BusConfigEntity> bceLong=systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLongitude");
+		if(bceLat.size()>0)
+			request.setAttribute("latitude", bceLat.get(0).getCfValue());
+		if(bceLong.size()>0)
+			request.setAttribute("longitude", bceLong.get(0).getCfValue());
+		
 		String sql = "";
 		if (code != null) {
 			String sopenid = wxutils.OAuthGetOpenid(code);

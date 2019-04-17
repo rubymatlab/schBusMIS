@@ -98,7 +98,7 @@ p {
 				</c:if>
 			</c:forEach>
 			if (centerJ == 0)
-				center = new qq.maps.LatLng(22.5333200000, 113.9304100000);
+				center = new qq.maps.LatLng('${latitude}', '${longitude}');
 			
 			var map = new qq.maps.Map(document.getElementById("container"), {
 				center : center,
