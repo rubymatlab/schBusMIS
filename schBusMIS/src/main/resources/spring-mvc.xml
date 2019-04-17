@@ -190,11 +190,13 @@
 						<value>baswxcontroller.do?binding</value>
 						<value>baswxcontroller.do?unBinding</value>
 						<value>baswxcontroller.do?getStudent</value>
+						<value>baswxcontroller.do?getStudent02</value>
 						<value>baswxcontroller.do?insertopenid</value>
 						<value>baswxcontroller.do?getcardinfo</value>
 						<value>baswxcontroller.do?getcardinfo02</value>
 						<value>baswxcontroller.do?leave</value>
 						<value>baswxcontroller.do?leavelist</value>
+						<value>baswxcontroller.do?getleaverecs</value>
 						<value>baswxcontroller.do?approve</value>
 						<value>baswxcontroller.do?userlogin</value>
 						<value>baswxcontroller.do?getlinename</value>

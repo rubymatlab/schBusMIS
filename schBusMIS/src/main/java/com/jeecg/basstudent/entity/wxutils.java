@@ -60,6 +60,7 @@ public class wxutils {
 	
 	private static final String openidurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/baswxcontroller.do?gopenid&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 	private static final String qrybusurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/baswxcontroller.do?getBusloc&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+	private static final String leaerecsurl = basurl+"/page/leaverecs.html";
 	//地图地址openid
 	private static final String openidurlLocation = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/basStudentLocationController.do?list&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 	
@@ -161,6 +162,11 @@ public class wxutils {
 			o2_s2.setName("车辆位置");
 			o2_s2.setUrl(qrybusurl);
 			sub_button2.add(o2_s2);
+			WeixinButton o2_s3 = new WeixinButton();
+			o2_s3.setType("view");
+			o2_s3.setName("请假记录");
+			o2_s3.setUrl(leaerecsurl);
+			sub_button2.add(o2_s3);
 /*			WeixinButton o2_s3 = new WeixinButton();
 			o2_s3.setType("view");
 			o2_s3.setName("test");

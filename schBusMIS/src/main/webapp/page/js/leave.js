@@ -32,8 +32,48 @@
     $('#begb').val(begintime);
     //$('#bege').val(endtime);
 
+    //获取人员信息
+    var openid = GetQueryString("Open");
+    var ruletype=localStorage.getItem("ruletype");
+    var postUrl = path+"/baswxcontroller.do?getStudent02";//请求路径
+    if (openid != "" || openid != null) {
+        $levname = $("#levname");//获取div的id
+        var postData = { openid: openid,ruletype:ruletype };//请求数据
+        var cour = '';
+        var courtilte = '';
+        $.ajax({
+            type: 'POST',
+            url: postUrl,
+            data: postData,
+            dataType: 'json',
+            timeout: 15000,
+            success: function (data) {
+            	if (data.length != 0 || data.length!="0") {
+	            	var str = '';
+	            	for(var o in data) {
+	            		str += '<option value="'+data[o].id+'">'+data[o].bs_name+'</option>';
+	            	}
+	            	$levname.append(str);
 
- 
+                } else {
+                	$levname.append(' <div style="text-align:center;" class="weui_text_area"> ' +
+                                    ' <p class="weui_msg_desc"> </p> '+
+                                    ' <p class="weui_msg_desc"><h5 class="weui_msg_title">您还没有绑定</h5></p> '+
+                                    ' </div>');//div赋值
+                }
+            },
+            error: function () {
+                showDialog('请求出错!');
+            }
+        });
+    } else {
+        $courses.append(' <div style="text-align:center;" class="weui_text_area"> ' +
+                                     ' <p class="weui_msg_desc"> </p> ' +
+                                     ' <p class="weui_msg_desc"><h5 class="weui_msg_title">您还没有刷卡数据</h5></p> ' +
+                                     ' </div>');//div赋值
+    }
+    
+    
 		
 // 获取url的参数
 function GetQueryString(name) {
@@ -49,6 +89,7 @@ function getUrl() {
     var openid = GetQueryString("Open");
     //var linetype= $("input[name='linetype']:checked").val();
     var reason=document.getElementById('reason').value;
+    var stuid=document.getElementById('levname').value;
     
 	var linetype="";
 	var dd ="";
@@ -62,11 +103,11 @@ function getUrl() {
 		}
 	} 
   
-    //alert("linetype:"+linetype);
-	if(linetype!=""){
+    //alert("stuid:"+stuid);
+	if(linetype!=""&&stuid!=""){
 	    var postUrl = path+"/baswxcontroller.do?leave";//请求路径
 	    if (openid != "" || openid!=null) {
-	        var postData = { begb: begb,reason: reason, openid:openid,linetype:linetype};//请求数据
+	        var postData = { begb: begb,reason: reason, openid:openid,linetype:linetype,stuid:stuid};//请求数据
 	        $.ajaxSettings.async = false;
 	        $.ajax({
 	            type: 'POST',

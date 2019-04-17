@@ -1,6 +1,9 @@
 ﻿    var openId = GetQueryString("Open");
     var postUrl = path+"/baswxcontroller.do?getStudent";//请求路径
     var ruletype=localStorage.getItem("ruletype");
+    var cour = '';
+    var courtilte = '';
+    $content = $("#contentwx");//获取div的id
     var postData = { openid: openId,ruletype:ruletype };//请求数据
     $.ajax({
         type: 'POST',
@@ -9,9 +12,40 @@
         dataType: 'json',
         timeout: 15000,
         success: function (data) {
-            //alert(data[0].bs_name)
+            //alert(data[0].bs_name+";"+data.length)
             $(" input[ name='xingming' ] ").val(data[0].bs_name);
             $(" input[ name='tall' ] ").val(data[0].bs_tel);
+            
+            
+
+            if (data.length != 0 || data.length!="0") {
+                for (var i = 0; i < data.length; i++) {
+	                    cour = cour + ' <tbody > ' +
+	                                        '  <tr> ' +
+	                                            '  <td style="width:80px">' + data[i].bs_name + '</td> ' +
+	                                            '  <td style="width:80px">' + data[i].bc_name + '</td> ' +
+	                                        '  </tr> ' +
+	                                    '  </tbody> ';                   
+                }
+	                courtilte = courtilte + ' <table style="width:100%" id="table11"> ' +
+	                                            ' <thead> ' +
+	                                                ' <tr> ' +
+	                                                    ' <th style="width:80px" >姓名</th> ' +
+	                                                    ' <th style="width:80px" >班级</th> '+
+	                                                ' </tr> ' +
+	                                            ' </thead> ' + cour +
+	                                           '  </table> ';
+                
+                $content.append(courtilte);//div赋值
+
+            } else {
+                $content.append(' <div style="text-align:center;" class="weui_text_area"> ' +
+                                ' <p class="weui_msg_desc"> </p> '+
+                                ' <p class="weui_msg_desc"><h5 class="weui_msg_title">没有数据</h5></p> '+
+                                ' </div>');//div赋值
+            }
+        
+            
         },
         error: function () {
             showDialog('请求出错!');
