@@ -23,11 +23,9 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jeecg.bascontrail.entity.BusConfigEntity;
 import com.jeecg.bascontrail.entity.BusUploaddataEntity;
 import com.jeecg.basstudent.controller.basWXController;
 import com.jeecg.basstudent.entity.ConvertionUtils;
-import com.jeecg.basstudent.entity.Distance;
 import com.jeecg.basstudent.entity.HttpRequestPost;
 import com.jeecg.basstudent.entity.RequestLocationsDevice;
 import com.jeecg.basstudent.entity.wxutils;
@@ -36,9 +34,9 @@ import com.jeecg.basstudentinfo.entity.BasStudentInfoEntity;
 import net.sf.json.JSONObject;
 
 /**
- * @author zhou 学生出了电子围栏，进行提醒报警
+ * @author zhou 24小时未上传数据，进行写表，提醒报警
  */
-public class wxsmsDistanceReminder implements Job {
+public class wxsmsDiffTimeReminder implements Job {
 
 	/*
 	 * (non-Javadoc)
@@ -80,7 +78,7 @@ public class wxsmsDistanceReminder implements Job {
 		List<String> noticeList = this.CompareRemoteTime(listDeviceid);
 
 		// 将信息保存到数据库表
-		/*for (String job : noticeList) {
+		for (String job : noticeList) {
 			String deviceId=JSONObject.fromObject(job).getString("deviceId");
 			List<BasStudentInfoEntity> listBse=systemService.findByProperty(BasStudentInfoEntity.class, "bsDeviceid", deviceId);
 			if(listBse.size()>0)
@@ -91,7 +89,7 @@ public class wxsmsDistanceReminder implements Job {
 				bce.setCreateDate(Calendar.getInstance().getTime());
 				systemService.save(bce);
 			}
-		}*/
+		}
 		System.out.println("执行电子围栏提醒消息结束...");
 	}
 
@@ -104,17 +102,6 @@ public class wxsmsDistanceReminder implements Job {
 	private List<String> CompareRemoteTime(List<String> listDeviceid) {
 		// 需要提醒的设备
 		List<String> noticeList = new ArrayList<String>();
-		
-		// 围栏经纬度
-		double lat=0.0;
-		double lng=0.0;
-		List<BusConfigEntity> bceLat=systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLatitude");
-		List<BusConfigEntity> bceLong=systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLongitude");
-		if(bceLat.size()>0)
-			lat=Double.parseDouble(bceLat.get(0).getCfValue());
-		if(bceLong.size()>0)
-			lng=Double.parseDouble(bceLong.get(0).getCfValue());
-		
 		for (String deviceids : listDeviceid) {
 			System.out.println("开始执行:" + deviceids);
 			JSONObject json = new JSONObject();
@@ -154,10 +141,13 @@ public class wxsmsDistanceReminder implements Job {
 										try {
 											// 超过一天未获取数据，则报警
 											Date remoteTime = df.parse(job.getString("device_time"));
-											double[] clearLocation = ConvertionUtils.getClear(job.getString("gps_latitude"),
-													job.getString("gps_longitude"));
-											System.out.println(job.getString("deviceId")+"距离："+Distance.getDistance(clearLocation[1], clearLocation[0], lng, lat)); 
-											
+											Date nowTime = Calendar.getInstance().getTime();
+											long diff = nowTime.getTime() - remoteTime.getTime();
+											long hour = diff / (1000 * 60 * 60);
+											if (hour > 24)
+											{
+												noticeList.add(job.toString());
+											}
 										} catch (Exception e) {
 											// TODO Auto-generated catch block
 											//e.printStackTrace();
