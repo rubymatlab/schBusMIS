@@ -23,6 +23,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jeecg.bascontrail.entity.BusUploaddataEntity;
+import com.jeecg.basstudent.controller.basWXController;
 import com.jeecg.basstudent.entity.ConvertionUtils;
 import com.jeecg.basstudent.entity.HttpRequestPost;
 import com.jeecg.basstudent.entity.RequestLocationsDevice;
@@ -59,7 +61,7 @@ public class wxsmsDistanceReminder implements Job {
 		String strSize = "";
 		// 分组
 		for (BasStudentInfoEntity t : listBsie) {
-			if (t.getBsDeviceid() != "") {
+			if (!("".equals(t.getBsDeviceid()) || t.getBsDeviceid()==null)) {
 				allDeviceid.add(t.getBsDeviceid());
 				// 每50个deviceid去访问
 				if (allDeviceid.size() % 50 == 0) {
@@ -74,14 +76,29 @@ public class wxsmsDistanceReminder implements Job {
 			listDeviceid.add(strSize);
 		// 访问并获取需要预警的值
 		List<String> noticeList = this.CompareRemoteTime(listDeviceid);
-		
-		// 将信息进行微信推送给用户
-		for (String s : noticeList) {
-			System.out.println(s);
+
+		// 将信息保存到数据库表
+		for (String job : noticeList) {
+			String deviceId=JSONObject.fromObject(job).getString("deviceId");
+			List<BasStudentInfoEntity> listBse=systemService.findByProperty(BasStudentInfoEntity.class, "bsDeviceid", deviceId);
+			if(listBse.size()>0)
+			{
+				BusUploaddataEntity bce=new BusUploaddataEntity();
+				bce.setBsStudentid(listBse.get(0).getId());
+				bce.setBuData(job);
+				bce.setCreateDate(Calendar.getInstance().getTime());
+				systemService.save(bce);
+			}
 		}
 		System.out.println("执行电子围栏提醒消息结束...");
 	}
 
+	/**
+	 * 获取超过24小时需要预警的值
+	 * 
+	 * @param listDeviceid
+	 * @return
+	 */
 	private List<String> CompareRemoteTime(List<String> listDeviceid) {
 		// 需要提醒的设备
 		List<String> noticeList = new ArrayList<String>();
@@ -112,7 +129,7 @@ public class wxsmsDistanceReminder implements Job {
 				json = HttpRequestPost.doPost(requestUrl, ob);
 				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
 				for (String deviceid : deviceids.split(",")) {
-					if (deviceid != null)
+					if (deviceid != null && deviceids!="")
 						if (json.toString().contains(deviceid)) {
 							net.sf.json.JSONArray array = net.sf.json.JSONArray
 									.fromObject(json.get(deviceid).toString());// 将json字符串转成json数组
@@ -128,11 +145,12 @@ public class wxsmsDistanceReminder implements Job {
 											long diff = nowTime.getTime() - remoteTime.getTime();
 											long hour = diff / (1000 * 60 * 60);
 											if (hour > 24)
-												if(!noticeList.contains(deviceid))
-													noticeList.add(deviceid);
-										} catch (ParseException e) {
+											{
+												noticeList.add(job.toString());
+											}
+										} catch (Exception e) {
 											// TODO Auto-generated catch block
-											e.printStackTrace();
+											//e.printStackTrace();
 										}
 									}
 								}
@@ -144,5 +162,35 @@ public class wxsmsDistanceReminder implements Job {
 
 		return noticeList;
 	}
+
+	/*private void NoticePerson(List<String> noticeList) {
+		try {
+			String accessToken = wxutils.getAcctonken();
+			TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
+			// 将信息进行微信推送给用户
+			for (String s : noticeList) {
+				Map<String, TemplateData> data = new HashMap<String, TemplateData>();
+				List<BasStudentInfoEntity> listO = systemService.findByProperty(BasStudentInfoEntity.class,
+						"bsDeviceid", s);
+				if (listO.size() > 0) {
+					data.put("first", new TemplateData("尊敬的家长，你的小孩学生卡24小时未上传数据。", "#173177"));
+					data.put("keyword1", new TemplateData(listO.get(0).getBcGrade()+" "+listO.get(0).getBcName(), "#FF0000"));
+					data.put("keyword2", new TemplateData(listO.get(0).getBsName(), "#173177"));
+					msgSend.setTemplate_id(basWXController.Templateid_notice);
+					try {
+						msgSend.setTouser("");
+						msgSend.setData(data);
+						JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+					} catch (WexinReqException e) {
+					}
+				}
+			}
+
+		} catch (WexinReqException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+		}
+
+	}*/
 
 }

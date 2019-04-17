@@ -1,6 +1,7 @@
 package com.jeecg.bascontrail.controller;
 
 import com.jeecg.bascontrail.entity.BasContrailEntity;
+import com.jeecg.bascontrail.entity.BusConfigEntity;
 import com.jeecg.bascontrail.service.BasContrailServiceI;
 import com.jeecg.basstudent.entity.ConvertionUtils;
 import com.jeecg.basstudentinfo.entity.BasStudentInfoEntity;
@@ -109,6 +110,12 @@ public class BasContrailController extends BaseController {
 	 */
 	@RequestMapping(params = "list")
 	public ModelAndView list(HttpServletRequest request) {
+		List<BusConfigEntity> bceLat=systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLatitude");
+		List<BusConfigEntity> bceLong=systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLongitude");
+		if(bceLat.size()>0)
+			request.setAttribute("latitude", bceLat.get(0).getCfValue());
+		if(bceLong.size()>0)
+			request.setAttribute("longitude", bceLong.get(0).getCfValue());
 		return new ModelAndView("com/jeecg/bascontrail/basContrailList");
 	}
 

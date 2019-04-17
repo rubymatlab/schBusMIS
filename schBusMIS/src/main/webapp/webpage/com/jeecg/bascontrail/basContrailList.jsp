@@ -183,7 +183,7 @@
 		var center = null;
 		var content = "";
 		if (centerJ == 0)
-			center = new qq.maps.LatLng(22.5333200000, 113.9304100000);
+			center = new qq.maps.LatLng('${latitude}', '${longitude}');
 
 		//设置全局变量
 		map = new qq.maps.Map(document.getElementById("map_canvas"), {
