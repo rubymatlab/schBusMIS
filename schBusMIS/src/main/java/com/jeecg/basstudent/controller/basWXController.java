@@ -62,6 +62,8 @@ public class basWXController extends BaseController {
 	private static final String Templateid_SK="2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc";
 	private static final String Templateid_QryBusLoc="7_gJwIOoSclWvtUsgFTkTtGSHO-zuXHeO3978m2bPoA";
 	private static final String Templateid_leave="2FADaZxNLxG8U4eCHt70tBTBDKuRryTo-L06AsJn4A8";
+	//超出围栏预警
+	public static final String Templateid_notice="g8bpcdUrhfpl-XTXz7VPiIFFG2b63ET-3dCOIruOz7k";
 	@Autowired
 	private SystemService systemService;
 	

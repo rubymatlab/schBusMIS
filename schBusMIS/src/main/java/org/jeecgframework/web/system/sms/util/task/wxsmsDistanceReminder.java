@@ -24,6 +24,7 @@ import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jeecg.bascontrail.entity.BusConfigEntity;
+import com.jeecg.bascontrail.entity.BusOpenidEntity;
 import com.jeecg.bascontrail.entity.BusUploaddataEntity;
 import com.jeecg.basstudent.controller.basWXController;
 import com.jeecg.basstudent.entity.ConvertionUtils;
@@ -63,7 +64,7 @@ public class wxsmsDistanceReminder implements Job {
 		String strSize = "";
 		// 分组
 		for (BasStudentInfoEntity t : listBsie) {
-			if (!("".equals(t.getBsDeviceid()) || t.getBsDeviceid()==null)) {
+			if (!("".equals(t.getBsDeviceid()) || t.getBsDeviceid() == null)) {
 				allDeviceid.add(t.getBsDeviceid());
 				// 每50个deviceid去访问
 				if (allDeviceid.size() % 50 == 0) {
@@ -78,20 +79,8 @@ public class wxsmsDistanceReminder implements Job {
 			listDeviceid.add(strSize);
 		// 访问并获取需要预警的值
 		List<String> noticeList = this.CompareRemoteTime(listDeviceid);
+		this.NoticePerson(noticeList);
 
-		// 将信息保存到数据库表
-		/*for (String job : noticeList) {
-			String deviceId=JSONObject.fromObject(job).getString("deviceId");
-			List<BasStudentInfoEntity> listBse=systemService.findByProperty(BasStudentInfoEntity.class, "bsDeviceid", deviceId);
-			if(listBse.size()>0)
-			{
-				BusUploaddataEntity bce=new BusUploaddataEntity();
-				bce.setBsStudentid(listBse.get(0).getId());
-				bce.setBuData(job);
-				bce.setCreateDate(Calendar.getInstance().getTime());
-				systemService.save(bce);
-			}
-		}*/
 		System.out.println("执行电子围栏提醒消息结束...");
 	}
 
@@ -104,17 +93,23 @@ public class wxsmsDistanceReminder implements Job {
 	private List<String> CompareRemoteTime(List<String> listDeviceid) {
 		// 需要提醒的设备
 		List<String> noticeList = new ArrayList<String>();
-		
-		// 围栏经纬度
-		double lat=0.0;
-		double lng=0.0;
-		List<BusConfigEntity> bceLat=systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLatitude");
-		List<BusConfigEntity> bceLong=systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLongitude");
-		if(bceLat.size()>0)
-			lat=Double.parseDouble(bceLat.get(0).getCfValue());
-		if(bceLong.size()>0)
-			lng=Double.parseDouble(bceLong.get(0).getCfValue());
-		
+
+		// 围栏经纬度,围栏默认30km
+		double lat = 0.0;
+		double lng = 0.0;
+		double distanct = 30.0;
+		List<BusConfigEntity> bceLat = systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLatitude");
+		List<BusConfigEntity> bceLong = systemService.findByProperty(BusConfigEntity.class, "cfCode", "MapLongitude");
+		List<BusConfigEntity> bceDistanct = systemService.findByProperty(BusConfigEntity.class, "cfCode",
+				"MapDistance");
+
+		if (bceLat.size() > 0)
+			lat = Double.parseDouble(bceLat.get(0).getCfValue());
+		if (bceLong.size() > 0)
+			lng = Double.parseDouble(bceLong.get(0).getCfValue());
+		if (bceDistanct.size() > 0)
+			distanct = Double.parseDouble(bceDistanct.get(0).getCfValue());
+
 		for (String deviceids : listDeviceid) {
 			System.out.println("开始执行:" + deviceids);
 			JSONObject json = new JSONObject();
@@ -142,7 +137,7 @@ public class wxsmsDistanceReminder implements Job {
 				json = HttpRequestPost.doPost(requestUrl, ob);
 				SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
 				for (String deviceid : deviceids.split(",")) {
-					if (deviceid != null && deviceids!="")
+					if (!(deviceid == null || "".equals(deviceids)))
 						if (json.toString().contains(deviceid)) {
 							net.sf.json.JSONArray array = net.sf.json.JSONArray
 									.fromObject(json.get(deviceid).toString());// 将json字符串转成json数组
@@ -154,13 +149,18 @@ public class wxsmsDistanceReminder implements Job {
 										try {
 											// 超过一天未获取数据，则报警
 											Date remoteTime = df.parse(job.getString("device_time"));
-											double[] clearLocation = ConvertionUtils.getClear(job.getString("gps_latitude"),
-													job.getString("gps_longitude"));
-											System.out.println(job.getString("deviceId")+"距离："+Distance.getDistance(clearLocation[1], clearLocation[0], lng, lat)); 
-											
+											double[] clearLocation = ConvertionUtils.getClear(
+													job.getString("gps_latitude"), job.getString("gps_longitude"));
+											double distance = Distance.getDistance(clearLocation[1], clearLocation[0],
+													lng, lat);
+											System.out.println(job.getString("deviceId") + "距离：" + distance);
+											job.put("distance", distance);
+											if (distance > distanct) {
+												noticeList.add(job.toString());
+											}
 										} catch (Exception e) {
 											// TODO Auto-generated catch block
-											//e.printStackTrace();
+											// e.printStackTrace();
 										}
 									}
 								}
@@ -173,34 +173,50 @@ public class wxsmsDistanceReminder implements Job {
 		return noticeList;
 	}
 
-	/*private void NoticePerson(List<String> noticeList) {
+	/*
+	 * 超出电子围栏微信提醒
+	 */
+	private void NoticePerson(List<String> noticeList) {
 		try {
 			String accessToken = wxutils.getAcctonken();
 			TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
-			// 将信息进行微信推送给用户
-			for (String s : noticeList) {
-				Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-				List<BasStudentInfoEntity> listO = systemService.findByProperty(BasStudentInfoEntity.class,
-						"bsDeviceid", s);
-				if (listO.size() > 0) {
-					data.put("first", new TemplateData("尊敬的家长，你的小孩学生卡24小时未上传数据。", "#173177"));
-					data.put("keyword1", new TemplateData(listO.get(0).getBcGrade()+" "+listO.get(0).getBcName(), "#FF0000"));
-					data.put("keyword2", new TemplateData(listO.get(0).getBsName(), "#173177"));
-					msgSend.setTemplate_id(basWXController.Templateid_notice);
-					try {
-						msgSend.setTouser("");
-						msgSend.setData(data);
-						JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
-					} catch (WexinReqException e) {
+			// 将信息保存到数据库表
+			for (String job : noticeList) {
+				JSONObject o = JSONObject.fromObject(job);
+				if (o.has("deviceId")) {
+					String deviceId = o.getString("deviceId");
+					List<BasStudentInfoEntity> listBse = systemService.findByProperty(BasStudentInfoEntity.class,
+							"bsDeviceid", deviceId);
+					for (BasStudentInfoEntity t : listBse) {
+						if (t.getBsStatus().equals("Y")) {
+							System.out.println(job);
+							Map<String, TemplateData> data = new HashMap<String, TemplateData>();
+							data.put("first", new TemplateData("尊敬的家长，你的小孩超出电子围栏。", "#173177"));
+							data.put("keyword1",
+									new TemplateData(t.getBcGrade() + " " + t.getBcName(), "#FF0000"));
+							data.put("keyword2", new TemplateData(t.getBsName(), "#173177"));
+							data.put("keyword3", new TemplateData(o.getString("distance"), "#173177"));
+							try {
+								List<BusOpenidEntity> listboe = systemService.findByProperty(BusOpenidEntity.class,
+										"bsStudentid", t.getId());
+								for(BusOpenidEntity boe :listboe)
+								{
+									msgSend.setTemplate_id(basWXController.Templateid_notice);
+									msgSend.setTouser(boe.getBoOpenid());
+									msgSend.setData(data);
+									JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);	
+								}
+							} catch (WexinReqException e) {
+							}
+						}
 					}
 				}
 			}
 
-		} catch (WexinReqException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
+		} catch (WexinReqException e) { // TODO Auto-generated catch block //
+			e.printStackTrace();
 		}
 
-	}*/
+	}
 
 }
