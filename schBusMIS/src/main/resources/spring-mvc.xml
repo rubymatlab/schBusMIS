@@ -208,6 +208,9 @@
 						<value>baswxcontroller.do?uploadFile</value>
 						<value>baswxcontroller.do?getBusloc</value>
 						<value>baswxcontroller.do?test</value>
+						<value>baswxcontroller.do?doSaveLoc</value>
+						<value>baswxcontroller.do?getLocInfo</value>
+						
 						<value>basStudentLocationController.do?list</value>
 						<value>DeviceOperationController.do?AddDevice</value>
 						<value>DeviceOperationController.do?DelDevice</value>

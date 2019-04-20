@@ -982,9 +982,15 @@ public class basWXController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT c.id,CONCAT( bl_name, bl_desc) as linename FROM t_s_role tr,t_s_role_user tru,t_s_base_user tu,bas_line c ");
+		StringBuffer sql = new StringBuffer("SELECT c.id,CONCAT( bl_name, bl_desc) as linename,c.line_status FROM t_s_role tr,t_s_role_user tru,t_s_base_user tu,bas_line c ");
 		sql.append("where tr.ID=tru.roleid and tru.userid=tu.ID and tr.rolecode='driver' and tu.status='1' and c.bl_driverid=tu.ID ");
-		sql.append("and tu.username='" + userid + "'");
+		if(userid.equals("00000")){
+			//
+		}else{
+			sql.append(" and tu.username='" + userid + "'");
+		}
+		sql.append(" order by line_status,id");
+		
 		System.out.println("getlinename sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
@@ -1154,6 +1160,43 @@ public class basWXController extends BaseController {
 		return sc;
 		
 	}
+	
+	//新增站点信息
+	@RequestMapping(params = "doSaveLoc")
+	@ResponseBody
+	public int doSaveLoc(String lineoid,String sizeoid,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		
+		UUID ID = UUID.randomUUID();
+		StringBuffer sql = new StringBuffer(
+				"INSERT INTO `bus_nextstationbuttoninfo` (`id`, `line_id`, `size_id`, `create_date`) ");
+		sql.append("VALUES ('" + ID + "','" + lineoid + "','" + sizeoid + "',now() );");
+
+		//System.out.println("iCardData sql..." + ";" + sql.toString());
+
+		int sc = this.systemService.executeSql(sql.toString());
+		System.out.println("doSaveLoc sql..." + ";" + sql.toString()+";"+String.valueOf(sc));
+				
+		return sc;
+		
+	}
+	//查询站点
+	@RequestMapping(params = "getLocInfo")
+	@ResponseBody	
+	public List<Map<String, Object>> getLocInfo(String lineoid,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT size_id,CREATE_date FROM bus_nextstationbuttoninfo ");
+		sql.append("WHERE line_id='" + lineoid + "' order by CREATE_date desc LIMIT 1 ");
+		System.out.println("getLocInfo sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+
+		return listTree;				
+	}
+	
 	
 	
 	//接收文件
