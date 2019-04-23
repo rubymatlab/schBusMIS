@@ -3,6 +3,8 @@ package org.jeecgframework.web.cgform.enhance;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.jeecgframework.core.common.exception.BusinessException;
 import org.jeecgframework.core.util.LogUtil;
@@ -25,8 +27,11 @@ public class DeviceSendJavaInter implements CgformEnhanceReturnJavaInter {
 	@Override
 	public JSONObject execute(String tableName, Map map) throws BusinessException {
 		LogUtil.info("============调用[java增强]成功!========tableName:" + tableName + "===map===" + map);
-
-		Thread thread1 = new Thread(new Runnable() {
+		
+		ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+		/*Thread thread1 = new Thread(*/
+		cachedThreadPool.execute(new Runnable() {
+			@Override
 			public void run() {
 				JSONObject json = new JSONObject();
 				// 写入数据库
@@ -75,7 +80,7 @@ public class DeviceSendJavaInter implements CgformEnhanceReturnJavaInter {
 				}
 			}
 		});
-		thread1.start();
+		//thread1.start();
 
 		JSONObject json = new JSONObject();
 		json.put("msg", "下发策略成功");
