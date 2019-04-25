@@ -154,12 +154,21 @@ public class BasStudentLocationController extends BaseController {
 				List<Map<String, Object>> studentList = new ArrayList<Map<String, Object>>();
 				studentList = systemService.findForJdbc(sql);
 				System.out.println(sql);
+				
+				List<Map<String, Object>> jsonAll =new ArrayList<Map<String, Object>>();
 				for (Map<String, Object> stu : studentList) {
-					if (stu.get("bs_deviceid") != null) {
+					if (!("".equals(stu.get("bs_deviceid")) || stu.get("bs_deviceid") == null)) {
 						List<Map<String, Object>> json = this.LocationDevice(stu);
-						request.setAttribute("locationList", json);
-						return new ModelAndView("com/jeecg/basstudent/basStudentLocationList");
+						for(Map<String, Object> js :json)
+						{
+							jsonAll.add(js);
+						}
 					}
+				}
+				if(jsonAll.size()>0)
+				{
+					request.setAttribute("locationList", jsonAll);
+					return new ModelAndView("com/jeecg/basstudent/basStudentLocationList");
 				}
 			} else {
 				// opendid是老师
