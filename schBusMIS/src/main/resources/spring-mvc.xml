@@ -192,6 +192,7 @@
 						<value>baswxcontroller.do?getStudent</value>
 						<value>baswxcontroller.do?getStudent02</value>
 						<value>baswxcontroller.do?insertopenid</value>
+						<value>baswxcontroller.do?postSmsCode</value>
 						<value>baswxcontroller.do?getcardinfo</value>
 						<value>baswxcontroller.do?getcardinfo02</value>
 						<value>baswxcontroller.do?leave</value>

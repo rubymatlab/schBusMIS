@@ -1,55 +1,68 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <link href="./css/mywx.css" rel="stylesheet" type="text/css" />
-    <link href="./css/weui.css" rel="stylesheet" type="text/css" />
-    <link href="./css/mui.min.css" rel="stylesheet" type="text/css" />
-    <script src="./js/zepto.min.js"></script>
-    <title></title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<link href="./css/mywx.css" rel="stylesheet" type="text/css" />
+<link href="./css/weui.css" rel="stylesheet" type="text/css" />
+<link href="./css/mui.min.css" rel="stylesheet" type="text/css" />
+<script src="./js/zepto.min.js"></script>
+<title></title>
 </head>
 
 <body ontouchstart>
-    <div style="margin:10px;">
-        <h1 class="page_title" style="color:#04BE02">绑定信息</h1>
-    </div>
-    <form class="mui-input-group mui-card">
-        <div class="mui-input-row">
-            <label>手机号码</label>
-            <input id ="tall" name="tall" class="tall" type="text" placeholder="请输入手机号码" onblur="yz(this.value)">
-        </div>
-    </form>
-        
-    <div class="weui_cells weui_cells_radio">
-	    <label class="weui_cell weui_check_label" for="x11">
-	        <div class="weui_cell_bd weui_cell_primary">
-	            <p>我是家长</p>
-	        </div>
-	        <div class="weui_cell_ft">
-	            <input type="radio" name="ruleType" class="weui_check" id="x11" value="1" checked="checked">
-	            <span class="weui_icon_checked"></span>
-	        </div>
-	    </label>
-	    <label class="weui_cell weui_check_label" for="x12">
-	        <div class="weui_cell_bd weui_cell_primary">
-	            <p>我是班主任</p>
-	        </div>
-	        <div class="weui_cell_ft">
-	            <input type="radio" name="ruleType" class="weui_check" id="x12" value="2">
-	            <span class="weui_icon_checked"></span>
-	        </div>
-	    </label>
+	<div style="margin: 10px;">
+		<h1 class="page_title" style="color: #04BE02">绑定信息</h1>
+	</div>
+	<form class="mui-input-group mui-card">
+		<div class="mui-input-row">
+			<label>手机号码</label> <input id="tall" name="tall" class="tall"
+				type="text" placeholder="请输入手机号码" onblur="yz(this.value)">
+		</div>
+
+		<div class="mui-input-row">
+			<a href="javascript:postSmsCode();"
+				class="weui_btn weui-btn_mini weui_btn_primary" id="sendcode">发送验证码</a>
+		</div>
+		
+		<div class="mui-input-row">
+			<input id="tallcode" name="tallcode" type="text"
+				placeholder="请输入验证码" >
+		</div>
+	</form>
+
+	<div class="weui_cells weui_cells_radio">
+		<label class="weui_cell weui_check_label" for="x11">
+			<div class="weui_cell_bd weui_cell_primary">
+				<p>我是家长</p>
+			</div>
+			<div class="weui_cell_ft">
+				<input type="radio" name="ruleType" class="weui_check" id="x11"
+					value="1" checked="checked"> <span
+					class="weui_icon_checked"></span>
+			</div>
+		</label> <label class="weui_cell weui_check_label" for="x12">
+			<div class="weui_cell_bd weui_cell_primary">
+				<p>我是班主任</p>
+			</div>
+			<div class="weui_cell_ft">
+				<input type="radio" name="ruleType" class="weui_check" id="x12"
+					value="2"> <span class="weui_icon_checked"></span>
+			</div>
+		</label>
 	</div>
 
-    <div style="margin:10px 10px;">
-        <a href="javascript:getUrl();" class="weui_btn weui_btn_primary" id="submitBtn">我要绑定</a>
-    </div>
-    <div style="margin:10px 10px;">
-        <a onclick="javascript :history.back(-2);" class="weui_btn weui_btn_primary" id="submitBtn">返回</a>
-    </div>
-<script type="text/javascript" src="../page/js/config.js"></script>
-<script src="js/memberlist.js"></script>
+	<div style="margin: 10px 10px;">
+		<a href="javascript:getUrl();" class="weui_btn weui_btn_primary"
+			id="submitBtn">我要绑定</a>
+	</div>
+	<div style="margin: 10px 10px;">
+		<a onclick="javascript :history.back(-2);"
+			class="weui_btn weui_btn_primary" id="submitBtn">返回</a>
+	</div>
+	<script type="text/javascript" src="../page/js/config.js"></script>
+	<script src="js/memberlist.js"></script>
 </body>
 </html>
 

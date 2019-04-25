@@ -39,6 +39,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jeecg.basstudent.entity.ApiV3Sms;
+import com.jeecg.basstudent.entity.ApiV3SmsEntity;
 import com.jeecg.basstudent.entity.WeixinUserInfo;
 import com.jeecg.basstudent.entity.wxutils;
 import com.sun.star.awt.Size;
@@ -475,20 +477,42 @@ public class basWXController extends BaseController {
 	//新增openid记录
 	@RequestMapping(params = "insertopenid")
 	@ResponseBody
-	public int insertopenid(String tell,String openid,String ruletype,HttpServletRequest request) throws WexinReqException {
-		System.out.println("insertopenid参数输出:" + tell + ";" + openid+";"+ruletype);
+	public int insertopenid(String tell, String openid, String ruletype, String tellcode, HttpServletRequest request)
+			throws WexinReqException {
+		System.out.println("insertopenid参数输出:" + tell + ";" + openid + ";" + ruletype + ";" + tellcode);
 		int i = 0;
-		if (isExitsTel(tell,Integer.parseInt(ruletype)) >=1) {
-			if(ruletype.equals("1")){//家长		
-				String[] stuids=new String[3];
-				stuids = getStudenID(tell);
-				for(int j=0;j<stuids.length;j++){
-					if(!stuids[j].equals("0"))
-						i = iopenid(stuids[j], openid);
-				}	
-			}else if(ruletype.equals("2")){
-				i=uopenid(tell,openid);
+		if (isExitsTelCode(tell, tellcode) >= 1) {
+			if (isExitsTel(tell, Integer.parseInt(ruletype)) >= 1) {
+				if (ruletype.equals("1")) {// 家长
+					String[] stuids = new String[3];
+					stuids = getStudenID(tell);
+					for (int j = 0; j < stuids.length; j++) {
+						if (!stuids[j].equals("0"))
+							i = iopenid(stuids[j], openid);
+					}
+				} else if (ruletype.equals("2")) {
+					i = uopenid(tell, openid);
+				}
+			} else { // 手机号码不存在
+				i = 0;
 			}
+		} else {
+			i = 2;
+		}
+		return i;
+	}
+	
+	private static ApiV3Sms a3s=new ApiV3Sms();
+	
+	//新增openid记录
+	@RequestMapping(params = "postSmsCode")
+	@ResponseBody
+	public int postSmsCode(String tell,String openid,HttpServletRequest request) throws WexinReqException {
+		System.out.println("postSmsCode参数输出:" + tell + ";" + openid);
+		int i = 0;
+		if (isExitsTel(tell,1) >=1 || isExitsTel(tell,2) >=1) {
+			a3s.send(tell);
+			i=1;
 		}else {	//手机号码不存在
 			i = 0;
 		}
@@ -751,6 +775,30 @@ public class basWXController extends BaseController {
 		String sc = listTree.get(0).get("c").toString();
 
 		return Integer.parseInt(sc);
+	}
+	
+	// 验证码  1:存在;0:不存在
+	private int isExitsTelCode(String tell,String tellcode) {
+		//超时300s则删除,5分钟内有效
+		Date times=new Date();
+		int size = a3s.listSms.size();
+		for(int i=size-1;i>=0;i--){
+			ApiV3SmsEntity ave=a3s.listSms.get(i);
+			long diffTs=times.getTime()-ave.getTs();
+			//System.out.println(diffTs);
+			if(diffTs>ave.getExpiresIn()*1000)
+			{
+				a3s.listSms.remove(i);
+				System.out.println("删除了");
+			}
+		}
+		
+		for(ApiV3SmsEntity ave : a3s.listSms)
+		{
+			if( ave.getMobiles().equals(tell) && ave.getCode().equals(tellcode) )
+				return 1;
+		}
+		return 0;
 	}
 
 	//获取学生ID

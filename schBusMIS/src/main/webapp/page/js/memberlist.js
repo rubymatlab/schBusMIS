@@ -9,12 +9,12 @@ function getUrl() {
     var va = $(" input[ name='tall' ] ").val();
     var openid = GetQueryString("Open");
     var ruletype = $("input[name='ruleType']:checked").val(); 
+    var vaCode = $(" input[ name='tallcode' ] ").val();
     //$("input[name='reportType']:checked").val();
 
     var postUrl = path+"/baswxcontroller.do?insertopenid";//请求路径
-    //alert(va+"a;"+ruleType);
-    if (va != "" || va != null || openid != "" || openid!=null) {
-        var postData = { tell: va, openid:openid,ruletype:ruletype};//请求数据
+    if (va != "" || va != null || openid != "" || openid!=null || vaCode!=null  ||vaCode!="" ) {
+        var postData = { tell: va, openid:openid,ruletype:ruletype,tellcode:vaCode};//请求数据
         $.ajax({
             type: 'POST',
             url: postUrl,
@@ -30,6 +30,8 @@ function getUrl() {
             		//window.location.href = "index.html?openid=" + openid;
             	}else if (re==0){
             		alert("该手机号码不存在，请重新输入！");
+            	}else if (re==2){
+            		alert("验证码不存在，请重新输入！");
             	}else{
             		window.location.href = "error.html";
             	}           	
@@ -42,6 +44,39 @@ function getUrl() {
     } else {
         alert("请输入手机号码！");
         //window.location.href = "error.html";
+    }
+}
+
+
+function postSmsCode() {
+    var va = $(" input[ name='tall' ] ").val();
+    var openid = GetQueryString("Open");
+    var postUrl = path+"/baswxcontroller.do?postSmsCode";//请求路径
+    //alert(va+"a;"+ruleType);
+    if (va != "" || va != null || openid != "" || openid!=null) {
+        var postData = { tell: va, openid:openid};//请求数据
+        $.ajax({
+            type: 'POST',
+            url: postUrl,
+            data: postData,
+            dataType: 'json',
+            success: function (data) {
+            	var re=JSON.stringify(data);
+            	if (re == 1){
+            		$("#tallcode").attr("disabled","disabled");
+            		continue;
+            	}else if (re==0){
+            		alert("该手机号码不存在，请重新输入！");
+            	}else{
+            		window.location.href = "error.html";
+            	}       
+            },
+            error: function () {
+                showDialog('请求出错!');
+            }
+        });
+    } else {
+        alert("请输入手机号码！");
     }
 }
 
