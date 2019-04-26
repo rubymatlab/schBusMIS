@@ -54,7 +54,7 @@ public class ApiV3Sms {
 			params.put("sign",createSign(appKey, params));
 			//System.out.printf("参数:\n%s\n", JSON.toJSONString(params));
 
-			System.out.printf("手机:"+mobiles+"当前验证码是："+ String.valueOf(intCode));
+			System.out.println("手机:"+mobiles+"当前验证码是："+ String.valueOf(intCode));
 			
 			//超时300s则删除
 			Date times=new Date();

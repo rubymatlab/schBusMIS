@@ -481,7 +481,7 @@ public class basWXController extends BaseController {
 			throws WexinReqException {
 		System.out.println("insertopenid参数输出:" + tell + ";" + openid + ";" + ruletype + ";" + tellcode);
 		int i = 0;
-		if (isExitsTelCode(tell, tellcode) >= 1) {
+		if (isExitsTelCode(tell, tellcode) == 1) {
 			if (isExitsTel(tell, Integer.parseInt(ruletype)) >= 1) {
 				if (ruletype.equals("1")) {// 家长
 					String[] stuids = new String[3];
@@ -507,15 +507,21 @@ public class basWXController extends BaseController {
 	//新增openid记录
 	@RequestMapping(params = "postSmsCode")
 	@ResponseBody
-	public int postSmsCode(String tell,String openid,HttpServletRequest request) throws WexinReqException {
+	public int postSmsCode(String tell, String openid, HttpServletRequest request){
 		System.out.println("postSmsCode参数输出:" + tell + ";" + openid);
 		int i = 0;
-		if (isExitsTel(tell,1) >=1 || isExitsTel(tell,2) >=1) {
-			a3s.send(tell);
-			i=1;
-		}else {	//手机号码不存在
-			i = 0;
+
+		if (isExitsTelCode(tell, "") == 2) {
+			i = 2;
+		} else {
+			if (isExitsTel(tell, 1) >= 1 || isExitsTel(tell, 2) >= 1) {
+				a3s.send(tell);
+				i = 1;
+			} else { // 手机号码不存在
+				i = 0;
+			}
 		}
+
 		return i;
 	}
 	
@@ -820,8 +826,15 @@ public class basWXController extends BaseController {
 		
 		for(ApiV3SmsEntity ave : a3s.listSms)
 		{
+			//1则存在手机、验证码
 			if( ave.getMobiles().equals(tell) && ave.getCode().equals(tellcode) )
 				return 1;
+			//2则存在手机、验证码已发送
+			if( ave.getMobiles().equals(tell))
+			{
+				System.out.println("已存在手机:"+ave.getMobiles()+"当前验证码是："+ ave.getCode());
+				return 2;
+			}
 		}
 		return 0;
 	}
