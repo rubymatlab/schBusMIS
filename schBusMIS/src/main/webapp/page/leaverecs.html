@@ -4,8 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title></title>
-    <link href="css/weui.min.css" rel="stylesheet" />
+     <link href="css/weui.min.css" rel="stylesheet" />
     <script type="text/javascript" src="../page/js/zepto.min.js"></script>
+    
+<!--     <link href="./css/mywx.css" rel="stylesheet" type="text/css" />
+    <link href="./css/weui.css" rel="stylesheet" type="text/css" />
+    <link href="./css/mui.min.css" rel="stylesheet" type="text/css" />
+   <script type="text/javascript" src="./js/jquery-3.2.1.min.js" ></script>
+    <script src="./js/zepto.min.js"></script> -->
+    
     <style type="text/css">
         #table11 thead th {
             padding: 5px;
@@ -38,19 +45,34 @@
             background-color: #DEF3CA;
             border-radius: 2px;
         }
+        #ceshi,#ceshi1{
+    		display: flex;
+    	}
+
     </style>
 </head>
 <body style="top:10px;">
     <header style="text-align:center;background-color:#fff;box-shadow: 0px 0px 16px #aaa;" class="mui-bar">
         <h3 style="padding:10px;" class="mui-title">当天请假记录</h3>
     </header>
+    <br>
+		<div  id="#ceshi" class="center" style="font-size:25px">
+			<label>&nbsp&nbsp 线路</label>
+	                   <select style="font-size:25px" class="weui-select" name="linname" id="linname">
+	                   </select>
+		</div>
+
+	
+     <div style="margin:10px 10px;">
+        <a href="javascript:getUrl();" class="weui_btn weui_btn_primary" id="submitBtn">查询</a>
+    </div>	
+
+			    
     <div style="overflow-x:scroll ;white-space:nowrap;text-align:center;margin-top:14px;" id="contentwx" class="contentwx">
 
     </div>
 
-    <div style="margin:10px 10px;">
-        <a onclick="javascript :history.back(-1);" class="weui_btn weui_btn_primary" id="submitBtn">返回</a>
-    </div>
+
     <script type="text/javascript" src="../page/js/config.js"></script>
     <script type="text/javascript" src="../page/js/leaverecs.js"></script>
 </body>

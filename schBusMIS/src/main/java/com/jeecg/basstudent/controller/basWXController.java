@@ -640,7 +640,7 @@ public class basWXController extends BaseController {
 	//请假记录
 	@RequestMapping(params = "getleaverecs")
 	@ResponseBody		
-	public List<Map<String, Object>> leavelist(String ruletype,HttpServletRequest request,HttpServletResponse response){
+	public List<Map<String, Object>> leavelist(String ruletype,String linename,HttpServletRequest request,HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		System.out.println("ruletype-->"+ruletype);
@@ -649,14 +649,39 @@ public class basWXController extends BaseController {
 		// getData
 		if(ruletype.equals("1")){		//家长
 		}else if(ruletype.equals("2")){	//班主任
-			sql.append("SELECT bl_studentid,bl_student,DATE_FORMAT(bl_begdate,'%Y-%m-%d')as bl_begdate,  ");
+			sql.append("SELECT * from (SELECT bl_studentid,bl_student,DATE_FORMAT(bl_begdate,'%Y-%m-%d')as bl_begdate,  ");
+			sql.append("case bl_linetype when '1' then b.bl_sizeid  else b.bl_sizeid1 end as sizeid, ");
+			sql.append("case bl_linetype when '1' then CONCAT(b.bl_name,'(上学)')  else CONCAT(b.bl_name1,'(放学)') end as blname ");
+			sql.append("from bus_leave a left JOIN bas_student b ON a.bl_studentid=b.id ");
+			sql.append("WHERE to_days(bl_begdate) = to_days(now())  ");
+			sql.append("ORDER BY sizeid,bl_begdate desc)bb where blname='"+linename+"'; ");
+		}			
+		System.out.println("getleaverecs sql..." + ";" + sql.toString());
+		listTree = this.systemService.findForJdbc(sql.toString());		
+		return listTree;
+	}
+	
+	//请假线路
+	@RequestMapping(params = "getlinename02")
+	@ResponseBody		
+	public List<Map<String, Object>> getlinename02(String ruletype,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		System.out.println("ruletype-->"+ruletype);
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer();
+		// getData
+		if(ruletype.equals("1")){		//家长
+		}else if(ruletype.equals("2")){	//班主任
+/*			sql.append("select DISTINCT  blname from (SELECT bl_studentid,bl_student,DATE_FORMAT(bl_begdate,'%Y-%m-%d')as bl_begdate,  ");
 			sql.append("case bl_linetype when '1' then b.bl_sizeid  else b.bl_sizeid1 end as sizeid, ");
 			sql.append("case bl_linetype when '1' then CONCAT(b.bl_name,'(上学)')  else CONCAT(b.bl_name1,'(放学)') end as blname ");
 			sql.append("from bus_leave a left JOIN bas_student b ON a.bl_studentid=b.id ");
 			sql.append("WHERE to_days(bl_begdate) = to_days(now()) ");
-			sql.append("ORDER BY sizeid,bl_begdate desc; ");
+			sql.append("ORDER BY sizeid,bl_begdate desc)bb ");*/
+			sql.append("SELECT case line_status when '1' then  CONCAT(bl_name,'(上学)')  else CONCAT(bl_name,'(放学)') end as blname from bas_line ORDER BY line_status ");
 		}			
-		System.out.println("getleaverecs sql..." + ";" + sql.toString());
+		System.out.println("getlinename02 sql..." + ";" + sql.toString());
 		listTree = this.systemService.findForJdbc(sql.toString());		
 		return listTree;
 	}

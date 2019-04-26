@@ -211,6 +211,7 @@
 						<value>baswxcontroller.do?test</value>
 						<value>baswxcontroller.do?doSaveLoc</value>
 						<value>baswxcontroller.do?getLocInfo</value>
+						<value>baswxcontroller.do?getlinename02</value>
 						
 						<value>basStudentLocationController.do?list</value>
 						<value>DeviceOperationController.do?AddDevice</value>
