@@ -1264,20 +1264,53 @@ public class basWXController extends BaseController {
 	public int doSaveLoc(String lineoid,String sizeoid,HttpServletRequest request,HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
+		int sc=0;
+		if(isEnd(lineoid)>=1){
+			sc=1;
+		}else{
+			UUID ID = UUID.randomUUID();
+			StringBuffer sql = new StringBuffer(
+					"INSERT INTO `bus_nextstationbuttoninfo` (`id`, `line_id`, `size_id`, `create_date`) ");
+			sql.append("VALUES ('" + ID + "','" + lineoid + "','" + sizeoid + "',now() );");
+	
+			//System.out.println("iCardData sql..." + ";" + sql.toString());
+	
+			sc = this.systemService.executeSql(sql.toString());
+			System.out.println("doSaveLoc sql..." + ";" + sql.toString()+";"+String.valueOf(sc));
+		}
 		
-		UUID ID = UUID.randomUUID();
-		StringBuffer sql = new StringBuffer(
-				"INSERT INTO `bus_nextstationbuttoninfo` (`id`, `line_id`, `size_id`, `create_date`) ");
-		sql.append("VALUES ('" + ID + "','" + lineoid + "','" + sizeoid + "',now() );");
-
-		//System.out.println("iCardData sql..." + ";" + sql.toString());
-
-		int sc = this.systemService.executeSql(sql.toString());
-		System.out.println("doSaveLoc sql..." + ";" + sql.toString()+";"+String.valueOf(sc));
 				
 		return sc;
 		
 	}
+	//获取某线路终点的id
+	private String getsizeidOfline(String lineid){
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT id,bs_seq from bas_size as t1 where fk_bl_id='"+lineid+"' ");
+		sql.append("and bs_seq=(select max(bs_seq) from bas_size as t2 where fk_bl_id='"+lineid+"') ");
+		System.out.println("getsizeidOfline sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("id").toString();	
+		return sc;				
+	}	
+	//判断某线路的车是否已到终点
+	private int isEnd(String lineid){
+		String sizeid=getsizeidOfline(lineid);
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT count(*) as c From ");
+		sql.append("bus_nextstationbuttoninfo  WHERE line_id='" + lineid + "' AND size_id='" + sizeid + "' AND to_days(CREATE_date) = to_days(now()) ");
+		System.out.println("isEnd sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("c").toString();
+		int isc = Integer.parseInt(sc);
+
+		return isc;		
+		
+	}
+	
 	//查询站点
 	@RequestMapping(params = "getLocInfo")
 	@ResponseBody	

@@ -23,13 +23,16 @@
 
 		<div class="mui-input-row">
 			<div style="display: flex;">
-				<div style="margin:2px 2px auto">
-					<input type="button" id="sendcode" value="免费获取验证码" onclick="postSmsCode()" /> 
+				<div style="margin:2px 2px ">
+					<!-- <input type="button" id="sendcode" value="免费获取验证码" onclick="postSmsCode()" /> --> 
+					<a href="javascript:postSmsCode();" class="weui_btn weui_btn_primary" style="height:80%"
+						id="submitBtn">获取验证码</a>
 				</div>
 				<div>
 					<input id="tallcode" name="tallcode" type="text"
 						placeholder="请输入验证码">
 				</div>
+				
 			</div>
 		</div>
 	</form>
