@@ -2,41 +2,45 @@
     var openid = GetQueryString("Open");
     var ruletype=localStorage.getItem("ruletype");
     var postUrl = path+"/baswxcontroller.do?getlinename02";//请求路径
-    if (openid != "" || openid != null) {
-        $levname = $("#linname");//获取div的id
-        var postData = { openid: openid,ruletype:"2" };//请求数据
-        var cour = '';
-        var courtilte = '';
-        $.ajax({
-            type: 'POST',
-            url: postUrl,
-            data: postData,
-            dataType: 'json',
-            timeout: 15000,
-            success: function (data) {
-            	//alert(data.length);
-            	if (data.length != 0 || data.length!="0") {
-	            	var str = '';
-	            	for(var o in data) {
-	            		str += '<option value="'+data[o].blname+'">'+data[o].blname+'</option>';
-	            	}
-	            	$levname.append(str);
-
-                } else {
-                	$levname.append(' <div style="text-align:center;" class="weui_text_area"> ' +
-                                    ' <p class="weui_msg_desc"> </p> '+
-                                    ' <p class="weui_msg_desc"><h5 class="weui_msg_title">您还没有绑定</h5></p> '+
-                                    ' </div>');//div赋值
-                }
-            },
-            error: function () {
-                showDialog('请求出错!');
-            }
-        });
-    } else {
+    //alert("openid:"+openid+";"+ruletype);
+    if(ruletype==2){
+	    if (openid != "" || openid != null) {
+	        $levname = $("#linname");//获取div的id
+	        var postData = { openid: openid,ruletype:"2" };//请求数据
+	        var cour = '';
+	        var courtilte = '';
+	        $.ajax({
+	            type: 'POST',
+	            url: postUrl,
+	            data: postData,
+	            dataType: 'json',
+	            timeout: 15000,
+	            success: function (data) {
+	            	//alert(data.length);
+	            	if (data.length != 0 || data.length!="0") {
+		            	var str = '';
+		            	for(var o in data) {
+		            		str += '<option value="'+data[o].blname+'">'+data[o].blname+'</option>';
+		            	}
+		            	$levname.append(str);
+	
+	                } else {
+	                	$levname.append(' <div style="text-align:center;" class="weui_text_area"> ' +
+	                                    ' <p class="weui_msg_desc"> </p> '+
+	                                    ' <p class="weui_msg_desc"><h5 class="weui_msg_title">您还没有绑定</h5></p> '+
+	                                    ' </div>');//div赋值
+	                }
+	            },
+	            error: function () {
+	                showDialog('请求出错!');
+	            }
+	        });
+	    }
+    }
+    else {
         $courses.append(' <div style="text-align:center;" class="weui_text_area"> ' +
                                      ' <p class="weui_msg_desc"> </p> ' +
-                                     ' <p class="weui_msg_desc"><h5 class="weui_msg_title">您还没有刷卡数据</h5></p> ' +
+                                     ' <p class="weui_msg_desc"><h5 class="weui_msg_title">您没有权限查看</h5></p> ' +
                                      ' </div>');//div赋值
     }
     
