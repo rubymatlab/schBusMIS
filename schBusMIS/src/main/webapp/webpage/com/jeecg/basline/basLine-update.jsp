@@ -131,6 +131,10 @@
 							<t:dictSelect field="basSizeList[#index#].sizeStatus" type="list"   typeGroupCode="sz_status"  defaultVal="" hasLabel="false"  title="起点或终点"></t:dictSelect>     
 					  <label class="Validform_label" style="display: none;">起点或终点</label>
 				  </td>
+				  <td align="left">
+					  		<input name="basSizeList[#index#].sizeBus" maxlength="32" type="text" class="inputxt"  style="width:120px;"  ignore="ignore" />
+					  <label class="Validform_label" style="display: none;">返校提醒</label>
+				  </td>
 			</tr>
 		 </tbody>
 		</table>

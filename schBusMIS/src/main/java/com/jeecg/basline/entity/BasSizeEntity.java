@@ -57,6 +57,9 @@ public class BasSizeEntity implements java.io.Serializable {
 	/**起点或终点*/
 	@Excel(name="起点或终点",width=15,dicCode="sz_status")
 	private java.lang.String sizeStatus;
+	/**返校提醒*/
+	@Excel(name="返校提醒",width=15)
+	private java.lang.String sizeBus;
 	
 	/**
 	 *方法: 取得java.lang.String
@@ -275,6 +278,24 @@ public class BasSizeEntity implements java.io.Serializable {
 	 */
 	public void setSizeStatus(java.lang.String sizeStatus){
 		this.sizeStatus = sizeStatus;
+	}
+	
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  返校提醒
+	 */
+	
+	@Column(name ="SIZE_BUS",nullable=true,length=32)
+	public java.lang.String getSizeBus(){
+		return this.sizeBus;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  返校提醒
+	 */
+	public void setSizeBus(java.lang.String sizeBus){
+		this.sizeBus = sizeBus;
 	}
 	
 }

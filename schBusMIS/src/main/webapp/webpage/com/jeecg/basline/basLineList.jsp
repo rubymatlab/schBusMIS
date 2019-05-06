@@ -64,7 +64,7 @@ function onExpandRowFun(index, row) {
     var tabs = $(this).datagrid('getRowDetail', index).find('div.easyui-tabs');
     tabs.tabs();
     var jfrom_order_linetablelines = $(this).datagrid('getRowDetail', index).find('table.jfrom_order_linetablelines');
-    var jfrom_order_linedurl = 'basLineController.do?bassizeDatagrid&field=bsSeq,bsName,bsDesc,sizeStatus&fkBlId=' + row.id;
+    var jfrom_order_linedurl = 'basLineController.do?bassizeDatagrid&field=bsSeq,bsName,bsDesc,sizeStatus,sizeBus&fkBlId=' + row.id;
     jfrom_order_linetablelines.datagrid({
         singleSelect: true,
         loadMsg: '正在加载',
@@ -92,6 +92,12 @@ function onExpandRowFun(index, row) {
         {
             title: '站点描述',
             field: 'bsDesc',
+            align: 'left',
+            width: 50
+        },
+        {
+            title: '返校提醒',
+            field: 'sizeBus',
             align: 'left',
             width: 50
         }/* ,

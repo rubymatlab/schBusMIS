@@ -45,6 +45,9 @@
 				  <td align="left" bgcolor="#EEEEEE" style="width: 126px;">
 						起点或终点
 				  </td>
+				  <td align="left" bgcolor="#EEEEEE" style="width: 126px;">
+						返校提醒
+				  </td>
 	</tr>
 	<tbody id="add_basSize_table">
 	<c:if test="${fn:length(basSizeList)  <= 0 }">
@@ -74,6 +77,10 @@
 				  <td align="left">
 							<t:dictSelect field="basSizeList[0].sizeStatus" type="list"   typeGroupCode="sz_status"  defaultVal="${basSizePage.sizeStatus}" hasLabel="false"  title="起点或终点"></t:dictSelect>     
 					  <label class="Validform_label" style="display: none;">起点或终点</label>
+					</td>
+				  <td align="left">
+					  	<input name="basSizeList[0].sizeBus" maxlength="32" type="text" class="inputxt"  style="width:120px;"  ignore="ignore" >
+					  <label class="Validform_label" style="display: none;">返校提醒</label>
 					</td>
    			</tr>
 	</c:if>
@@ -105,6 +112,10 @@
 				   <td align="left">
 							<t:dictSelect field="basSizeList[${stuts.index }].sizeStatus" type="list"   typeGroupCode="sz_status"  defaultVal="${poVal.sizeStatus }" hasLabel="false"  title="起点或终点"></t:dictSelect>     
 					  <label class="Validform_label" style="display: none;">起点或终点</label>
+				   </td>
+				   <td align="left">
+					  	<input name="basSizeList[${stuts.index }].sizeBus" maxlength="32" type="text" class="inputxt"  style="width:120px;"  ignore="ignore"  value="${poVal.sizeBus }"/>
+					  <label class="Validform_label" style="display: none;">返校提醒</label>
 				   </td>
    			</tr>
 		</c:forEach>
