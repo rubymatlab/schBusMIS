@@ -73,11 +73,11 @@ function postSmsCode() {
 			success : function(data) {
 				var re = JSON.stringify(data);
 				if (re == 1) {
-					settime($("#tallcode"));
+					settime($("#sendcode"));
 				} else if (re == 0) {
 					alert("该手机号码不存在，请重新输入！");
 				} else if (re == 2) {
-					settime($("#tallcode"));
+					settime($("#sendcode"));
 					alert("刚才验证码有效期为5分钟，请勿频繁发送！");
 				} else {
 					window.location.href = "error.html";
@@ -97,12 +97,14 @@ var countdown=300;
 function settime(obj) { 
     if (countdown == 0) { 
         obj.attr('disabled',false); 
-        obj.val("免费获取验证码");
+        //obj.val("免费获取验证码");
+		obj.text("免费获取验证码");
         countdown = 300; 
         return;
     } else { 
         obj.attr('disabled',true);
-        obj.val("重新发送(" + countdown + ")");
+        //obj.val("重新发送(" + countdown + ")");
+		obj.text("重发" + countdown + "");
         countdown--; 
     } 
 setTimeout(function() { 
