@@ -73,11 +73,11 @@ function postSmsCode() {
 			success : function(data) {
 				var re = JSON.stringify(data);
 				if (re == 1) {
-					settime($("#sendcode"));
+					settime($("#tallcode"));
 				} else if (re == 0) {
 					alert("该手机号码不存在，请重新输入！");
 				} else if (re == 2) {
-					settime($("#sendcode"));
+					settime($("#tallcode"));
 					alert("刚才验证码有效期为5分钟，请勿频繁发送！");
 				} else {
 					window.location.href = "error.html";

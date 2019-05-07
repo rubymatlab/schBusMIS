@@ -132,6 +132,12 @@ function geturlshou() {
     });
 }
 
+//我的线路
+function geturlline() {
+	//openid = "00000";
+	window.location.href = "http://www.infmore.com/xiaoce/index.html?userid=" + openid;
+}
+
 // 获取url的参数
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");

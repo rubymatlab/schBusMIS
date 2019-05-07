@@ -1072,6 +1072,38 @@ public class basWXController extends BaseController {
 		return isc;				
 	}
 	
+	//根据userid=openid获取有关的线路
+	@RequestMapping(params = "getlinename03")
+	@ResponseBody	
+	public List<Map<String, Object>> getlinename03(String userid,HttpServletRequest request,HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+
+		StringBuffer sql = new StringBuffer("SELECT id,case line_status when '1' then  CONCAT(bl_name,'(上学)')  else CONCAT(bl_name,'(放学)') end as linename,line_status ");
+		sql.append(" from bas_line  ");
+
+		if(userid.equals("00000")){
+			//
+		}else{
+			sql.append("where id in(SELECT fk_bl_id from bas_size where id in(  ");
+			sql.append("SELECT bl_sizeid as bl_sizeid from bas_student  ");
+			sql.append("where id in (select bs_studentid from bus_openid where bo_openid='"+userid+"')  ");
+			sql.append("UNION  ");
+			sql.append("SELECT bl_sizeid1 as bl_sizeid from bas_student  ");
+			sql.append("where id in (select bs_studentid from bus_openid where bo_openid='"+userid+"') ");
+			sql.append(")) ");
+		}
+		sql.append("ORDER BY line_status ");
+
+		
+		System.out.println("getlinename03 sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		//String sc = listTree.get(0).get("linename").toString();
+		return listTree;				
+	}
+	
 	//根据登录者，获取其所管理的线路名称
 	@RequestMapping(params = "getlinename")
 	@ResponseBody	
