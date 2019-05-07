@@ -1,4 +1,4 @@
-﻿// 获取url的参数
+﻿﻿// 获取url的参数
 function GetQueryString(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);
@@ -97,14 +97,12 @@ var countdown=300;
 function settime(obj) { 
     if (countdown == 0) { 
         obj.attr('disabled',false); 
-        //obj.val("免费获取验证码");
-		obj.text("免费获取验证码");
+        obj.val("免费获取验证码");
         countdown = 300; 
         return;
     } else { 
         obj.attr('disabled',true);
-        //obj.val("重新发送(" + countdown + ")");
-		obj.text("重发" + countdown + "");
+        obj.val("重新发送(" + countdown + ")");
         countdown--; 
     } 
 setTimeout(function() { 
