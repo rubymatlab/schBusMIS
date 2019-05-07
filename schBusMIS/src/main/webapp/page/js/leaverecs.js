@@ -4,6 +4,8 @@
     var postUrl = path+"/baswxcontroller.do?getlinename02";//请求路径
     //alert("openid:"+openid+";"+ruletype);
     if(ruletype==2){
+    	document.getElementById("#ceshi").style.visibility="visible";//显示
+    	document.getElementById("qrydiv").style.visibility="visible";
 	    if (openid != "" || openid != null) {
 	        $levname = $("#linname");//获取div的id
 	        var postData = { openid: openid,ruletype:"2" };//请求数据
@@ -38,10 +40,14 @@
 	    }
     }
     else {
-        $courses.append(' <div style="text-align:center;" class="weui_text_area"> ' +
-                                     ' <p class="weui_msg_desc"> </p> ' +
-                                     ' <p class="weui_msg_desc"><h5 class="weui_msg_title">您没有权限查看</h5></p> ' +
-                                     ' </div>');//div赋值
+    	$content = $("#contentwx");//获取div的id
+    	$content.empty();//清空
+        $content.append(' <div style="text-align:center;" class="weui_text_area"> ' +
+                ' <p class="weui_msg_desc"> </p> '+
+                ' <p class="weui_msg_desc"><h5 class="weui_msg_title">您没有授权查看数据</h5></p> '+
+                ' </div>');//div赋值
+        document.getElementById("#ceshi").style.visibility="hidden";//隐藏
+        document.getElementById("qrydiv").style.visibility="hidden";
     }
     
     
@@ -100,10 +106,10 @@ function getUrl() {
 	        }
 	    });
 	} else {
-	    $courses.append(' <div style="text-align:center;" class="weui_text_area"> ' +
-	                                 ' <p class="weui_msg_desc"> </p> ' +
-	                                 ' <p class="weui_msg_desc"><h5 class="weui_msg_title">您还没有刷卡数据</h5></p> ' +
-	                                 ' </div>');//div赋值
+        $content.append(' <div style="text-align:center;" class="weui_text_area"> ' +
+                ' <p class="weui_msg_desc"> </p> '+
+                ' <p class="weui_msg_desc"><h5 class="weui_msg_title">没有请假数据</h5></p> '+
+                ' </div>');//div赋值
 	}
 
 }
