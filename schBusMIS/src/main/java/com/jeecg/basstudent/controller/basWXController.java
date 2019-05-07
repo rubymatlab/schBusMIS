@@ -781,7 +781,7 @@ public class basWXController extends BaseController {
 		System.out.println("isUnBinded sql..." + ";" + sql.toString());
 
 		int sc = this.systemService.executeSql(sql.toString());
-		if (sc > 1) {
+		if (sc >= 1) {
 			sc = 1;
 		} else {
 			sc = 0;
