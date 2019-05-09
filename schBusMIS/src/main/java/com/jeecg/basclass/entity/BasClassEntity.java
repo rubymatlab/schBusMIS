@@ -32,9 +32,18 @@ import org.jeecgframework.poi.excel.annotation.Excel;
 public class BasClassEntity implements java.io.Serializable {
 	/**主键*/
 	private java.lang.String id;
-	/**年级*/
-	@Excel(name="年级",width=15)
 	private java.lang.Integer bcGrade;
+	
+	/**年级*/
+	@Excel(name="年级",width=15,importConvert=true)
+	private java.lang.String bcGrade1;
+	/**
+	 * 转换值示例： 替换掉.0
+	 * @return
+	 */
+	public void convertsetBcGrade1(String bcGrade1){
+		this.bcGrade = Integer.valueOf(bcGrade1.replace(".0", ""));
+	}
 	/**班级名称*/
 	@Excel(name="班级名称",width=15)
 	private java.lang.String bcName;
