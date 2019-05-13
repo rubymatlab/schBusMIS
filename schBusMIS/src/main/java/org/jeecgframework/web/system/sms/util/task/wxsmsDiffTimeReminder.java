@@ -23,6 +23,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jeecg.bascontrail.entity.BusOpenidEntity;
 import com.jeecg.bascontrail.entity.BusUploaddataEntity;
 import com.jeecg.basstudent.controller.basWXController;
 import com.jeecg.basstudent.entity.ConvertionUtils;
@@ -90,6 +91,7 @@ public class wxsmsDiffTimeReminder implements Job {
 				systemService.save(bce);
 			}
 		}
+		NoticePerson(noticeList);
 		System.out.println("执行电子围栏提醒消息结束...");
 	}
 
@@ -163,24 +165,31 @@ public class wxsmsDiffTimeReminder implements Job {
 		return noticeList;
 	}
 
-	/*private void NoticePerson(List<String> noticeList) {
+	private void NoticePerson(List<String> noticeList) {
 		try {
 			String accessToken = wxutils.getAcctonken();
 			TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
 			// 将信息进行微信推送给用户
-			for (String s : noticeList) {
+			for (String job : noticeList) {
+				String deviceId=JSONObject.fromObject(job).getString("deviceId");
 				Map<String, TemplateData> data = new HashMap<String, TemplateData>();
 				List<BasStudentInfoEntity> listO = systemService.findByProperty(BasStudentInfoEntity.class,
-						"bsDeviceid", s);
+						"bsDeviceid", deviceId);
 				if (listO.size() > 0) {
-					data.put("first", new TemplateData("尊敬的家长，你的小孩学生卡24小时未上传数据。", "#173177"));
+					data.put("first", new TemplateData("尊敬的家长，您小孩的学生卡设备异常，请检查。", "#173177"));
 					data.put("keyword1", new TemplateData(listO.get(0).getBcGrade()+" "+listO.get(0).getBcName(), "#FF0000"));
 					data.put("keyword2", new TemplateData(listO.get(0).getBsName(), "#173177"));
-					msgSend.setTemplate_id(basWXController.Templateid_notice);
+					msgSend.setTemplate_id(basWXController.Templateid_warn);
 					try {
-						msgSend.setTouser("");
 						msgSend.setData(data);
-						JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+						
+						List<BusOpenidEntity> listBoe = systemService.findByProperty(BusOpenidEntity.class,
+								"bsStudentid", listO.get(0).getId());
+						for(BusOpenidEntity boe:listBoe)
+						{
+							msgSend.setTouser(boe.getBoOpenid());
+							JwSendTemplateMsgAPI.sendTemplateMsg(accessToken, msgSend);
+						}
 					} catch (WexinReqException e) {
 					}
 				}
@@ -191,6 +200,6 @@ public class wxsmsDiffTimeReminder implements Job {
 			// e.printStackTrace();
 		}
 
-	}*/
+	}
 
 }
