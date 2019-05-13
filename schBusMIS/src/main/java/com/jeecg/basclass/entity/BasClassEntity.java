@@ -32,17 +32,19 @@ import org.jeecgframework.poi.excel.annotation.Excel;
 public class BasClassEntity implements java.io.Serializable {
 	/**主键*/
 	private java.lang.String id;
-	private java.lang.Integer bcGrade;
-	
-	/**年级*/
+
 	@Excel(name="年级",width=15,importConvert=true)
-	private java.lang.String bcGrade1;
+	private java.lang.String bcGrade;
+	
+	/**年级
+	@Excel(name="年级",width=15,importConvert=true)
+	private java.lang.String bcGrade1;*/
 	/**
 	 * 转换值示例： 替换掉.0
 	 * @return
 	 */
-	public void convertsetBcGrade1(String bcGrade1){
-		this.bcGrade = Integer.valueOf(bcGrade1.replace(".0", ""));
+	public void convertsetBcGrade(String bcGrade){
+		this.bcGrade = bcGrade.replace(".0", "");
 	}
 	/**班级名称*/
 	@Excel(name="班级名称",width=15)
@@ -95,7 +97,7 @@ public class BasClassEntity implements java.io.Serializable {
 	 */
 
 	@Column(name ="BC_GRADE",nullable=true,length=4)
-	public java.lang.Integer getBcGrade(){
+	public java.lang.String getBcGrade(){
 		return this.bcGrade;
 	}
 
@@ -103,7 +105,7 @@ public class BasClassEntity implements java.io.Serializable {
 	 *方法: 设置java.lang.Integer
 	 *@param: java.lang.Integer  年级
 	 */
-	public void setBcGrade(java.lang.Integer bcGrade){
+	public void setBcGrade(java.lang.String bcGrade){
 		this.bcGrade = bcGrade;
 	}
 	/**
