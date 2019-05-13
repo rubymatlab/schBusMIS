@@ -1203,7 +1203,7 @@ public class basWXController extends BaseController {
 				sql.append(" where size_oid in(");
 				sql.append(" select id from bas_size ");
 				sql.append(" where fk_bl_id =(select fk_bl_id from bas_size where id='" + sizeoid + "' ))");
-				sql.append(" and size_status=0 AND to_days(bc_datetime) = to_days(now())) A1 ");
+				sql.append(" and size_status=0 AND to_days(bc_datetime) = to_days(now()) AND b.id is not NULL ) A1 ");
 				sql.append(" WHERE A1.bs_cardno NOT IN(");
 				sql.append(" SELECT bc_cardno from bus_cardinfo Where size_status=1 AND to_days(bc_datetime) = to_days(now())) AND bs_cardno is not null");				
 			}else if (lt==2){	//起点上车
