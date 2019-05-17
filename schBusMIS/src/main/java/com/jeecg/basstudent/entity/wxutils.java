@@ -167,7 +167,7 @@ public class wxutils {
 			sub_button2.add(o2_s2);
 			WeixinButton o2_s3 = new WeixinButton();
 			o2_s3.setType("view");
-			o2_s3.setName("请假记录");
+			o2_s3.setName("不坐校车");
 			o2_s3.setUrl(leaerecsurl);
 			sub_button2.add(o2_s3);
 /*			WeixinButton o2_s3 = new WeixinButton();

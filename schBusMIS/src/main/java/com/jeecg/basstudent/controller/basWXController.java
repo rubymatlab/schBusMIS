@@ -688,7 +688,8 @@ public class basWXController extends BaseController {
 			sql.append("from bus_leave a left JOIN bas_student b ON a.bl_studentid=b.id ");
 			sql.append("WHERE to_days(bl_begdate) = to_days(now()) ");
 			sql.append("ORDER BY sizeid,bl_begdate desc)bb ");*/
-			sql.append("SELECT case line_status when '1' then  CONCAT(bl_name,'(上学)')  else CONCAT(bl_name,'(放学)') end as blname from bas_line ORDER BY line_status ");
+			//sql.append("SELECT case line_status when '1' then  CONCAT(bl_name,'(上学)')  else CONCAT(bl_name,'(放学)') end as blname from bas_line ORDER BY line_status ");
+			sql.append("SELECT CONCAT( bl_name, bl_desc) as blname from bas_line ORDER BY line_status ");
 		}			
 		System.out.println("getlinename02 sql..." + ";" + sql.toString());
 		listTree = this.systemService.findForJdbc(sql.toString());		
@@ -1082,8 +1083,9 @@ public class basWXController extends BaseController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-
-		StringBuffer sql = new StringBuffer("SELECT id,case line_status when '1' then  CONCAT(bl_name,'(上学)')  else CONCAT(bl_name,'(放学)') end as linename,line_status ");
+		
+		//StringBuffer sql = new StringBuffer("SELECT id,case line_status when '1' then  CONCAT(bl_name,'(上学)')  else CONCAT(bl_name,'(放学)') end as linename,line_status ");
+		StringBuffer sql = new StringBuffer("SELECT id,CONCAT( bl_name, bl_desc) as linename,line_status ");
 		sql.append(" from bas_line  ");
 
 		if(userid.equals("00000")){
