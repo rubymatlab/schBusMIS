@@ -69,7 +69,7 @@ public class basWXController extends BaseController {
 	public static final String Templateid_notice="MNOe2kDuz6N1D55fdpCgX-MWepR_thv3SR7R6MF0hXg";*/
 	
 	//高测试号
-	private static final String Templateid_WR="jRs79YzKAdsdQk4javBgVENDvzgzSyPZRhzbQupodv8";
+/*	private static final String Templateid_WR="jRs79YzKAdsdQk4javBgVENDvzgzSyPZRhzbQupodv8";
 	private static final String Templateid_NextUp="J9jGet_IXoPXpcJtM3-IB4hudBG22hDvHdKR2Z1_cSg";
 	private static final String Templateid_NextDw="gyPNPSmqQr1SjeUND1z2fUmcO2HX7bUZdj42yt0R6-U";
 	private static final String Templateid_SK="U6JsaXb6eFLhib_53OgVpKuRiklQRUF_QU0O8jpaf0A";
@@ -78,8 +78,17 @@ public class basWXController extends BaseController {
 	//超出围栏预警
 	public static final String Templateid_notice="MK1v3CKZeQALOMOF2ugq3YnbWXhdfc80q1m6hFuboUc";
 	//设备异常
-	public static final String Templateid_warn="k3NZBmCE8MvqLfFCNlBtLeaFK_EJ8Qa6bLoQmS0LeOA";
+	public static final String Templateid_warn="k3NZBmCE8MvqLfFCNlBtLeaFK_EJ8Qa6bLoQmS0LeOA";*/
 	
+	//ssby
+	private static final String Templateid_WR="k82RguiMM9EvyKiwrbbHV3enQuXHdkhRSngd4g_j8_o";		//未刷卡通知
+	private static final String Templateid_NextUp="M2EnRwvA_4VzfZK3CHfWD8RV-ErhjNUmAtooXDww--c";	//学生上车提醒ok
+	private static final String Templateid_NextDw="innFPadd9YHWyLZGlzGTxKavHouHP4OiWPlURI7z910";	//学生下车提醒ok
+	private static final String Templateid_SK="cmd-JJSPBxdyuyasLi2ZP3EV6LMB31xiHhGG3xtUbZg";		//学生刷卡通知ok
+	private static final String Templateid_QryBusLoc="hNzDLlteTH5pNsOR5ucMmk88quySmpePoEfRIrPPvQo";	//车辆位置(X)
+	private static final String Templateid_leave="iARE4zwVtsh3GojcPVDm9Y02BlLUOCIXIr5JzuHeQc8";		//学生请假提醒ok
+	public static final String Templateid_notice="MK1v3CKZeQALOMOF2ugq3YnbWXhdfc80q1m6hFuboUc";		//超出围栏预警
+	public static final String Templateid_warn="k3NZBmCE8MvqLfFCNlBtLeaFK_EJ8Qa6bLoQmS0LeOA";		//设备异常
 	@Autowired
 	private SystemService systemService;
 	
@@ -137,7 +146,8 @@ public class basWXController extends BaseController {
 
 		//getData	
 		
-		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT("+place+")as place ,c.bo_openid from bus_cardinfo a ");
+		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT("+place+")as place ,c.bo_openid,");
+		sql.append("c.bo_openid,case when b.bs_sex='1' then '女' when b.bs_sex='0' then '男'  else '--' END as sex ,CONCAT(b.bc_grade,b.bc_name)as classname from bus_cardinfo a ");
 		sql.append("left join bas_student b on a.bc_cardno=b.bs_cardno ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
 		sql.append("Where c.bo_openid is not NULL AND a.id='"+id+"' ");
@@ -149,17 +159,19 @@ public class basWXController extends BaseController {
 			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
 			data.put("first", new TemplateData("尊敬的家长，你的小孩已刷卡。","#173177"));
 			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
-			data.put("keyword2", new TemplateData(o.get("bc_datetime").toString(),"#173177"));
+			data.put("keyword5", new TemplateData(o.get("bc_datetime").toString(),"#173177"));
+			data.put("keyword2", new TemplateData(o.get("sex").toString(),"#173177"));
+			data.put("keyword3", new TemplateData(o.get("classname").toString(),"#173177"));
 			if(lt1==0){
 				//data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
-				data.put("keyword3", new TemplateData(sizename,"#173177"));	//实际刷卡地点
+				data.put("keyword4", new TemplateData(sizename,"#173177"));	//实际刷卡地点
 			}else if(lt1==1){
 				if(lt==1){
-					data.put("keyword3", new TemplateData("上学终点下车","#173177"));
+					data.put("keyword4", new TemplateData("上学终点下车","#173177"));
 				}else if(lt==2){
-					data.put("keyword3", new TemplateData("放学起点上车","#173177"));
+					data.put("keyword4", new TemplateData("放学起点上车","#173177"));
 				}else{
-					data.put("keyword3", new TemplateData("--","#173177"));
+					data.put("keyword4", new TemplateData("--","#173177"));
 				}
 			}else{
 				data.put("keyword3", new TemplateData("--","#173177"));
@@ -232,21 +244,22 @@ public class basWXController extends BaseController {
 			
 		for (Map<String, Object> o : listTree) {			
 			Map<String, TemplateData> data = new HashMap<String, TemplateData>();
-			data.put("first", new TemplateData(o.get("msg").toString() ,"#173177"));
+			//data.put("first", new TemplateData(o.get("msg").toString() ,"#173177"));
 			data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
-			data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));				//当前时间
+			data.put("keyword2", new TemplateData("狮山博雅学校","#FF0000"));
+			data.put("keyword3", new TemplateData(df.format(new Date()),"#173177"));				//当前时间
 			if(lt1==0){
-				data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));
+				data.put("first", new TemplateData(o.get("msg").toString()+"_"+o.get("place").toString(),"#173177"));
 			}else if(lt1==1){
 				if(lt==1){
-					data.put("keyword3", new TemplateData("上学终点下车","#173177"));
+					data.put("first", new TemplateData(o.get("msg").toString()+"_上学终点下车","#173177"));
 				}else if(lt==2){
-					data.put("keyword3", new TemplateData("放学起点上车","#173177"));
+					data.put("first", new TemplateData(o.get("msg").toString()+"_放学起点上车","#173177"));
 				}else{
-					data.put("keyword3", new TemplateData("--","#173177"));
+					data.put("first", new TemplateData(o.get("msg").toString(),"#173177"));
 				}
 			}else{
-				data.put("keyword3", new TemplateData("--","#173177"));
+				data.put("first", new TemplateData(o.get("msg").toString(),"#173177"));
 			}
 			
 			data.put("remark", new TemplateData("以上信息，特警示！","#173177"));
@@ -332,6 +345,11 @@ public class basWXController extends BaseController {
 				data.put("first", new TemplateData("尊敬的家长，我们的车即将到达["+o.get("place").toString()+"]，"+msg,"#173177"));
 				data.put("keyword1", new TemplateData(o.get("bs_name").toString(),"#FF0000"));
 				data.put("keyword2", new TemplateData(df.format(new Date()),"#173177"));    //通知时间
+				data.put("keyword3", new TemplateData(o.get("place").toString(),"#173177"));    //地点
+				data.put("keyword4", new TemplateData("---","#173177"));    //随车老师
+				if (templateidType.equals("Templateid_NextUp")){
+					data.put("keyword5", new TemplateData("---","#173177"));    //车牌
+				}
 				data.put("remark", new TemplateData("以上信息，特提醒！","#173177"));
 				msgSend.setTemplate_id(templateidType);
 				msgSend.setTouser(o.get("bo_openid").toString());
@@ -399,14 +417,15 @@ public class basWXController extends BaseController {
 	private void doSendTMessage_leave(String msg,String className,String studentName,String leaveDate,String openid) throws WexinReqException {
 		String accessToken=wxutils.getAcctonken();
 		TemplateMessageSendResult msgSend = new TemplateMessageSendResult();
-		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String message = null;
 		
 		Map<String, TemplateData> data = new HashMap<String, TemplateData>();
 		data.put("first", new TemplateData(msg,"#173177"));
-		data.put("keyword1", new TemplateData(className,"#FF0000"));
-		data.put("keyword2", new TemplateData(studentName,"#FF0000"));    	
-		data.put("keyword3", new TemplateData(leaveDate,"#173177"));    	
+		data.put("keyword2", new TemplateData(className,"#FF0000"));
+		data.put("keyword3", new TemplateData(studentName,"#FF0000"));    	
+		data.put("keyword4", new TemplateData(leaveDate,"#173177"));    	
+		data.put("keyword1", new TemplateData(df.format(new Date()),"#173177"));				//提交时间
 		data.put("remark", new TemplateData("以上信息，请知悉！","#173177"));
 		msgSend.setTemplate_id(Templateid_leave);
 		msgSend.setTouser(openid);
@@ -1266,7 +1285,7 @@ public class basWXController extends BaseController {
 	//新增刷卡信息
 	@RequestMapping(params = "iCardData")
 	@ResponseBody
-	public int iCardData(String OID,String cardno,String sizeoid,HttpServletRequest request,HttpServletResponse response){
+	public String iCardData(String OID,String cardno,String sizeoid,HttpServletRequest request,HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
 		//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
@@ -1279,7 +1298,7 @@ public class basWXController extends BaseController {
 
 		//System.out.println("iCardData sql..." + ";" + sql.toString());
 
-		int sc = this.systemService.executeSql(sql.toString());
+		int sc =this.systemService.executeSql(sql.toString());
 		System.out.println("iCardData sql..." + ";" + sql.toString()+";"+String.valueOf(sc));
 		
 		
@@ -1291,8 +1310,8 @@ public class basWXController extends BaseController {
 			e.printStackTrace();
 		}
 		
-		return sc;
-		
+		return sc+";"+cardno;
+
 	}
 	
 	//新增站点信息

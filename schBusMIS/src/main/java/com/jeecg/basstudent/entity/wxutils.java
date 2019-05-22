@@ -55,9 +55,12 @@ public class wxutils {
 	public static  String storePath="C:/apache-tomcat-7.0.92-windows-x64/apache-tomcat-7.0.92/webapps/schBusMIS/photos/";
 	//public static  String appid = "wx2968e71a3e302dab";
 	//public static  String appscret = "fdca7717bdd31d4c52feb67d82d8f700";
-	public static  String appid = "wx3cd24f27f5849f46";//高
-	public static  String appscret = "f709f8e1197ec861c3662ddb4cb944bf";//高
-
+	//public static  String appid = "wx3cd24f27f5849f46";//高
+	//public static  String appscret = "f709f8e1197ec861c3662ddb4cb944bf";//高
+	//ssby
+	public static  String appid = "wx5a9efacb2d950b33";
+	public static  String appscret = "cc8649f517abfb78faa969ef8b9adca5";
+	
 	private static final String token = "JYWX";
 	
 	private static final String openidurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/baswxcontroller.do?gopenid&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
