@@ -1,6 +1,8 @@
 package com.jeecg.basline.controller;
 import com.jeecg.basline.entity.BasLineEntity;
 import com.jeecg.basline.service.BasLineServiceI;
+import com.jeecg.basstudent.entity.BasStudentLocationEntity;
+import com.jeecg.basstudentinfo.entity.BasStudentInfoEntity;
 import com.jeecg.demo.entity.JfromOrderLineEntity;
 import com.jeecg.basline.page.BasLinePage;
 import com.jeecg.basline.entity.BasSizeEntity;
@@ -225,6 +227,25 @@ public class BasLineController extends BaseController {
 		String message = "更新成功";
 		try{
 			basLineService.updateMain(basLine, basSizeList);
+			for(BasSizeEntity bse:basSizeList)
+			{
+				//更新
+				List<BasStudentInfoEntity> listBasStudentInfoEntity=basLineService.findByProperty(BasStudentInfoEntity.class, "blSizeid", bse.getId());
+				for(BasStudentInfoEntity bie:listBasStudentInfoEntity )
+				{
+					bie.setBlSize(bse.getBsName());
+					bie.setBlName(basLine.getBlName());
+					basLineService.saveOrUpdate(bie);
+				}
+				
+				List<BasStudentInfoEntity> listBasStudentInfoEntity1=basLineService.findByProperty(BasStudentInfoEntity.class, "blSizeid1", bse.getId());
+				for(BasStudentInfoEntity bie:listBasStudentInfoEntity1 )
+				{
+					bie.setBlSize1(bse.getBsName());
+					bie.setBlName1(basLine.getBlName());
+					basLineService.saveOrUpdate(bie);
+				}
+			}
 			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
 		}catch(Exception e){
 			e.printStackTrace();
