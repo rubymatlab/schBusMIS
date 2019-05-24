@@ -1229,7 +1229,7 @@ public class basWXController extends BaseController {
 				sql.append(" where fk_bl_id =(select fk_bl_id from bas_size where id='" + sizeoid + "' ))");
 				sql.append(" and size_status=0 AND to_days(bc_datetime) = to_days(now()) AND b.id is not NULL ) A1 ");
 				sql.append(" WHERE A1.bs_cardno NOT IN(");
-				sql.append(" SELECT bc_cardno from bus_cardinfo Where size_status=1 AND to_days(bc_datetime) = to_days(now())) AND bs_cardno is not null");				
+				sql.append(" SELECT bc_cardno from bus_cardinfo Where size_status=1 AND to_days(bc_datetime) = to_days(now()) and size_oid='" + sizeoid + "') AND bs_cardno is not null");				
 			}else if (lt==2){	//起点上车
 				sql.append("select id,bc_name,bs_name,bs_cardno,'--' bc_datetime,'--'bl_begdate ");
 				sql.append(" from bas_student where bl_sizeid1 in( ");
@@ -1288,30 +1288,53 @@ public class basWXController extends BaseController {
 	public String iCardData(String OID,String cardno,String sizeoid,HttpServletRequest request,HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
-		//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
-		int lt1=getSizeIsBorE(sizeoid);
+		int sc=0;
 		
-		//UUID ID = UUID.randomUUID();
-		StringBuffer sql = new StringBuffer(
-				"INSERT INTO `bus_cardinfo` (`id`, `bc_cardno`, `bc_datetime`, `size_oid`,`size_status`) ");
-		sql.append("VALUES ('" + OID + "','" + cardno + "',now(),'"+sizeoid+"','"+lt1+"' );");
-
-		//System.out.println("iCardData sql..." + ";" + sql.toString());
-
-		int sc =this.systemService.executeSql(sql.toString());
-		System.out.println("iCardData sql..." + ";" + sql.toString()+";"+String.valueOf(sc));
-		
-		
-		//推送消息
-		try {
-			this.doSendTMessage_SK(OID,sizeoid);
-		} catch (WexinReqException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//0524判断卡是否有效
+		if (isCardIsValid(cardno)>=1){
+			//根据站点oid判断是否是终点下车(起点上车)还是普通站点 	0普通站点;1上学下车/放学上车
+			int lt1=getSizeIsBorE(sizeoid);
+			
+			//UUID ID = UUID.randomUUID();
+			StringBuffer sql = new StringBuffer(
+					"INSERT INTO `bus_cardinfo` (`id`, `bc_cardno`, `bc_datetime`, `size_oid`,`size_status`) ");
+			sql.append("VALUES ('" + OID + "','" + cardno + "',now(),'"+sizeoid+"','"+lt1+"' );");
+	
+			//System.out.println("iCardData sql..." + ";" + sql.toString());
+	
+			sc =this.systemService.executeSql(sql.toString());
+			System.out.println("iCardData sql..." + ";" + sql.toString()+";"+String.valueOf(sc));
+			
+			
+			//推送消息
+			try {
+				this.doSendTMessage_SK(OID,sizeoid);
+			} catch (WexinReqException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else
+		{
+			sc=0;
 		}
-		
 		return sc+";"+cardno;
 
+	}
+	
+	
+	//是否是老师
+	private int isCardIsValid(String cardno){
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		StringBuffer sql = new StringBuffer("SELECT count(bc_cardno) as c from bus_cardinfo Where size_status=1 ");
+		sql.append(" and bc_cardno='" + cardno + "'");
+		System.out.println("isCardIsValid sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		String sc = listTree.get(0).get("c").toString();
+		int isc = Integer.parseInt(sc);
+
+		return isc;		
+		
 	}
 	
 	//新增站点信息
