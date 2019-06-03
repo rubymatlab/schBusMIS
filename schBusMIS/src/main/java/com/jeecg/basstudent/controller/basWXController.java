@@ -147,7 +147,7 @@ public class basWXController extends BaseController {
 		//getData	
 		
 		StringBuffer sql = new StringBuffer("SELECT a.id, b.bs_name,DATE_FORMAT(a.bc_datetime,'%Y-%m-%d %H:%i:%s')as bc_datetime,CONCAT("+place+")as place ,c.bo_openid,");
-		sql.append("c.bo_openid,case when b.bs_sex='1' then '女' when b.bs_sex='0' then '男'  else '--' END as sex ,CONCAT(b.bc_grade,b.bc_name)as classname from bus_cardinfo a ");
+		sql.append("c.bo_openid,case when b.bs_sex='1' then '女' when b.bs_sex='0' then '男'  else '--' END as sex ,CONCAT(b.bc_grade,'级',b.bc_name)as classname from bus_cardinfo a ");
 		sql.append("left join bas_student b on a.bc_cardno=b.bs_cardno ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
 		sql.append("Where c.bo_openid is not NULL AND a.id='"+id+"' ");
@@ -228,12 +228,12 @@ public class basWXController extends BaseController {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 
 		//getData				
-		StringBuffer sql = new StringBuffer("SELECT b.id, b.bs_name,CONCAT("+place+")as place ,c.bo_openid,'尊敬的家长，您的小孩未刷卡。'as msg from bas_student b ");
+		StringBuffer sql = new StringBuffer("SELECT b.id, b.bs_name,CONCAT("+place+")as place ,c.bo_openid,'尊敬的家长，您的小孩未刷卡'as msg from bas_student b ");
 		sql.append("left join bus_openid c on b.id=c.bs_studentid ");
 		sql.append("Where c.bo_openid is not NULL AND c.bo_openid<>'' ");
 		sql.append("AND b.id='"+id+"' ");
 		sql.append("UNION ");
-		sql.append(" SELECT b.id, b.bs_name,CONCAT(b.bl_name,bl_size)as place,d.openid as bo_openid,'尊敬的班主任，您班的学生未刷卡。'as msg from bas_student b ");
+		sql.append(" SELECT b.id, b.bs_name,CONCAT(b.bl_name,bl_size)as place,d.openid as bo_openid,'尊敬的班主任，您班的学生未刷卡'as msg from bas_student b ");
 		sql.append(" LEFT JOIN bas_class c on c.id=b.bc_id ");
 		sql.append(" LEFT JOIN t_s_base_user d on d.id=c.bc_personid ");
 		sql.append(" Where d.openid is not NULL AND d.openid<>'' ");
@@ -249,12 +249,12 @@ public class basWXController extends BaseController {
 			data.put("keyword2", new TemplateData("狮山博雅学校","#FF0000"));
 			data.put("keyword3", new TemplateData(df.format(new Date()),"#173177"));				//当前时间
 			if(lt1==0){
-				data.put("first", new TemplateData(o.get("msg").toString()+"_"+o.get("place").toString(),"#173177"));
+				data.put("first", new TemplateData(o.get("msg").toString()+"-"+o.get("place").toString(),"#173177"));
 			}else if(lt1==1){
 				if(lt==1){
-					data.put("first", new TemplateData(o.get("msg").toString()+"_上学终点下车","#173177"));
+					data.put("first", new TemplateData(o.get("msg").toString()+"-上学终点。","#173177"));
 				}else if(lt==2){
-					data.put("first", new TemplateData(o.get("msg").toString()+"_放学起点上车","#173177"));
+					data.put("first", new TemplateData(o.get("msg").toString()+"-放学起点。","#173177"));
 				}else{
 					data.put("first", new TemplateData(o.get("msg").toString(),"#173177"));
 				}
@@ -503,7 +503,7 @@ public class basWXController extends BaseController {
 			throws WexinReqException {
 		System.out.println("insertopenid参数输出:" + tell + ";" + openid + ";" + ruletype + ";" + tellcode);
 		int i = 0;
-		if (isExitsTelCode(tell, tellcode) == 1) {
+		//if (isExitsTelCode(tell, tellcode) == 1) {
 			if (isExitsTel(tell, Integer.parseInt(ruletype)) >= 1) {
 				if (ruletype.equals("1")) {// 家长
 					String[] stuids = new String[3];
@@ -518,9 +518,9 @@ public class basWXController extends BaseController {
 			} else { // 手机号码不存在
 				i = 0;
 			}
-		} else {
+/*		} else {
 			i = 2;
-		}
+		}*/
 		return i;
 	}
 	
@@ -1322,11 +1322,11 @@ public class basWXController extends BaseController {
 	}
 	
 	
-	//是否是老师
+	//是否卡有效
 	private int isCardIsValid(String cardno){
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
-		StringBuffer sql = new StringBuffer("SELECT count(bc_cardno) as c from bus_cardinfo Where size_status=1 ");
-		sql.append(" and bc_cardno='" + cardno + "'");
+		StringBuffer sql = new StringBuffer("select count(bs_cardno) as c from bas_student ");
+		sql.append(" where bs_cardno='" + cardno + "'");
 		System.out.println("isCardIsValid sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
@@ -1684,7 +1684,7 @@ public class basWXController extends BaseController {
 		String[] sc = new String[4];
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 		StringBuffer sql = new StringBuffer(
-				"SELECT a.bs_name,CONCAT(b.bc_grade,b.bc_name) as bcname,c.realname as teacher,c.openid from bas_student a");
+				"SELECT a.bs_name,CONCAT(b.bc_grade,'级',b.bc_name) as bcname,c.realname as teacher,c.openid from bas_student a");
 		sql.append(" LEFT JOIN bas_class b on b.id=a.bc_id LEFT JOIN t_s_base_user c on c.id=b.bc_personid");
 		sql.append(" where a.id='"+stuID+"' and c.openid is not NULL");
 
