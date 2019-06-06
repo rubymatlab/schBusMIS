@@ -331,10 +331,10 @@ public class basWXController extends BaseController {
 			StringBuffer sql = new StringBuffer("SELECT a.id,a.bs_name,CONCAT("+place+")as place,b.bo_openid from bas_student a ");
 			sql.append("left join bus_openid b on a.id=b.bs_studentid ");
 			sql.append("LEFT JOIN bus_leave c ON a.id=c.bl_studentid ");
-			sql.append(" AND (to_days(c.bl_begdate) != to_days(now()) and bl_linetype!="+lt+") ");
-			//sql.append("AND c.bl_begdate<=date_add(sysdate(), interval 1 hour) AND c.bl_begdate>=date_sub(sysdate(), interval 1 hour)  ");	
+			//sql.append(" AND (to_days(c.bl_begdate) != to_days(now()) and bl_linetype!="+lt+") ");
 			sql.append("WHERE "+place1+"='" + sizeoid + "' ");
-			sql.append("AND a.bs_cardno is not NULL and c.bl_begdate is NULL AND b.bo_openid is not NULL ");
+			//sql.append("AND a.bs_cardno is not NULL and c.bl_begdate is NULL AND b.bo_openid is not NULL "); 
+			sql.append("AND a.bs_cardno is not NULL and (c.bl_begdate is NULL OR (to_days(c.bl_begdate) != to_days(now()) and bl_linetype!="+lt+"))  AND b.bo_openid is not NULL ");
 			sql.append("ORDER BY id ");
 			System.out.println("doSendTMessage_NextUp sql..."+";"+sql.toString());
 			
