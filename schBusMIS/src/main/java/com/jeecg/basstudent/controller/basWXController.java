@@ -54,7 +54,7 @@ import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/baswxcontroller")
-public class basWXController extends BaseController {
+public class basWXController extends BaseController {	 
 	
 /*	private static final String Templateid_UP="J_1DwXtF8IorKSmpxR3I2v_kb-rLykW4kb8-7E0RQpw";
 	private static final String Templateid_LO="SYi3dsdmvq7CUw3M3E0Mfl63xLl7wAo-4oJY5v126O0";*/
@@ -88,7 +88,7 @@ public class basWXController extends BaseController {
 	private static final String Templateid_QryBusLoc="hNzDLlteTH5pNsOR5ucMmk88quySmpePoEfRIrPPvQo";	//车辆位置(X)
 	private static final String Templateid_leave="iARE4zwVtsh3GojcPVDm9Y02BlLUOCIXIr5JzuHeQc8";		//学生请假提醒ok
 	public static final String Templateid_notice="MK1v3CKZeQALOMOF2ugq3YnbWXhdfc80q1m6hFuboUc";		//超出围栏预警
-	public static final String Templateid_warn="k3NZBmCE8MvqLfFCNlBtLeaFK_EJ8Qa6bLoQmS0LeOA";		//设备异常
+	public static final String Templateid_warn="q8NBTwtgUXh4W9lr-U0QfD48mW8HxcRPRoso_ZTnjXY";		//设备异常ok
 	@Autowired
 	private SystemService systemService;
 	
