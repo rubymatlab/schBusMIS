@@ -214,11 +214,13 @@
 						<value>baswxcontroller.do?getlinename02</value>
 						<value>baswxcontroller.do?getlinename03</value>
 						
+						<value>busMapfenceController.do?doAddData</value>
 						<value>basStudentLocationController.do?list</value>
 						<value>DeviceOperationController.do?AddDevice</value>
 						<value>DeviceOperationController.do?DelDevice</value>
 						<value>DeviceOperationController.do?LocationDevice</value>
 						<value>DeviceOperationController.do?LocationsDevice</value>
+						
 						
 						
 					</list>
