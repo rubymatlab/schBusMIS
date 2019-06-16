@@ -1,6 +1,7 @@
 package com.jeecg.basstudentinfo.controller;
 import com.jeecg.basclass.entity.BasClassEntity;
 import com.jeecg.basline.entity.BasLineEntity;
+import com.jeecg.basstudent.entity.BasCarinfoEntity;
 import com.jeecg.basstudentinfo.entity.BasStudentInfoEntity;
 import com.jeecg.basstudentinfo.service.BasStudentInfoServiceI;
 import java.util.ArrayList;
@@ -122,6 +123,23 @@ public class BasStudentInfoController extends BaseController {
 
 	@RequestMapping(params = "datagrid")
 	public void datagrid(BasStudentInfoEntity basStudentInfo,HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
+		List<BasStudentInfoEntity> listBie=this.basStudentInfoService.loadAll(BasStudentInfoEntity.class);
+		for(BasStudentInfoEntity bie :listBie)
+		{
+			if(bie.getBsCardno()!=null && !"".equals(bie.getBsCardno()))
+				if(bie.getBsImei()==null || "".equals(bie.getBsImei()))
+				{
+					BasCarinfoEntity bce = basStudentInfoService.findUniqueByProperty(BasCarinfoEntity.class, "bsCardno",bie.getBsCardno());
+					if(bce!=null)
+						try {
+							bie.setBsImei(bce.getBsImei());
+							basStudentInfoService.save(bie);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				}
+		}
 		CriteriaQuery cq = new CriteriaQuery(BasStudentInfoEntity.class, dataGrid);
 		//查询条件组装器
 		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, basStudentInfo, request.getParameterMap());
