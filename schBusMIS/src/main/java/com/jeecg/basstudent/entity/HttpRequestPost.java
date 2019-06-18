@@ -91,8 +91,8 @@ public class HttpRequestPost {
 		HttpPost post = new HttpPost(url);
 		JSONObject response = null;
 		try {
-			StringEntity s = new StringEntity(json.toString());
-			s.setContentEncoding("UTF-8");
+			StringEntity s = new StringEntity(json.toString(),"utf-8");
+			//s.setContentEncoding("UTF-8");
 			s.setContentType("application/json");// 发送json数据需要设置contentType
 			post.setEntity(s);
 			HttpResponse res = client.execute(post);
