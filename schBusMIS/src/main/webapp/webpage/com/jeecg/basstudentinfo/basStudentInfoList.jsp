@@ -24,6 +24,7 @@
    <t:dgCol title="地址"  field="bsAddress"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="备注"  field="bsDesc"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="是否有效"  field="bsStatus"  queryMode="single"  dictionary="sf_yn"  width="120"></t:dgCol>
+   <t:dgCol title="监控名称"  field="bfName"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="创建人名称"  field="createName"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="创建人登录名称"  field="createBy"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="创建日期"  field="createDate"  formatter="yyyy-MM-dd"  hidden="true"  queryMode="single"  width="120"></t:dgCol>

@@ -97,6 +97,8 @@ public class BasStudentInfoEntity implements java.io.Serializable {
 	/**是否有效*/
 	@Excel(name="是否有效",width=15,dicCode="sf_yn")
 	private java.lang.String bsStatus;
+	/**监控名称*/
+	private java.lang.String bfName;
 	/**创建人名称*/
 	private java.lang.String createName;
 	/**创建人登录名称*/
@@ -109,6 +111,7 @@ public class BasStudentInfoEntity implements java.io.Serializable {
 	private java.lang.String updateBy;
 	/**更新日期*/
 	private java.util.Date updateDate;
+	
 	
 	/**
 	 *方法: 取得java.lang.String
@@ -453,6 +456,25 @@ public class BasStudentInfoEntity implements java.io.Serializable {
 	public void setBsStatus(java.lang.String bsStatus){
 		this.bsStatus = bsStatus;
 	}
+	
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  监控名称
+	 */
+
+	@Column(name ="BF_NAME",nullable=true,length=50)
+	public java.lang.String getBfName(){
+		return this.bfName;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  监控名称
+	 */
+	public void setBfName(java.lang.String bfName){
+		this.bfName = bfName;
+	}
+	
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  创建人名称
