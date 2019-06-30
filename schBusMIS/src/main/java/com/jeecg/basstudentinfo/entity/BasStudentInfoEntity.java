@@ -99,6 +99,9 @@ public class BasStudentInfoEntity implements java.io.Serializable {
 	private java.lang.String bsStatus;
 	/**监控名称*/
 	private java.lang.String bfName;
+	/**图片*/
+	private java.lang.String bsPhoto;
+
 	/**创建人名称*/
 	private java.lang.String createName;
 	/**创建人登录名称*/
@@ -473,6 +476,25 @@ public class BasStudentInfoEntity implements java.io.Serializable {
 	 */
 	public void setBfName(java.lang.String bfName){
 		this.bfName = bfName;
+	}
+	
+
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  图片
+	 */
+
+	@Column(name ="BS_PHOTO",nullable=true,length=100)
+	public java.lang.String getBsPhoto(){
+		return this.bsPhoto;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  图片
+	 */
+	public void setBsPhoto(java.lang.String bsPhoto){
+		this.bsPhoto = bsPhoto;
 	}
 	
 	/**

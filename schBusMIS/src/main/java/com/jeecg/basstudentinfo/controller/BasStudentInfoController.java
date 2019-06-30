@@ -28,6 +28,8 @@ import org.jeecgframework.core.common.model.json.DataGrid;
 import org.jeecgframework.core.constant.Globals;
 import org.jeecgframework.core.util.StringUtil;
 import org.jeecgframework.tag.core.easyui.TagUtil;
+import org.jeecgframework.web.cgform.entity.upload.CgUploadEntity;
+import org.jeecgframework.web.cgform.service.config.CgFormFieldServiceI;
 import org.jeecgframework.web.system.pojo.base.TSDepart;
 import org.jeecgframework.web.system.service.SystemService;
 import org.jeecgframework.core.util.MyBeanUtils;
@@ -99,6 +101,8 @@ public class BasStudentInfoController extends BaseController {
 	private SystemService systemService;
 	@Autowired
 	private Validator validator;
+	@Autowired
+	private CgFormFieldServiceI cgFormFieldService;
 	
 
 
@@ -227,6 +231,7 @@ public class BasStudentInfoController extends BaseController {
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
+		j.setObj(basStudentInfo);
 		return j;
 	}
 	
@@ -486,6 +491,33 @@ public class BasStudentInfoController extends BaseController {
 				}
 			}
 		}
+		return j;
+	}
+	
+	/**
+	 * 获取文件附件信息
+	 * 
+	 * @param id basStudentInfo主键id
+	 */
+	@RequestMapping(params = "getFiles")
+	@ResponseBody
+	public AjaxJson getFiles(String id){
+		List<CgUploadEntity> uploadBeans = cgFormFieldService.findByProperty(CgUploadEntity.class, "cgformId", id);
+		List<Map<String,Object>> files = new ArrayList<Map<String,Object>>(0);
+		for(CgUploadEntity b:uploadBeans){
+			String title = b.getAttachmenttitle();//附件名
+			String fileKey = b.getId();//附件主键
+			String path = b.getRealpath();//附件路径
+			String field = b.getCgformField();//表单中作为附件控件的字段
+			Map<String, Object> file = new HashMap<String, Object>();
+			file.put("title", title);
+			file.put("fileKey", fileKey);
+			file.put("path", path);
+			file.put("field", field==null?"":field);
+			files.add(file);
+		}
+		AjaxJson j = new AjaxJson();
+		j.setObj(files);
 		return j;
 	}
 	

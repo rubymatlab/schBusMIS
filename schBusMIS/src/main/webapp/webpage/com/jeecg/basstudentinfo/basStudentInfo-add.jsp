@@ -5,12 +5,14 @@
  <head>
   <title>学生资料</title>
   <t:base type="jquery,easyui,tools,DatePicker"></t:base>
+  <link rel="stylesheet" href="plug-in/uploadify/css/uploadify.css" type="text/css" />
+  <script type="text/javascript" src="plug-in/uploadify/jquery.uploadify-3.1.js"></script>
   <script type="text/javascript">
   //编写自定义JS代码
   </script>
  </head>
  <body>
-  <t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="basStudentInfoController.do?doAdd" >
+  <t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="basStudentInfoController.do?doAdd" callback="jeecgFormFileCallBack@Override">
 					<input id="id" name="id" type="hidden" value="${basStudentInfoPage.id }"/>
 		<table style="width: 600px;" cellpadding="0" cellspacing="1" class="formtable">
 				<tr>
@@ -126,6 +128,31 @@
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">设备ID</label>
 						</td>
+						
+						<td align="right">
+						<label class="Validform_label">
+							图片:
+						</label>
+					</td>
+					<td class="value">
+		<div class="form jeecgDetail">
+			<t:upload name="bsPhoto" id="bsPhoto" queueID="filediv_bsPhoto" outhtml="false" uploader="cgUploadController.do?saveFiles"  extend="pic" buttonText='添加图片'  onUploadStart="bsPhotoOnUploadStart"> </t:upload>
+			<div class="form" id="filediv_bsPhoto"></div>
+			<script type="text/javascript">
+				function bsPhotoOnUploadStart(file){
+					var cgFormId=$("input[name='id']").val();
+					$('#bsPhoto').uploadify("settings", "formData", {
+						'cgFormId':cgFormId,
+						'cgFormName':'bas_student',
+						'cgFormField':'BS_PHOTO'
+					});
+					console.log(cgFormId);
+				}
+			</script>
+		</div>
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">图片</label>
+						</td>
 					</tr>
 				<tr>
 					<!-- <td align="right">
@@ -238,3 +265,62 @@
 		</t:formvalid>
  </body>
   <script src = "webpage/com/jeecg/basstudentinfo/basStudentInfo.js"></script>		
+  <script type="text/javascript">
+	  		function jeecgFormFileCallBack(data){
+
+				console.log(data);
+	  			if (data.success == true) {
+					uploadFile(data);
+				} else {
+					if (data.responseText == '' || data.responseText == undefined) {
+						$.messager.alert('错误', data.msg);
+						$.Hidemsg();
+					} else {
+						try {
+							var emsg = data.responseText.substring(data.responseText.indexOf('错误描述'), data.responseText.indexOf('错误信息'));
+							$.messager.alert('错误', emsg);
+							$.Hidemsg();
+						} catch(ex) {
+							$.messager.alert('错误', data.responseText + '');
+						}
+					}
+					return false;
+				}
+				if (!neibuClickFlag) {
+					var win = frameElement.api.opener;
+					win.reloadTable();
+				}
+	  		}
+	  		function upload() {
+					$('#bsPhoto').uploadify('upload', '*');	
+			}
+			
+			var neibuClickFlag = false;
+			function neibuClick() {
+				neibuClickFlag = true; 
+				$('#btn_sub').trigger('click');
+			}
+			function cancel() {
+					$('#bsPhoto').uploadify('cancel', '*');
+			}
+			function uploadFile(data){
+				if(!$("input[name='id']").val()){
+					if(data.obj!=null && data.obj!='undefined'){
+						$("input[name='id']").val(data.obj.id);
+					}
+				}
+				if($(".uploadify-queue-item").length>0){
+					upload();
+				}else{
+					if (neibuClickFlag){
+						alert(data.msg);
+						neibuClickFlag = false;
+					}else {
+						var win = frameElement.api.opener;
+						win.reloadTable();
+						win.tip(data.msg);
+						frameElement.api.close();
+					}
+				}
+			}
+	  	</script>
