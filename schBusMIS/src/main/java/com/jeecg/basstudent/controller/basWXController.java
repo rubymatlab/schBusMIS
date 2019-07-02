@@ -503,7 +503,7 @@ public class basWXController extends BaseController {
 			throws WexinReqException {
 		System.out.println("insertopenid参数输出:" + tell + ";" + openid + ";" + ruletype + ";" + tellcode);
 		int i = 0;
-		//if (isExitsTelCode(tell, tellcode) == 1) {
+		if (isExitsTelCode(tell, tellcode) == 1) {
 			if (isExitsTel(tell, Integer.parseInt(ruletype)) >= 1) {
 				if (ruletype.equals("1")) {// 家长
 					String[] stuids = new String[3];
@@ -518,9 +518,9 @@ public class basWXController extends BaseController {
 			} else { // 手机号码不存在
 				i = 0;
 			}
-/*		} else {
+		} else {
 			i = 2;
-		}*/
+		}
 		return i;
 	}
 	
