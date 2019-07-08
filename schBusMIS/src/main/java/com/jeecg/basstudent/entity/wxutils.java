@@ -143,11 +143,11 @@ public class wxutils {
 			o1_s2.setUrl("http://www.ssboya.cn");
 			sub_button1.add(o1_s2);
 			
-			WeixinButton o1_s3 = new WeixinButton();
+			/*WeixinButton o1_s3 = new WeixinButton();
 			o1_s3.setType("view");
 			o1_s3.setName("调查问卷");
 			o1_s3.setUrl("https://www.wjx.cn/jq/41971264.aspx");
-			sub_button1.add(o1_s3);
+			sub_button1.add(o1_s3);*/
 			
 /*			WeixinButton o1_s2 = new WeixinButton();
 			o1_s2.setType("view");

@@ -5,6 +5,7 @@ import com.jeecg.bascontrail.service.BusMapfenceServiceI;
 import net.sf.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -398,6 +399,49 @@ public class BusMapfenceController extends BaseController {
 		}catch(Exception e){
 			e.printStackTrace();
 			message = "电子围栏添加失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+	
+	@RequestMapping(params = "doPostData")
+	@ResponseBody
+	public AjaxJson doPostData(HttpServletRequest request){
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		try{
+			BufferedReader streamReader = new BufferedReader( new InputStreamReader(request.getInputStream(), "UTF-8"));
+			StringBuilder responseStrBuilder = new StringBuilder();
+			String inputStr;
+			while ((inputStr = streamReader.readLine()) != null)
+				responseStrBuilder.append(inputStr);
+			
+			//JSONObject jsonObject = JSONObject.fromObject(responseStrBuilder.toString());
+			
+			System.out.println(responseStrBuilder.toString());
+			
+			Map map = new HashMap();
+			Enumeration paramNames = request.getParameterNames();
+			while (paramNames.hasMoreElements()) {
+				String paramName = (String) paramNames.nextElement();
+
+				String[] paramValues = request.getParameterValues(paramName);
+				if (paramValues.length == 1) {
+					String paramValue = paramValues[0];
+					if (paramValue.length() != 0) {
+						System.out.println("参数：" + paramName + "=" + paramValue);
+						map.put(paramName, paramValue);
+					}
+				}
+			}
+			if(message==null)
+			{
+				message = "双通道写入成功";
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			message = "双通道添加失败";
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
