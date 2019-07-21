@@ -440,6 +440,16 @@ public class BusMapfenceController extends BaseController {
 						MyBeanUtils.copyBeanNotNull2Bean(be, o);
 						listBs.add(o);
 					}
+					if(listBsl.size()==0)
+					{
+						BasStudentInfoEntity o=new BasStudentInfoEntity();
+						o.setBsName("未知");
+						o.setBcGrade("未知");
+						o.setBcName("未知");
+						o.setBsSex("0");
+						o.setBsCardno(card);
+						listBs.add(o);
+					}
 					
 				}
 			}
