@@ -1,6 +1,10 @@
 package com.jeecg.bascontrail.controller;
+import com.jeecg.bascontrail.entity.BasContrailYunEntity;
 import com.jeecg.bascontrail.entity.BusMapfenceEntity;
+import com.jeecg.bascontrail.service.BasContrailYunServiceI;
 import com.jeecg.bascontrail.service.BusMapfenceServiceI;
+import com.jeecg.basstudent.entity.BasStudentLocationEntity;
+import com.jeecg.basstudentinfo.entity.BasStudentInfoEntity;
 
 import net.sf.json.JSONObject;
 
@@ -404,7 +408,13 @@ public class BusMapfenceController extends BaseController {
 		j.setMsg(message);
 		return j;
 	}
-	
+	public static List<BasStudentInfoEntity> listBs=new ArrayList<BasStudentInfoEntity>();
+
+	@Autowired
+	private BasContrailYunServiceI basContrailYunService;
+	/*
+	 * 双通道刷卡
+	 */
 	@RequestMapping(params = "doPostData")
 	@ResponseBody
 	public AjaxJson doPostData(HttpServletRequest request){
@@ -416,12 +426,37 @@ public class BusMapfenceController extends BaseController {
 			String inputStr;
 			while ((inputStr = streamReader.readLine()) != null)
 				responseStrBuilder.append(inputStr);
+			//System.out.println(responseStrBuilder.toString());
+			if(null!=responseStrBuilder.toString())
+			{
+				JSONObject ob = JSONObject.fromObject(responseStrBuilder.toString());
+				if(ob.containsKey("Card"))
+				{
+					String card=ob.getString("Card");
+					List<BasStudentInfoEntity> listBsl=busMapfenceService.findByProperty(BasStudentInfoEntity.class, "bsCardno", card);
+					for(BasStudentInfoEntity be : listBsl)
+					{
+						BasStudentInfoEntity o=new BasStudentInfoEntity();
+						MyBeanUtils.copyBeanNotNull2Bean(be, o);
+						listBs.add(o);
+					}
+					
+				}
+			}
+			try{
+				BasContrailYunEntity basContrailYun=new BasContrailYunEntity();
+				basContrailYun.setBcyKey("刷卡值");
+				basContrailYun.setBcyDesc("双通道刷卡");
+				basContrailYun.setBcyValue(responseStrBuilder.toString());
+				basContrailYunService.save(basContrailYun);
+				//systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
+			}catch(Exception e){
+				//e.printStackTrace();
+				message = "云在线通道添加失败";
+				throw new BusinessException(e.getMessage());
+			}
 			
-			//JSONObject jsonObject = JSONObject.fromObject(responseStrBuilder.toString());
-			
-			System.out.println(responseStrBuilder.toString());
-			
-			Map map = new HashMap();
+			/*Map map = new HashMap();
 			Enumeration paramNames = request.getParameterNames();
 			while (paramNames.hasMoreElements()) {
 				String paramName = (String) paramNames.nextElement();
@@ -434,19 +469,18 @@ public class BusMapfenceController extends BaseController {
 						map.put(paramName, paramValue);
 					}
 				}
-			}
+			}*/
 			if(message==null)
 			{
 				message = "双通道写入成功";
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 			message = "双通道添加失败";
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
 		return j;
 	}
-	
 	
 }
