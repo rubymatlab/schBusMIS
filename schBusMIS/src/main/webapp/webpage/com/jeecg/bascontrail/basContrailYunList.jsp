@@ -4,7 +4,7 @@
 <t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <script>
 	window.onload = function() {
-		setTimeout('myrefresh()', 3000); //指定4秒刷新一次 
+		setTimeout('myrefresh()', 4000); //指定4秒刷新一次 
 	}
 
 	function myrefresh() {
