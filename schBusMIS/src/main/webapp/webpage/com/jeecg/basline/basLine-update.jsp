@@ -82,8 +82,8 @@
 				<label class="Validform_label">线路司机:</label>
 			</td>
 			<td class="value">
-			<input id="blDriverid" name="blDriverid" type="hidden" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bp_name','blDriverid,blDriver','driver_msg')"  value='${basLinePage.blDriverid}'/>
-					<input id="blDriver" name="blDriver" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bp_name','blDriverid,blDriver','driver_msg')"  value='${basLinePage.blDriver}'/>			    
+			<input id="blDriverid" name="blDriverid" type="hidden" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"    onclick="popupClick(this,'id,bp_name','blDriverid,blDriver','driver_msg')"  value='${basLinePage.blDriverid}'/>
+					<input id="blDriver" name="blDriver" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"    onclick="popupClick(this,'id,bp_name','blDriverid,blDriver','driver_msg')"  value='${basLinePage.blDriver}'/>			    
 				<span class="Validform_checktip"></span>
 				<label class="Validform_label" style="display: none;">线路司机</label>
 			</td>

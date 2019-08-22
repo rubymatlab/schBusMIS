@@ -216,15 +216,16 @@
 						<value>busMapfenceController.do?doPostData</value>
 						<value>busMapfenceController.do?doAddData</value>
 						<value>basStudentLocationController.do?list</value>
-						<value>basContrailYunController.do?list</value>
-						<value>basContrailYunController.do?pushMessage</value>
 						<value>DeviceOperationController.do?AddDevice</value>
 						<value>DeviceOperationController.do?DelDevice</value>
 						<value>DeviceOperationController.do?LocationDevice</value>
 						<value>DeviceOperationController.do?LocationsDevice</value>
-						
-						
-						
+						<value>basContrailYunController.do?getCommTask</value>   <!-- by 20190802 -->
+						<value>basContrailYunController.do?getReqData</value>
+<!--						<value>basContrailYunController.do?getAddCardTask</value>
+ 						<value>basContrailYunController.do?verificationData</value>
+						<value>basContrailYunController.do?iDoorData</value>
+						<value>basContrailYunController.do?getDoorData</value> -->
 					</list>
 				</property>
 				<!-- 模糊匹配 -->

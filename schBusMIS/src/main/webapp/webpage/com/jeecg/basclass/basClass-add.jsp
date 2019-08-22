@@ -44,7 +44,7 @@
 						</label>
 					</td>
 					<td class="value" style="display: none;">
-							<input id="bcPersonid" name="bcPersonid" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bp_name','bcPersonid,bcPerson','teacher_msg')"  />
+							<input id="bcPersonid" name="bcPersonid" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"    onclick="popupClick(this,'id,bp_name','bcPersonid,bcPerson','teacher_msg')"  />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">班主任ID</label>
 						</td>
@@ -56,7 +56,7 @@
 						</label>
 					</td>
 					<td class="value">
-							<input id="bcPerson" name="bcPerson" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bp_name','bcPersonid,bcPerson','teacher_msg')"  />
+							<input id="bcPerson" name="bcPerson" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"    onclick="popupClick(this,'id,bp_name','bcPersonid,bcPerson','teacher_msg')"  />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">班主任</label>
 						</td>

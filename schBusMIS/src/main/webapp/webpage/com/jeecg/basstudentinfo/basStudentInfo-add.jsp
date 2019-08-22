@@ -171,9 +171,9 @@
 						</label>
 					</td>
 					<td class="value">
-					<input id="blSizeid" name="blSizeid" type="hidden" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid,blName,blSize','line_msg')"  />
+					<input id="blSizeid" name="blSizeid" type="hidden" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid,blName,blSize','line_msg')"  />
 							
-							<input id="blName" name="blName" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid,blName,blSize','line_msg')"  />
+							<input id="blName" name="blName" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid,blName,blSize','line_msg')"  />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">上学线路</label>
 						</td>
@@ -183,7 +183,7 @@
 						</label>
 					</td>
 					<td class="value">
-							<input id="blSize" name="blSize" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid,blName,blSize','line_msg')"  />
+							<input id="blSize" name="blSize" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid,blName,blSize','line_msg')"  />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">上学站点</label>
 						</td>
@@ -208,9 +208,9 @@
 						</label>
 					</td>
 					<td class="value">
-					<input id="blSizeid1" name="blSizeid1" type="hidden" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid1,blName1,blSize1','line_msg1')"  />
+					<input id="blSizeid1" name="blSizeid1" type="hidden" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid1,blName1,blSize1','line_msg1')"  />
 							
-							<input id="blName1" name="blName1" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid1,blName1,blSize1','line_msg1')"  />
+							<input id="blName1" name="blName1" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid1,blName1,blSize1','line_msg1')"  />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">放学路线</label>
 						</td>
@@ -220,7 +220,7 @@
 						</label>
 					</td>
 					<td class="value">
-							<input id="blSize1" name="blSize1" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'id,bl_name,bs_name','blSizeid1,blName1,blSize1','line_msg1')"  />
+							<input id="blSize1" name="blSize1" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="checked" datatype="*"  onclick="popupClick(this,'id,bl_name,bs_name','blSizeid1,blName1,blSize1','line_msg1')"  />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">放学站点</label>
 						</td>
@@ -242,7 +242,7 @@
 						</label>
 					</td>
 					<td class="value">
-							  <t:dictSelect field="bsStatus" type="list"  typeGroupCode="sf_yn"  defaultVal="${basStudentInfoPage.bsStatus}" hasLabel="false"  title="是否有效" ></t:dictSelect>     
+							<t:dictSelect field="bsStatus" type="list"  typeGroupCode="sf_yn"  defaultVal="Y" hasLabel="false"  title="是否有效" ></t:dictSelect>     
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">是否有效</label>
 						</td>

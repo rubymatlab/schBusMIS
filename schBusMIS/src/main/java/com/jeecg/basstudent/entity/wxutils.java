@@ -138,65 +138,28 @@ public class wxutils {
 			o1_s1.setUrl("https://c.eqxiu.com/s/YUFNfawJ");
 			sub_button1.add(o1_s1);
 			WeixinButton o1_s2 = new WeixinButton();
-			o1_s2.setType("view");
+/*			o1_s2.setType("view");
 			o1_s2.setName("校园网页");
 			o1_s2.setUrl("http://www.ssboya.cn");
-			sub_button1.add(o1_s2);
-			
-			/*WeixinButton o1_s3 = new WeixinButton();
-			o1_s3.setType("view");
-			o1_s3.setName("调查问卷");
-			o1_s3.setUrl("https://www.wjx.cn/jq/41971264.aspx");
-			sub_button1.add(o1_s3);*/
-			
-/*			WeixinButton o1_s2 = new WeixinButton();
-			o1_s2.setType("view");
-			o1_s2.setName("下车提醒");
-			o1_s2.setUrl(basurl+"/baswxcontroller.do?doSendTMessage_LO");
-			sub_button1.add(o1_s2);
-			WeixinButton o1_s3 = new WeixinButton();
-			o1_s3.setType("view");
-			o1_s3.setName("未上车警示提醒");
-			o1_s3.setUrl(basurl+"/baswxcontroller.do?doSendTMessage_WR&cardno=A001");
-			sub_button1.add(o1_s3);*/
-			
+			sub_button1.add(o1_s2);*/
 			WeixinButton o1 = new WeixinButton();
 			o1.setName("学校概况");
 			o1.setSub_button(sub_button1);
 			button.add(o1);
 			//******************************//*
+			
 			List<WeixinButton> sub_button2 = new ArrayList<WeixinButton>();
 			WeixinButton o2_s11 = new WeixinButton();
 			o2_s11.setType("view");
-			o2_s11.setName("招生招聘");
-			o2_s11.setUrl("https://mp.weixin.qq.com/s/yLIeEcfs90nvTHfEqss5Vw");
+			o2_s11.setName("校园网页");
+			o2_s11.setUrl("http://www.ssboya.cn");
 			sub_button2.add(o2_s11);
-/*			WeixinButton o2_s1 = new WeixinButton();
-			o2_s1.setType("view");
-			o2_s1.setName("学生位置");
-			o2_s1.setUrl(openidurlLocation);
-			sub_button2.add(o2_s1);
-			WeixinButton o2_s2 = new WeixinButton();
-			o2_s2.setType("view");
-			o2_s2.setName("车辆位置");
-			o2_s2.setUrl(qrybusurl);
-			sub_button2.add(o2_s2);
-			WeixinButton o2_s3 = new WeixinButton();
-			o2_s3.setType("view");
-			o2_s3.setName("不坐校车");
-			o2_s3.setUrl(leaerecsurl);
-			sub_button2.add(o2_s3);*/
-/*			WeixinButton o2_s3 = new WeixinButton();
-			o2_s3.setType("view");
-			o2_s3.setName("test");
-			o2_s3.setUrl("http://tdcq.natapp1.cc/schBusMIS/page/leave01.html");
-			sub_button2.add(o2_s3);	*/		
 			WeixinButton o2 = new WeixinButton();
-			o2.setName("招生招聘");
+			o2.setName("校园网站");
 			o2.setSub_button(sub_button2);
 			button.add(o2);
-
 			//******************************//*
+			
 			List<WeixinButton> sub_button4 = new ArrayList<WeixinButton>();
 			WeixinButton o2_s1 = new WeixinButton();
 			o2_s1.setType("view");
@@ -222,6 +185,7 @@ public class wxutils {
 			o4.setName("智慧校园");
 			o4.setSub_button(sub_button4);
 			button.add(o4);
+			//******************************//*
 			
 			MenuCreate m=new MenuCreate();
 			m.setButton(button);
