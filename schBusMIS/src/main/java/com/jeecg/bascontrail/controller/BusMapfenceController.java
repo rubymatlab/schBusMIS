@@ -433,11 +433,17 @@ public class BusMapfenceController extends BaseController {
 				if(ob.containsKey("Card"))
 				{
 					String card=ob.getString("Card");
+					String reader=ob.getString("Reader");
 					List<BasStudentInfoEntity> listBsl=busMapfenceService.findByProperty(BasStudentInfoEntity.class, "bsCardno", card);
 					for(BasStudentInfoEntity be : listBsl)
 					{
 						BasStudentInfoEntity o=new BasStudentInfoEntity();
 						MyBeanUtils.copyBeanNotNull2Bean(be, o);
+						if("0".equals(reader))
+							o.setBsDesc("进通道");
+						else
+							o.setBsDesc("出通道");
+							
 						listBs.add(o);
 					}
 					if(listBsl.size()==0)
@@ -448,6 +454,10 @@ public class BusMapfenceController extends BaseController {
 						o.setBcName("未知");
 						o.setBsSex("0");
 						o.setBsCardno(card);
+						if("0".equals(reader))
+							o.setBsDesc("进通道");
+						else
+							o.setBsDesc("出通道");
 						listBs.add(o);
 					}
 					

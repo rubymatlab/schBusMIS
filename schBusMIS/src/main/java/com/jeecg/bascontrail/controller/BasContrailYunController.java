@@ -1,4 +1,5 @@
 package com.jeecg.bascontrail.controller;
+import com.alibaba.fastjson.JSONObject;
 import com.jeecg.bascontrail.entity.BasContrailYunEntity;
 import com.jeecg.bascontrail.service.BasContrailYunServiceI;
 import com.jeecg.basline.entity.BasSizeEntity;
@@ -34,6 +35,8 @@ import org.jeecgframework.web.system.service.SystemService;
 import org.jeecgframework.core.util.MyBeanUtils;
 
 import java.io.OutputStream;
+import java.io.PrintWriter;
+
 import org.jeecgframework.core.util.BrowserUtils;
 import org.jeecgframework.poi.excel.ExcelExportUtil;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
@@ -44,6 +47,8 @@ import org.jeecgframework.poi.excel.entity.vo.NormalExcelConstants;
 import org.jeecgframework.poi.excel.entity.vo.TemplateExcelConstants;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jeecgframework.core.util.ResourceUtil;
+
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -80,7 +85,7 @@ public class BasContrailYunController extends BaseController {
 	 */
 	@RequestMapping(params = "list")
 	public ModelAndView list(HttpServletRequest request) {
-		List<BasStudentInfoEntity> listBe=new ArrayList<BasStudentInfoEntity>();
+		/*List<BasStudentInfoEntity> listBe=new ArrayList<BasStudentInfoEntity>();
 		for(BasStudentInfoEntity be:BusMapfenceController.listBs)
 		{
 			try {
@@ -92,10 +97,48 @@ public class BasContrailYunController extends BaseController {
 				e.printStackTrace();
 			}
 		}
-		request.setAttribute("listBe", listBe);
+		request.setAttribute("listBe", listBe);*/
 		BusMapfenceController.listBs.clear();
 		return new ModelAndView("com/jeecg/bascontrail/basContrailYunList");
 	}
+	
+	@RequestMapping(params = "pushMessage")  
+    public void pushMessage(HttpServletResponse response,HttpServletRequest request){
+            try {
+                //最后一次接收到的事件的标识符
+                String last = request.getHeader("Last-Event-ID");
+                //logger.info(last);
+                response.setContentType("text/event-stream");
+                response.setCharacterEncoding("utf-8");
+                PrintWriter out = response.getWriter();
+                
+                /*获取刷卡数据*/
+                BasStudentInfoEntity o=new BasStudentInfoEntity();
+        		for(BasStudentInfoEntity be:BusMapfenceController.listBs)
+        		{
+        			try {
+        				MyBeanUtils.copyBeanNotNull2Bean(be, o);
+        				BusMapfenceController.listBs.remove(be);
+        				break;
+        			} catch (Exception e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
+        		}
+                
+                out.println("data:"+JSONObject.toJSONString(o));
+                out.println("event:message");
+                //声明浏览器在连接断开之后进行再次连接之前的等待时间 1秒
+                out.println("retry:1000");
+                //事件的标识符
+                out.println("id:"+System.currentTimeMillis());
+                out.println();
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
 
 	/**
 	 * easyui AJAX请求数据

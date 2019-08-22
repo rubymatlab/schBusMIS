@@ -216,6 +216,8 @@
 						<value>busMapfenceController.do?doPostData</value>
 						<value>busMapfenceController.do?doAddData</value>
 						<value>basStudentLocationController.do?list</value>
+						<value>basContrailYunController.do?list</value>
+						<value>basContrailYunController.do?pushMessage</value>
 						<value>DeviceOperationController.do?AddDevice</value>
 						<value>DeviceOperationController.do?DelDevice</value>
 						<value>DeviceOperationController.do?LocationDevice</value>
