@@ -410,34 +410,39 @@ public class BasContrailYunController extends BaseController {
 		
 		//获取学生卡号
 		String cardno=this.getDoorData(MAC);
-		//System.out.println("获取得卡号:"+cardno);	
-		int i=iDoorData(MAC,cardno);
-		String stip="";
-		if (i==1){
-			stip="写入门禁表成功:MAC:"+MAC+";cardno:"+cardno;
-		}else{
-			stip="写入门禁表失败:MAC:"+MAC+";cardno:"+cardno;
+		System.out.println("获取得卡号:"+cardno);
+		if(cardno.equals("0")){
+			strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
 		}
-		System.out.println(stip);
-		
-		//白名单指令
-		CmdValue=this.creWhiteNameCmd(cardno,"");		//test cardno:161234567890006
-		//CmdValue=this.creDelAllCardCmd();		
-		//System.out.println("CmdValue:"+CmdValue);
-		
-		//第一次  返回任务
-		if(IndexCmd==null||IndexCmd.equals("")){
-			strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+intRan+"\",\"CmdValue\":\""+CmdValue+"\"}";
-			//System.out.println("IndexCmd(1nd):"+IndexCmd);
-		}//非第一次
-		else {	
-			//System.out.println("pub_IndexCmd:"+pub_IndexCmd);
-			if(CmdOK.equals("1")&(IndexCmd.equals(String.valueOf(pub_IndexCmd)))){
-				//System.out.println("IndexCmd:"+intRan);
-				strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+intRan+"\",\"CmdValue\":\""+CmdValue+"\"}";
+		else{	
+			int i=iDoorData(MAC,cardno);
+			String stip="";
+			if (i==1){
+				stip="写入门禁表成功:MAC:"+MAC+";cardno:"+cardno;
 			}else{
-				strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
-			}								
+				stip="写入门禁表失败:MAC:"+MAC+";cardno:"+cardno;
+			}
+			System.out.println(stip);
+			
+			//白名单指令
+			CmdValue=this.creWhiteNameCmd(cardno,"");		//test cardno:161234567890006
+			//CmdValue=this.creDelAllCardCmd();		
+			//System.out.println("CmdValue:"+CmdValue);
+			
+			//第一次  返回任务
+			if(IndexCmd==null||IndexCmd.equals("")){
+				strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+intRan+"\",\"CmdValue\":\""+CmdValue+"\"}";
+				//System.out.println("IndexCmd(1nd):"+IndexCmd);
+			}//非第一次
+			else {	
+				//System.out.println("pub_IndexCmd:"+pub_IndexCmd);
+				if(CmdOK.equals("1")&(IndexCmd.equals(String.valueOf(pub_IndexCmd)))){
+					//System.out.println("IndexCmd:"+intRan);
+					strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+intRan+"\",\"CmdValue\":\""+CmdValue+"\"}";
+				}else{
+					strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
+				}								
+			}
 		}
 
 		JSONObject json = JSONObject.fromObject(strRet); 		
@@ -590,13 +595,19 @@ public class BasContrailYunController extends BaseController {
 	//取学生卡信息
 	private String getDoorData(String macno){		
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		String cardno="0";
 		StringBuffer sql = new StringBuffer("select bs_cardno from bas_student ");
 		sql.append("where bs_cardno not in (select bs_cardno from bas_studentdoorinfo where bs_macno='"+macno+"') ");
 		sql.append("order by create_date LIMIT 1");
-		//System.out.println("getDoorData sql..." + ";" + sql.toString());
+		System.out.println("getDoorData sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
-		String cardno = listTree.get(0).get("bs_cardno").toString();
+		if (listTree.size()==0){
+			cardno="0";
+		}else{
+			cardno = listTree.get(0).get("bs_cardno").toString();
+		}
+		
 		return cardno;
 
 	}	
