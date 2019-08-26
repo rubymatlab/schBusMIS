@@ -415,6 +415,116 @@ public class BusMapfenceController extends BaseController {
 	/*
 	 * 双通道刷卡
 	 */
+//	@RequestMapping(params = "doPostData")
+//	@ResponseBody
+//	public JSONObject doPostData(HttpServletRequest request) {
+//		String message = null;
+//		//AjaxJson j = new AjaxJson();
+//		JSONObject json=null;
+//		try {
+//			BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
+//			StringBuilder responseStrBuilder = new StringBuilder();
+//			String inputStr;
+//			while ((inputStr = streamReader.readLine()) != null)
+//				responseStrBuilder.append(inputStr);
+//			// System.out.println(responseStrBuilder.toString());
+//			if (null != responseStrBuilder.toString()) {
+//				JSONObject ob = JSONObject.fromObject(responseStrBuilder.toString());
+//				if(ob.containsKey("type") && ob.containsKey("IndexEvent") && ob.containsKey("IndexAlarm"))
+//				{
+//					String type=ob.getString("type");
+//					String IndexEvent=ob.getString("IndexEvent");
+//					String IndexAlarm=ob.getString("IndexAlarm");
+//					String str="{}";
+//					if (type == null || type.equals("")) 
+//						type = "0";
+//					if (IndexEvent == null || IndexEvent.equals("")) 
+//						IndexEvent = "0";
+//					if (IndexAlarm == null || IndexAlarm.equals(""))
+//						IndexAlarm = "0";
+//
+//					String acsres="0";
+//					String time="0";
+//					if(ob.containsKey("Card"))
+//					{
+//						String card = ob.getString("Card");
+//						List<BasStudentInfoEntity> listBsl = busMapfenceService.findByProperty(BasStudentInfoEntity.class,
+//								"bsCardno", card);
+//						if(listBsl.size()>0)
+//						{
+//							acsres="1";
+//							time="1";
+//						}
+//					}
+//					if (type.equals("100")) {
+//						str = "{\"IndexEvent\":\"" + IndexEvent + "\"}";
+//					} else if (type.equals("101")) {
+//						str = "{\"IndexAlarm\":\"" + IndexAlarm + "\"}";
+//					}else if (type.equals("0")) {
+//						str = "{\"ActIndex\":\"0\",\"AcsRes\":\""+acsres+"\",\"Time\":\""+time+"\"}";
+//					} else if (type.equals("1")) {
+//						str = "{\"ActIndex\":\"0\",\"AcsRes\":\""+acsres+"\",\"Time\":\""+time+"\"}";
+//					} else if (type.equals("9")) {
+//						str = "{\"ActIndex\":\"0\",\"AcsRes\":\""+acsres+"\",\"Time\":\""+time+"\"}";
+//					}else
+//					{
+//						str = "{\"ActIndex\":\"0\",\"AcsRes\":\"0\",\"Time\":\"0\"}";
+//					}
+//					json = JSONObject.fromObject(str);
+//				}
+//				if (ob.containsKey("Card") && ob.containsKey("Reader")) {
+//					String card = ob.getString("Card");
+//					String reader = ob.getString("Reader");
+//					List<BasStudentInfoEntity> listBsl = busMapfenceService.findByProperty(BasStudentInfoEntity.class,
+//							"bsCardno", card);
+//					for (BasStudentInfoEntity be : listBsl) {
+//						BasStudentInfoEntity o = new BasStudentInfoEntity();
+//						MyBeanUtils.copyBeanNotNull2Bean(be, o);
+//						if ("0".equals(reader))
+//							o.setBsDesc("进通道");
+//						else
+//							o.setBsDesc("出通道");
+//
+//						listBs.add(o);
+//					}
+//					if (listBsl.size() == 0) {
+//						BasStudentInfoEntity o = new BasStudentInfoEntity();
+//						o.setBsName("未知");
+//						o.setBcGrade("未知");
+//						o.setBcName("未知");
+//						o.setBsSex("0");
+//						o.setBsCardno(card);
+//						if ("0".equals(reader))
+//							o.setBsDesc("进通道");
+//						else
+//							o.setBsDesc("出通道");
+//						listBs.add(o);
+//					}
+//				}
+//			}
+//			try {
+//				BasContrailYunEntity basContrailYun = new BasContrailYunEntity();
+//				basContrailYun.setBcyKey("刷卡值");
+//				basContrailYun.setBcyDesc("双通道刷卡");
+//				basContrailYun.setBcyValue(responseStrBuilder.toString());
+//				basContrailYunService.save(basContrailYun);
+//			} catch (Exception e) {
+//				// e.printStackTrace();
+//				message = "云在线通道添加失败";
+//				throw new BusinessException(e.getMessage());
+//			}
+//			if (message == null) {
+//				message = "双通道写入成功";
+//			}
+//		} catch (Exception e) {
+//			// e.printStackTrace();
+//			message = "双通道添加失败";
+//			throw new BusinessException(e.getMessage());
+//		}
+//		//j.setMsg(message);
+//		return json;
+//	}
+	
 	@RequestMapping(params = "doPostData")
 	@ResponseBody
 	public JSONObject doPostData(HttpServletRequest request) {
@@ -422,14 +532,15 @@ public class BusMapfenceController extends BaseController {
 		//AjaxJson j = new AjaxJson();
 		JSONObject json=null;
 		try {
-			BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
-			StringBuilder responseStrBuilder = new StringBuilder();
-			String inputStr;
-			while ((inputStr = streamReader.readLine()) != null)
-				responseStrBuilder.append(inputStr);
-			// System.out.println(responseStrBuilder.toString());
-			if (null != responseStrBuilder.toString()) {
-				JSONObject ob = JSONObject.fromObject(responseStrBuilder.toString());
+			Enumeration pNames=request.getParameterNames();
+			HashMap m=new HashMap();
+			while(pNames.hasMoreElements()){
+				String name=(String)pNames.nextElement();
+				String value=request.getParameter(name);
+				m.put(name, value);
+			}
+			JSONObject ob = JSONObject.fromObject(m);
+			//System.out.print(ob.toString());
 				if(ob.containsKey("type") && ob.containsKey("IndexEvent") && ob.containsKey("IndexAlarm"))
 				{
 					String type=ob.getString("type");
@@ -501,12 +612,11 @@ public class BusMapfenceController extends BaseController {
 						listBs.add(o);
 					}
 				}
-			}
 			try {
 				BasContrailYunEntity basContrailYun = new BasContrailYunEntity();
 				basContrailYun.setBcyKey("刷卡值");
 				basContrailYun.setBcyDesc("双通道刷卡");
-				basContrailYun.setBcyValue(responseStrBuilder.toString());
+				basContrailYun.setBcyValue(ob.toString());
 				basContrailYunService.save(basContrailYun);
 			} catch (Exception e) {
 				// e.printStackTrace();
