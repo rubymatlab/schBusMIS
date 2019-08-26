@@ -222,6 +222,8 @@
 						<value>DeviceOperationController.do?LocationsDevice</value>
 						<value>basContrailYunController.do?getCommTask</value>   <!-- by 20190802 -->
 						<value>basContrailYunController.do?getReqData</value>
+						<value>basContrailYunController.do?list</value>
+						<value>basContrailYunController.do?pushMessage</value>
 <!--						<value>basContrailYunController.do?getAddCardTask</value>
  						<value>basContrailYunController.do?verificationData</value>
 						<value>basContrailYunController.do?iDoorData</value>

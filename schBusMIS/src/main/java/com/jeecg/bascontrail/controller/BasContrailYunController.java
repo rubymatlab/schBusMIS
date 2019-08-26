@@ -41,6 +41,8 @@ import org.jeewx.api.core.exception.WexinReqException;
 import org.jeecgframework.core.util.MyBeanUtils;
 
 import java.io.OutputStream;
+import java.io.PrintWriter;
+
 import org.jeecgframework.core.util.BrowserUtils;
 import org.jeecgframework.poi.excel.ExcelExportUtil;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
@@ -344,7 +346,43 @@ public class BasContrailYunController extends BaseController {
 		}
 		return j;
 	}
-	
+	@RequestMapping(params = "pushMessage")  
+    public void pushMessage(HttpServletResponse response,HttpServletRequest request){
+            try {
+                //最后一次接收到的事件的标识符
+                String last = request.getHeader("Last-Event-ID");
+                //logger.info(last);
+                response.setContentType("text/event-stream");
+                response.setCharacterEncoding("utf-8");
+                PrintWriter out = response.getWriter();
+                
+                /*获取刷卡数据*/
+                BasStudentInfoEntity o=new BasStudentInfoEntity();
+        		for(BasStudentInfoEntity be:BusMapfenceController.listBs)
+        		{
+        			try {
+        				MyBeanUtils.copyBeanNotNull2Bean(be, o);
+        				BusMapfenceController.listBs.remove(be);
+        				break;
+        			} catch (Exception e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
+        		}
+                if(!(o==null || o.getBsDesc()==""||o.getBsDesc()==null))
+                out.println("data:"+JSONObject.fromObject(o).toString());
+                out.println("event:message");
+                //声明浏览器在连接断开之后进行再次连接之前的等待时间 1秒
+                out.println("retry:1000");
+                //事件的标识符
+                out.println("id:"+System.currentTimeMillis());
+                out.println();
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
 	
 	/*门闸相关
 	 * @author:dev
