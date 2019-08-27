@@ -408,24 +408,25 @@ public class BasContrailYunController extends BaseController {
 		}
 		//ini end
 		
-		//获取学生卡号
+		//获取学生卡号和卡序号
 		String cardno=this.getDoorData(MAC);
-		System.out.println("获取得卡号:"+cardno);
+		int seq=getDoorMaxSeq(MAC);
+		System.out.println("获取得卡号:"+cardno+";序号:"+seq);
 		if(cardno.equals("0")){
 			strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
 		}
 		else{	
-			int i=iDoorData(MAC,cardno);
+			int i=iDoorData(MAC,cardno,seq);
 			String stip="";
 			if (i==1){
-				stip="写入门禁表成功:MAC:"+MAC+";cardno:"+cardno;
+				stip="写入门禁表成功:MAC:"+MAC+";cardno:"+cardno+";seq:"+seq;
 			}else{
-				stip="写入门禁表失败:MAC:"+MAC+";cardno:"+cardno;
+				stip="写入门禁表失败:MAC:"+MAC+";cardno:"+cardno+";seq:"+seq;
 			}
 			System.out.println(stip);
 			
 			//白名单指令
-			CmdValue=this.creWhiteNameCmd(cardno,"");		//test cardno:161234567890006
+			CmdValue=this.creWhiteNameCmd(cardno,"",seq);		//test cardno:161234567890006
 			//CmdValue=this.creDelAllCardCmd();		
 			//System.out.println("CmdValue:"+CmdValue);
 			
@@ -451,51 +452,9 @@ public class BasContrailYunController extends BaseController {
 		return json;		
 	};
 		
-	//请求(控制器向服务器请求) -->busMapfenceController.do?PostData
-	@RequestMapping(params = "getReqData")
-	@ResponseBody
-	public JSONObject getReqData(String type,String IndexEvent,String IndexAlarm,HttpServletRequest request, HttpServletResponse response){
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.setCharacterEncoding("utf-8");
-		String str="";
-		System.out.println("请求类型:"+type);
-		
-		if(type==null||type.equals("")){
-			type="0";
-		}
-		if(IndexEvent==null||IndexEvent.equals("")){
-			IndexEvent="0";
-		}
-		if(IndexAlarm==null||IndexAlarm.equals("")){
-			IndexAlarm="0";
-		}
-		
-		if (type.equals("100")){
-			str ="{\"IndexEvent\":\""+IndexEvent+"\"}"; 
-		}else if(type.equals("101")){
-        	str ="{\"IndexAlarm\":\""+IndexAlarm+"\"}"; 
-		}
-		//type=0/1/9 开门
-		else if(type.equals("0")){
-        	str ="{\"ActIndex\":\"0\",\"AcsRes\":\"1\",\"Time\":\"1\"}"; 
-		}
-		else if(type.equals("1")){
-        	str ="{\"ActIndex\":\"0\",\"AcsRes\":\"1\",\"Time\":\"1\"}"; 
-		}
-		else if(type.equals("9")){
-        	str ="{\"ActIndex\":\"0\",\"AcsRes\":\"1\",\"Time\":\"1\"}"; 
-		}
-		
-		JSONObject json = JSONObject.fromObject(str); 
-		
-		System.out.println("getReqData:"+json);		
-		return json;		
-	};
-	
 
-	
 	//生成白名单指令
-	private String creWhiteNameCmd(String cardno,String personName){
+	private String creWhiteNameCmd(String cardno,String personName,int seq){
 		String sRet="";
 		
 		//包头 02 00 C1 FF 00 3F 00
@@ -510,8 +469,8 @@ public class BasContrailYunController extends BaseController {
 		
 		//数据datas
 		//String[] strArray=new String[63];
-		//卡编号 3字节  随机生成3位数字
-		int icarOID=this.getRandom(3);
+		//卡编号 3字节  随机生成3位数字-->取最大数
+		int icarOID=seq;//this.getRandom(3);
 		String carOID=intToHex(icarOID);
 		carOID=addZeroForNum(carOID,6,"R");
 		//System.out.println("icarOID:"+icarOID+";转换后:"+carOID);
@@ -565,32 +524,6 @@ public class BasContrailYunController extends BaseController {
 		return sRet;
 	}
 
-	//生成删除所有卡指令
-	/*private String creDelAllCardCmd(){
-		String sRet="";
-		
-		//包头 02 00 C1 FF 00 3F 00
-		String beg_stx="02";			//开始位 16进制(占1个字节)
-		String beg_radn="00";			//随机数	
-		String beg_command="17";		//指令	增加一张卡
-		String beg_address="FF";		//地址
-		String beg_door="00";			//门编号
-		String beg_lengthL="09";		//数据长度低位 63个字节
-		String beg_lengthH="00";		//数据长度高位	
-		String begData=beg_stx+beg_radn+beg_command+beg_address+beg_door+beg_lengthL+beg_lengthH;	
-		
-
-				
-		//包尾
-		String CS=verificationData(begData);
-		//System.out.println("CS:"+CS);
-		
-		String endStr="03";
-		String endData=CS+endStr;	
-		
-		sRet=begData+endData;
-		return sRet;
-	}*/
 	
 	//取学生卡信息
 	private String getDoorData(String macno){		
@@ -612,7 +545,7 @@ public class BasContrailYunController extends BaseController {
 
 	}	
 	//新增学生门禁信息
-	private int iDoorData(String macno,String cardno){
+	private int iDoorData(String macno,String cardno,int seq){
 		int sc=0;
 		
 		//是否有效
@@ -622,14 +555,11 @@ public class BasContrailYunController extends BaseController {
 			
 			UUID OID = UUID.randomUUID();
 			StringBuffer sql = new StringBuffer(
-					"INSERT INTO `bas_studentdoorinfo` (`id`, `bs_cardno`, `bs_macno`, `bs_state`,`create_date`) ");
-			sql.append("VALUES ('" + OID + "','" + cardno + "','"+macno+"','1' ,'" + sysdt + "')");
+					"INSERT INTO `bas_studentdoorinfo` (`id`, `bs_cardno`, `bs_macno`, `bs_state`,`create_date`,`create_date`) ");
+			sql.append("VALUES ('" + OID + "','" + cardno + "','"+macno+"','1' ,'" + sysdt + "',"+seq+")");
 	
 			//System.out.println("iDoorData sql..." + ";" + sql.toString());
-	
-			sc =this.systemService.executeSql(sql.toString());
-			//System.out.println("iDoorData sql..." + ";" + sql.toString()+";"+String.valueOf(sc));
-			
+			sc =this.systemService.executeSql(sql.toString());			
 			
 		}else
 		{
@@ -650,6 +580,22 @@ public class BasContrailYunController extends BaseController {
 		int isc = Integer.parseInt(sc);
 		return isc;				
 	}
+	
+	private int getDoorMaxSeq(String macno){
+		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
+		String seq="0";
+		StringBuffer sql = new StringBuffer("SELECT IFNULL(MAX(bs_seq),0)+1 as seq from  bas_studentdoorinfo  ");
+		sql.append("where bs_macno='"+macno+"') ");
+		System.out.println("getDoorSeq sql..." + ";" + sql.toString());
+
+		listTree = this.systemService.findForJdbc(sql.toString());
+		seq = listTree.get(0).get("seq").toString();
+		int isc = Integer.parseInt(seq);
+		return isc;		
+		
+	}
+	
+	
 	
 	private static String stringToAsciiHex(String value) {
 		String ss="";
@@ -875,5 +821,72 @@ public class BasContrailYunController extends BaseController {
 		return json;
 	}*/
 	
+	//请求(控制器向服务器请求) -->busMapfenceController.do?PostData
+/*	@RequestMapping(params = "getReqData")
+	@ResponseBody
+	public JSONObject getReqData(String type,String IndexEvent,String IndexAlarm,HttpServletRequest request, HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		String str="";
+		System.out.println("请求类型:"+type);
+		
+		if(type==null||type.equals("")){
+			type="0";
+		}
+		if(IndexEvent==null||IndexEvent.equals("")){
+			IndexEvent="0";
+		}
+		if(IndexAlarm==null||IndexAlarm.equals("")){
+			IndexAlarm="0";
+		}
+		
+		if (type.equals("100")){
+			str ="{\"IndexEvent\":\""+IndexEvent+"\"}"; 
+		}else if(type.equals("101")){
+        	str ="{\"IndexAlarm\":\""+IndexAlarm+"\"}"; 
+		}
+		//type=0/1/9 开门
+		else if(type.equals("0")){
+        	str ="{\"ActIndex\":\"0\",\"AcsRes\":\"1\",\"Time\":\"1\"}"; 
+		}
+		else if(type.equals("1")){
+        	str ="{\"ActIndex\":\"0\",\"AcsRes\":\"1\",\"Time\":\"1\"}"; 
+		}
+		else if(type.equals("9")){
+        	str ="{\"ActIndex\":\"0\",\"AcsRes\":\"1\",\"Time\":\"1\"}"; 
+		}
+		
+		JSONObject json = JSONObject.fromObject(str); 
+		
+		System.out.println("getReqData:"+json);		
+		return json;		
+	};*/
+	
+	//生成删除所有卡指令
+	/*private String creDelAllCardCmd(){
+		String sRet="";
+		
+		//包头 02 00 C1 FF 00 3F 00
+		String beg_stx="02";			//开始位 16进制(占1个字节)
+		String beg_radn="00";			//随机数	
+		String beg_command="17";		//指令	增加一张卡
+		String beg_address="FF";		//地址
+		String beg_door="00";			//门编号
+		String beg_lengthL="09";		//数据长度低位 63个字节
+		String beg_lengthH="00";		//数据长度高位	
+		String begData=beg_stx+beg_radn+beg_command+beg_address+beg_door+beg_lengthL+beg_lengthH;	
+		
+
+				
+		//包尾
+		String CS=verificationData(begData);
+		//System.out.println("CS:"+CS);
+		
+		String endStr="03";
+		String endData=CS+endStr;	
+		
+		sRet=begData+endData;
+		return sRet;
+	}*/
 	
 }

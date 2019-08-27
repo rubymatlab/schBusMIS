@@ -541,54 +541,13 @@ public class BusMapfenceController extends BaseController {
 			}
 			JSONObject ob = JSONObject.fromObject(m);
 			// System.out.print(ob.toString());
-			if (ob.containsKey("type")) {
-				String type = ob.getString("type");
-				String str = "{}";
-				if (type == null || type.equals(""))
-					type = "0";
-
-				String IndexEvent = "";
-				String IndexAlarm = "";
-				if (ob.containsKey("IndexEvent")) {
-					IndexEvent = ob.getString("IndexEvent");
-					if (IndexEvent == null || IndexEvent.equals(""))
-						IndexEvent = "0";
-				}
-				if (ob.containsKey("IndexAlarm")) {
-					IndexAlarm = ob.getString("IndexAlarm");
-					if (IndexAlarm == null || IndexAlarm.equals(""))
-						IndexAlarm = "0";
-				}
-
-				String acsres = "0";
-				String time = "0";
-				if (ob.containsKey("Card")) {
-					String card = ob.getString("Card");
-					List<BasStudentInfoEntity> listBsl = busMapfenceService.findByProperty(BasStudentInfoEntity.class,
-							"bsCardno", card);
-					if (listBsl.size() > 0) {
-						acsres = "1";
-						time = "1";
-					}
-				}
-				if (type.equals("100")) {
-					str = "{\"IndexEvent\":\"" + IndexEvent + "\"}";
-				} else if (type.equals("101")) {
-					str = "{\"IndexAlarm\":\"" + IndexAlarm + "\"}";
-				} else if (type.equals("0")) {
-					str = "{\"ActIndex\":\"0\",\"AcsRes\":\"" + acsres + "\",\"Time\":\"" + time + "\"}";
-				} else if (type.equals("1")) {
-					str = "{\"ActIndex\":\"0\",\"AcsRes\":\"" + acsres + "\",\"Time\":\"" + time + "\"}";
-				} else if (type.equals("9")) {
-					str = "{\"ActIndex\":\"0\",\"AcsRes\":\"" + acsres + "\",\"Time\":\"" + time + "\"}";
-				} else {
-					str = "{\"ActIndex\":\"0\",\"AcsRes\":\"0\",\"Time\":\"0\"}";
-				}
-				json = JSONObject.fromObject(str);
-			}
+			String reader="";
+			int ActIndex=0;
+			int iReader=0;
+			
 			if (ob.containsKey("Card") && ob.containsKey("Reader")) {
 				String card = ob.getString("Card");
-				String reader = ob.getString("Reader");
+				reader = ob.getString("Reader");
 				List<BasStudentInfoEntity> listBsl = busMapfenceService.findByProperty(BasStudentInfoEntity.class,
 						"bsCardno", card);
 				for (BasStudentInfoEntity be : listBsl) {
@@ -629,12 +588,68 @@ public class BusMapfenceController extends BaseController {
 			if (message == null) {
 				message = "双通道写入成功";
 			}
+			
+			//返回指令给控制器
+			if (ob.containsKey("type")) {
+				String type = ob.getString("type");
+				String str = "{}";
+				if (type == null || type.equals(""))
+					type = "0";
+
+				String IndexEvent = "";
+				String IndexAlarm = "";
+				if (ob.containsKey("IndexEvent")) {
+					IndexEvent = ob.getString("IndexEvent");
+					if (IndexEvent == null || IndexEvent.equals(""))
+						IndexEvent = "0";
+				}
+				if (ob.containsKey("IndexAlarm")) {
+					IndexAlarm = ob.getString("IndexAlarm");
+					if (IndexAlarm == null || IndexAlarm.equals(""))
+						IndexAlarm = "0";
+				}
+
+				String acsres = "0";
+				String time = "0";
+				if (ob.containsKey("Card")) {
+					String card = ob.getString("Card");
+					List<BasStudentInfoEntity> listBsl = busMapfenceService.findByProperty(BasStudentInfoEntity.class,
+							"bsCardno", card);
+					if (listBsl.size() > 0) {
+						acsres = "1";
+						time = "1";
+					}
+				}
+				if (type.equals("100")) {
+					str = "{\"IndexEvent\":\"" + IndexEvent + "\"}";
+				} else if (type.equals("101")) {
+					str = "{\"IndexAlarm\":\"" + IndexAlarm + "\"}";
+				} else if (type.equals("0")) {
+					iReader=Integer.valueOf(reader);
+					ActIndex=1&iReader;
+					str = "{\"ActIndex\":\""+ActIndex+"\",\"AcsRes\":\"" + acsres + "\",\"Time\":\"" + time + "\"}";
+				} else if (type.equals("1")) {
+					str = "{\"ActIndex\":\""+ActIndex+"\",\"AcsRes\":\"" + acsres + "\",\"Time\":\"" + time + "\"}";
+				} else if (type.equals("9")) {
+					str = "{\"ActIndex\":\""+ActIndex+"\",\"AcsRes\":\"" + acsres + "\",\"Time\":\"" + time + "\"}";
+				} else {
+					str = "{\"ActIndex\":\"0\",\"AcsRes\":\"0\",\"Time\":\"0\"}";
+				}
+				json = JSONObject.fromObject(str);
+			}
+			
+			
+			
 		} catch (Exception e) {
 			// e.printStackTrace();
 			message = "双通道添加失败";
 			throw new BusinessException(e.getMessage());
 		}
 		// j.setMsg(message);
+		
+		
+		
+		
 		return json;
 	}
 
