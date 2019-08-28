@@ -411,7 +411,7 @@ public class BasContrailYunController extends BaseController {
 		//获取学生卡号和卡序号
 		String cardno=this.getDoorData(MAC);
 		int seq=getDoorMaxSeq(MAC);
-		System.out.println("获取得卡号:"+cardno+";序号:"+seq);
+		//System.out.println("获取得卡号:"+cardno+";序号:"+seq);
 		if(cardno.equals("0")){
 			strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
 		}
@@ -532,7 +532,7 @@ public class BasContrailYunController extends BaseController {
 		StringBuffer sql = new StringBuffer("select bs_cardno from bas_student ");
 		sql.append("where bs_cardno not in (select bs_cardno from bas_studentdoorinfo where bs_macno='"+macno+"') ");
 		sql.append("order by create_date LIMIT 1");
-		System.out.println("getDoorData sql..." + ";" + sql.toString());
+		//System.out.println("getDoorData sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
 		if (listTree.size()==0){
@@ -555,7 +555,7 @@ public class BasContrailYunController extends BaseController {
 			
 			UUID OID = UUID.randomUUID();
 			StringBuffer sql = new StringBuffer(
-					"INSERT INTO `bas_studentdoorinfo` (`id`, `bs_cardno`, `bs_macno`, `bs_state`,`create_date`,`create_date`) ");
+					"INSERT INTO `bas_studentdoorinfo` (`id`, `bs_cardno`, `bs_macno`, `bs_state`,`create_date`,`bs_seq`) ");
 			sql.append("VALUES ('" + OID + "','" + cardno + "','"+macno+"','1' ,'" + sysdt + "',"+seq+")");
 	
 			//System.out.println("iDoorData sql..." + ";" + sql.toString());
@@ -585,12 +585,14 @@ public class BasContrailYunController extends BaseController {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 		String seq="0";
 		StringBuffer sql = new StringBuffer("SELECT IFNULL(MAX(bs_seq),0)+1 as seq from  bas_studentdoorinfo  ");
-		sql.append("where bs_macno='"+macno+"') ");
-		System.out.println("getDoorSeq sql..." + ";" + sql.toString());
+		sql.append("where bs_macno='"+macno+"'");
+		//System.out.println("getDoorSeq sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
 		seq = listTree.get(0).get("seq").toString();
-		int isc = Integer.parseInt(seq);
+		String[] number = seq.toString().split("\\.");
+		//System.out.println("seqseq:"+number[0]);
+		int isc = Integer.parseInt(number[0]);
 		return isc;		
 		
 	}
