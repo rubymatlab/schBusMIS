@@ -138,10 +138,10 @@ public class wxutils {
 			o1_s1.setUrl("https://c.eqxiu.com/s/YUFNfawJ");
 			sub_button1.add(o1_s1);
 			WeixinButton o1_s2 = new WeixinButton();
-/*			o1_s2.setType("view");
-			o1_s2.setName("校园网页");
+			o1_s2.setType("view");
+			o1_s2.setName("校园网站");
 			o1_s2.setUrl("http://www.ssboya.cn");
-			sub_button1.add(o1_s2);*/
+			sub_button1.add(o1_s2);
 			WeixinButton o1 = new WeixinButton();
 			o1.setName("学校概况");
 			o1.setSub_button(sub_button1);
@@ -149,13 +149,18 @@ public class wxutils {
 			//******************************//*
 			
 			List<WeixinButton> sub_button2 = new ArrayList<WeixinButton>();
+			WeixinButton o2_s12 = new WeixinButton();
+			o2_s12.setType("view");
+			o2_s12.setName("学生登录");
+			o2_s12.setUrl("https://boyastaff.schoolis.cn/wechat/stuindex/567");
+			sub_button2.add(o2_s12);
 			WeixinButton o2_s11 = new WeixinButton();
 			o2_s11.setType("view");
-			o2_s11.setName("校园网页");
-			o2_s11.setUrl("http://www.ssboya.cn");
+			o2_s11.setName("老师登录");
+			o2_s11.setUrl("https://boyastaff.schoolis.cn/wechat/index/567");
 			sub_button2.add(o2_s11);
 			WeixinButton o2 = new WeixinButton();
-			o2.setName("校园网站");
+			o2.setName("校宝在线");
 			o2.setSub_button(sub_button2);
 			button.add(o2);
 			//******************************//*

@@ -42,6 +42,7 @@ import org.jeecgframework.core.util.MyBeanUtils;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import org.jeecgframework.core.util.BrowserUtils;
 import org.jeecgframework.poi.excel.ExcelExportUtil;
@@ -408,8 +409,11 @@ public class BasContrailYunController extends BaseController {
 		}
 		//ini end
 		
-		//获取学生卡号和卡序号
-		String cardno=this.getDoorData(MAC);
+		//获取学生卡号(姓名)和卡序号
+		String cardinfo=this.getDoorData(MAC);
+		String[] strArr = cardinfo.split("\\;");
+		String cardno=strArr[0];
+		String cardName=strArr[1];
 		int seq=getDoorMaxSeq(MAC);
 		//System.out.println("获取得卡号:"+cardno+";序号:"+seq);
 		if(cardno.equals("0")){
@@ -419,14 +423,14 @@ public class BasContrailYunController extends BaseController {
 			int i=iDoorData(MAC,cardno,seq);
 			String stip="";
 			if (i==1){
-				stip="写入门禁表成功:MAC:"+MAC+";cardno:"+cardno+";seq:"+seq;
+				stip="写入门禁表成功:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
 			}else{
-				stip="写入门禁表失败:MAC:"+MAC+";cardno:"+cardno+";seq:"+seq;
+				stip="写入门禁表失败:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
 			}
 			System.out.println(stip);
 			
 			//白名单指令
-			CmdValue=this.creWhiteNameCmd(cardno,"",seq);		//test cardno:161234567890006
+			CmdValue=this.creWhiteNameCmd(cardno,cardName,seq);		//test cardno:161234567890006
 			//CmdValue=this.creDelAllCardCmd();		
 			//System.out.println("CmdValue:"+CmdValue);
 			
@@ -470,9 +474,10 @@ public class BasContrailYunController extends BaseController {
 		//数据datas
 		//String[] strArray=new String[63];
 		//卡编号 3字节  随机生成3位数字-->取最大数
-		int icarOID=seq;//this.getRandom(3);
-		String carOID=intToHex(icarOID);
-		carOID=addZeroForNum(carOID,6,"R");
+		//int icarOID=seq;//this.getRandom(3);
+/*		String carOID=intToHex(icarOID);
+		carOID=addZeroForNum(carOID,6,"R");*/
+		String carOID=getSeqHex(seq);
 		//System.out.println("icarOID:"+icarOID+";转换后:"+carOID);
 		//String carOID="000000";
 		
@@ -492,13 +497,21 @@ public class BasContrailYunController extends BaseController {
 		//161234567 890006
 		//System.out.println("cardno:"+cardno);
 		String personNo1=stringToAsciiHex(cardno.substring(0,9));
+		//String personNo1=intToAsciiHex(Integer.valueOf(cardno.substring(0,9)));
 		//System.out.println("personNo1:"+personNo1+";"+cardno.substring(0,9));
+		
 		//身份证 18字节
 		//String personNo2="383930303036303030303030303030303030";	//890006000000000000??
 		//String personNo2=stringToAsciiHex("890006000000000000");
 		//System.out.println("personNo2:"+cardno.substring(9,15));
-		String personNo2=stringToAsciiHex(cardno.substring(9,15)+"000000000000");
+		String personNo2=stringToAsciiHex(cardno.substring(9,15));
+		personNo2=personNo2+"000000000000000000000000";
+/*		String personNo2=intToAsciiHex(Integer.valueOf(cardno.substring(9,15)));
+		String zerAsc=intToAsciiHex(0);
+		personNo2=personNo2+zerAsc+zerAsc+zerAsc+zerAsc+zerAsc+zerAsc+zerAsc+zerAsc+zerAsc+zerAsc+zerAsc+zerAsc;*/
 		//System.out.println("personNo2:"+personNo2+";"+cardno.substring(9,15)+"000000000000");
+		
+		
 		//密码 4字节
 		String password="87654321";
 		//门权限 2字节
@@ -510,7 +523,11 @@ public class BasContrailYunController extends BaseController {
 		//备用 5字节
 		String bakstr="0000000000";
 		//姓名 8字节
-		String perName="B2E2CAD4BFA84300";							//-->测试卡C
+		//String perName="B2E2CAD4BFA84300";							//-->测试卡C
+		if (personName.length()==0){
+			personName="未知姓名";
+		}
+		String perName=GB2312Hex(personName);
 		String datas=carOID+cardNum+personNo1+personNo2+password+doorRig+begDate+endDate+bakstr+perName;
 				
 		//包尾
@@ -529,7 +546,7 @@ public class BasContrailYunController extends BaseController {
 	private String getDoorData(String macno){		
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 		String cardno="0";
-		StringBuffer sql = new StringBuffer("select bs_cardno from bas_student ");
+		StringBuffer sql = new StringBuffer("select bs_cardno,bs_name from bas_student ");
 		sql.append("where bs_cardno not in (select bs_cardno from bas_studentdoorinfo where bs_macno='"+macno+"') ");
 		sql.append("order by create_date LIMIT 1");
 		//System.out.println("getDoorData sql..." + ";" + sql.toString());
@@ -538,7 +555,7 @@ public class BasContrailYunController extends BaseController {
 		if (listTree.size()==0){
 			cardno="0";
 		}else{
-			cardno = listTree.get(0).get("bs_cardno").toString();
+			cardno = listTree.get(0).get("bs_cardno").toString()+";"+listTree.get(0).get("bs_name").toString();
 		}
 		
 		return cardno;
@@ -727,6 +744,20 @@ public class BasContrailYunController extends BaseController {
       return rannum;
 	}
 	
+	private String getSeqHex(int a){
+		String strRet="";
+	    int b1[] = new int[3];
+	    String str[]=new String[3];
+		b1[0]=a&0xff;
+		str[0]=addZeroForNum(intToHex(b1[0]),2,"L");	
+		b1[1]=(a>>8)&0xff;
+		str[1]=addZeroForNum(intToHex(b1[1]),2,"L");
+		b1[2]=(a>>16)&0xff;
+		str[2]=addZeroForNum(intToHex(b1[2]),2,"L");
+		strRet=str[0]+str[1]+str[2];
+		return strRet;
+	}
+	
 	//open door test
 /*	private JSONObject openDoor(String Key){		
 		if(Key==null||Key.equals("")){
@@ -890,5 +921,52 @@ public class BasContrailYunController extends BaseController {
 		sRet=begData+endData;
 		return sRet;
 	}*/
+	private static String intToAsciiHex(int value) {
+		String str=String.valueOf(value);;
+		String retStr="";
+		for (int i=0;i<str.length();i++  ){
+			String s1=str.substring(i,i+1);
+			int i1=Integer.valueOf(s1);
+			System.out.println("i1:"+i1);
+			char b = (char)i1;
+			retStr=retStr+String.valueOf(b);
+		}
+		return retStr;
+	}
 	
+	
+	private static String GB2312Hex(String str){
+        byte[] b;
+        String retStr="";
+		try {
+			b = str.getBytes("GB2312");
+			retStr=bytesToHexFun1(b).toUpperCase();
+			retStr=addZeroForNum(retStr,16,"R");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return retStr;
+		
+	}
+	
+    //将byte数组转成16进制字符串
+	private static String bytesToHexFun1(byte[] bytes) {
+           char[] HEX_CHAR = {'0', '1', '2', '3', '4', '5', 
+                   '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+           // 一个byte为8位，可用两个十六进制位标识
+           char[] buf = new char[bytes.length * 2];
+           int a = 0;
+           int index = 0;
+           for(byte b : bytes) { // 使用除与取余进行转换
+               if(b < 0) {
+                   a = 256 + b;
+               } else {
+                   a = b;
+               }
+               buf[index++] = HEX_CHAR[a / 16];
+               buf[index++] = HEX_CHAR[a % 16];
+           }
+           return new String(buf);
+    }
 }
