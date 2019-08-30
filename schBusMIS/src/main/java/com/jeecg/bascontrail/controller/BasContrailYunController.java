@@ -411,15 +411,16 @@ public class BasContrailYunController extends BaseController {
 		
 		//获取学生卡号(姓名)和卡序号
 		String cardinfo=this.getDoorData(MAC);
-		String[] strArr = cardinfo.split("\\;");
-		String cardno=strArr[0];
-		String cardName=strArr[1];
-		int seq=getDoorMaxSeq(MAC);
 		//System.out.println("获取得卡号:"+cardno+";序号:"+seq);
-		if(cardno.equals("0")){
+		if(cardinfo.equals("0")){
 			strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
 		}
 		else{	
+			String[] strArr = cardinfo.split("\\;");
+			String cardno=strArr[0];
+			String cardName=strArr[1];
+			int seq=getDoorMaxSeq(MAC);
+			
 			int i=iDoorData(MAC,cardno,seq);
 			String stip="";
 			if (i==1){

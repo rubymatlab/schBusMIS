@@ -547,6 +547,7 @@ public class BusMapfenceController extends BaseController {
 			
 			if (ob.containsKey("Card") && ob.containsKey("Reader")) {
 				String card = ob.getString("Card");
+				System.out.println("doPostData-->Card:"+card);
 				reader = ob.getString("Reader");
 				List<BasStudentInfoEntity> listBsl = busMapfenceService.findByProperty(BasStudentInfoEntity.class,
 						"bsCardno", card);
