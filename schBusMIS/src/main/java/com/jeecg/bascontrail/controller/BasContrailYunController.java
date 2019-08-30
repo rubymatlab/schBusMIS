@@ -87,7 +87,8 @@ public class BasContrailYunController extends BaseController {
 	@Autowired
 	private SystemService systemService;
 
-	public int pub_IndexCmd;
+	public String pub_IndexCmd="";
+	public String pub_CmdValue="";
 	/**
 	 * 云在线通道列表 页面跳转
 	 * 
@@ -395,9 +396,10 @@ public class BasContrailYunController extends BaseController {
 	public JSONObject getCommTask(String Key,String IndexCmd,String CmdOK,String MAC,HttpServletRequest request, HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
+		System.out.println("pub_CmdValue:"+pub_CmdValue+";pub_IndexCmd:"+pub_IndexCmd);
 		String strRet="";
-		int intRan=this.getRandom(5);
-		String CmdValue="02002CFF010000D003";		//开门指令
+		String ranIndexCmd="";//this.getRandom(5);
+		String CmdValue="";//"02002CFF010000D003";		//开门指令
 		
 		//ini
 		if(Key==null||Key.equals("")){
@@ -407,6 +409,9 @@ public class BasContrailYunController extends BaseController {
 		if(CmdOK==null||CmdOK.equals("")){
 			CmdOK="0";	
 		}
+		if(IndexCmd==null||IndexCmd.equals("")){
+			IndexCmd="";	
+		}
 		//ini end
 		
 		//获取学生卡号(姓名)和卡序号
@@ -414,46 +419,65 @@ public class BasContrailYunController extends BaseController {
 		//System.out.println("获取得卡号:"+cardno+";序号:"+seq);
 		if(cardinfo.equals("0")){
 			strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
+			
+			pub_CmdValue="";
+			pub_IndexCmd="";
 		}
-		else{	
+		else{	//有名单
 			String[] strArr = cardinfo.split("\\;");
 			String cardno=strArr[0];
 			String cardName=strArr[1];
 			int seq=getDoorMaxSeq(MAC);
-			
-			int i=iDoorData(MAC,cardno,seq);
-			String stip="";
-			if (i==1){
-				stip="写入门禁表成功:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
-			}else{
-				stip="写入门禁表失败:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
-			}
-			System.out.println(stip);
-			
-			//白名单指令
-			CmdValue=this.creWhiteNameCmd(cardno,cardName,seq);		//test cardno:161234567890006
-			//CmdValue=this.creDelAllCardCmd();		
-			//System.out.println("CmdValue:"+CmdValue);
-			
-			//第一次  返回任务
-			if(IndexCmd==null||IndexCmd.equals("")){
-				strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+intRan+"\",\"CmdValue\":\""+CmdValue+"\"}";
-				//System.out.println("IndexCmd(1nd):"+IndexCmd);
-			}//非第一次
-			else {	
-				//System.out.println("pub_IndexCmd:"+pub_IndexCmd);
-				if(CmdOK.equals("1")&(IndexCmd.equals(String.valueOf(pub_IndexCmd)))){
-					//System.out.println("IndexCmd:"+intRan);
-					strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+intRan+"\",\"CmdValue\":\""+CmdValue+"\"}";
+	
+
+			if (pub_CmdValue.equals("")&pub_IndexCmd.equals("")){  //第一次执行
+				ranIndexCmd=String.valueOf(this.getRandom(5));
+				CmdValue=this.creWhiteNameCmd(cardno,cardName,seq);	
+				strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+ranIndexCmd+"\",\"CmdValue\":\""+CmdValue+"\"}";
+				pub_CmdValue=CmdValue;
+				pub_IndexCmd=ranIndexCmd;
+				
+				int i=iDoorData(MAC,cardno,seq);
+				String stip="";
+				if (i==1){
+					stip="写入门禁表成功1:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
 				}else{
-					strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
-				}								
+					stip="写入门禁表失败1:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+				}
+				System.out.println(stip);
+				
+			}else{			
+				if (CmdOK.equals("")&IndexCmd.equals("")){
+					strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+pub_IndexCmd+"\",\"CmdValue\":\""+pub_CmdValue+"\"}";
+				}else{
+					if(CmdOK.equals("1")&(IndexCmd.equals(String.valueOf(pub_IndexCmd)))){		//上次执行成功
+						ranIndexCmd=String.valueOf(this.getRandom(5));
+						CmdValue=this.creWhiteNameCmd(cardno,cardName,seq);	
+						strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+ranIndexCmd+"\",\"CmdValue\":\""+CmdValue+"\"}";
+						pub_CmdValue=CmdValue;
+						pub_IndexCmd=ranIndexCmd;	
+						
+						int i=iDoorData(MAC,cardno,seq);
+						String stip="";
+						if (i==1){
+							stip="写入门禁表成功:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+						}else{
+							stip="写入门禁表失败:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+						}
+						System.out.println(stip);
+						
+					}else{  //上次执行失败
+						strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+pub_IndexCmd+"\",\"CmdValue\":\""+pub_CmdValue+"\"}";
+					}
+				}
 			}
+			
+
 		}
 
 		JSONObject json = JSONObject.fromObject(strRet); 		
 		System.out.println("getCommTask:"+json);	
-		pub_IndexCmd=intRan;
+		//pub_IndexCmd=intRan;
 		return json;		
 	};
 		
