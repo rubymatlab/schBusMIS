@@ -8,7 +8,7 @@
    <t:dgCol title="卡编号"  field="bsSeq"  queryMode="single"  width="80"></t:dgCol>
    <t:dgCol title="卡号"  field="bsCardno"  query="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="门设备号"  field="bsMacno"  query="true"  queryMode="single"  dictionary="vw_basmacno,macno,macno"  width="120"></t:dgCol>
-   <t:dgCol title="状态"  field="bsState"  hidden="true"  queryMode="single"  width="50"></t:dgCol>
+   <t:dgCol title="状态"  field="bsState"  query="true"  hidden="false"  queryMode="single"  width="30"></t:dgCol>
    <t:dgCol title="创建日期"  field="createDate"  formatter="yyyy-MM-dd hh:mm:ss"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
    <t:dgDelOpt title="删除" url="basStudentdoorinfoController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>

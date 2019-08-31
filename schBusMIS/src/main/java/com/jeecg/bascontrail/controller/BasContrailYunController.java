@@ -89,6 +89,7 @@ public class BasContrailYunController extends BaseController {
 
 	public String pub_IndexCmd="";
 	public String pub_CmdValue="";
+	public int pub_faiNum=0;
 	/**
 	 * 云在线通道列表 页面跳转
 	 * 
@@ -437,7 +438,7 @@ public class BasContrailYunController extends BaseController {
 				pub_CmdValue=CmdValue;
 				pub_IndexCmd=ranIndexCmd;
 				
-				int i=iDoorData(MAC,cardno,seq);
+				int i=iDoorData(MAC,cardno,seq,1);
 				String stip="";
 				if (i==1){
 					stip="写入门禁表成功1:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
@@ -457,17 +458,47 @@ public class BasContrailYunController extends BaseController {
 						pub_CmdValue=CmdValue;
 						pub_IndexCmd=ranIndexCmd;	
 						
-						int i=iDoorData(MAC,cardno,seq);
+						int i=iDoorData(MAC,cardno,seq,1);
 						String stip="";
 						if (i==1){
-							stip="写入门禁表成功:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+							stip="写入门禁表成功2:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
 						}else{
-							stip="写入门禁表失败:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+							stip="写入门禁表失败2:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
 						}
 						System.out.println(stip);
 						
 					}else{  //上次执行失败
-						strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+pub_IndexCmd+"\",\"CmdValue\":\""+pub_CmdValue+"\"}";
+						if(pub_faiNum<3){
+							strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+pub_IndexCmd+"\",\"CmdValue\":\""+pub_CmdValue+"\"}";
+							pub_faiNum=pub_faiNum+1;	
+							
+							int i=iDoorData(MAC,cardno,seq,0);
+							String stip="";
+							if (i==1){
+								stip="写入门禁表成功3:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+							}else{
+								stip="写入门禁表失败3:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+							}
+							System.out.println(stip);
+							
+						}else{
+							ranIndexCmd=String.valueOf(this.getRandom(5));
+							CmdValue=this.creWhiteNameCmd(cardno,cardName,seq);	
+							strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+ranIndexCmd+"\",\"CmdValue\":\""+CmdValue+"\"}";
+							pub_CmdValue=CmdValue;
+							pub_IndexCmd=ranIndexCmd;	
+							
+							int i=iDoorData(MAC,cardno,seq,1);
+							String stip="";
+							if (i==1){
+								stip="写入门禁表成功4:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+							}else{
+								stip="写入门禁表失败4:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+							}
+							System.out.println(stip);
+							pub_faiNum=0;
+						}
+
 					}
 				}
 			}
@@ -557,6 +588,9 @@ public class BasContrailYunController extends BaseController {
 				
 		//包尾
 		String CS=verificationData(begData+datas);
+		if(CS.length()==1){
+			CS='0'+CS;
+		}
 		//System.out.println("CS:"+CS);
 		
 		String endStr="03";
@@ -572,7 +606,7 @@ public class BasContrailYunController extends BaseController {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 		String cardno="0";
 		StringBuffer sql = new StringBuffer("select bs_cardno,bs_name from bas_student ");
-		sql.append("where bs_cardno not in (select bs_cardno from bas_studentdoorinfo where bs_macno='"+macno+"') and LENGTH(bs_cardno)=15 ");
+		sql.append("where bs_cardno not in (select bs_cardno from bas_studentdoorinfo where bs_macno='"+macno+"' and bs_state=1) and LENGTH(bs_cardno)=15 and bs_status='Y' ");
 		sql.append("order by create_date LIMIT 1");
 		//System.out.println("getDoorData sql..." + ";" + sql.toString());
 
@@ -587,7 +621,7 @@ public class BasContrailYunController extends BaseController {
 
 	}	
 	//新增学生门禁信息
-	private int iDoorData(String macno,String cardno,int seq){
+	private int iDoorData(String macno,String cardno,int seq,int state){
 		int sc=0;
 		
 		//是否有效
@@ -598,7 +632,7 @@ public class BasContrailYunController extends BaseController {
 			UUID OID = UUID.randomUUID();
 			StringBuffer sql = new StringBuffer(
 					"INSERT INTO `bas_studentdoorinfo` (`id`, `bs_cardno`, `bs_macno`, `bs_state`,`create_date`,`bs_seq`) ");
-			sql.append("VALUES ('" + OID + "','" + cardno + "','"+macno+"','1' ,'" + sysdt + "',"+seq+")");
+			sql.append("VALUES ('" + OID + "','" + cardno + "','"+macno+"',"+state+" ,'" + sysdt + "',"+seq+")");
 	
 			//System.out.println("iDoorData sql..." + ";" + sql.toString());
 			sc =this.systemService.executeSql(sql.toString());			
