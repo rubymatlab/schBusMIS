@@ -572,7 +572,7 @@ public class BasContrailYunController extends BaseController {
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 		String cardno="0";
 		StringBuffer sql = new StringBuffer("select bs_cardno,bs_name from bas_student ");
-		sql.append("where bs_cardno not in (select bs_cardno from bas_studentdoorinfo where bs_macno='"+macno+"') ");
+		sql.append("where bs_cardno not in (select bs_cardno from bas_studentdoorinfo where bs_macno='"+macno+"') and LENGTH(bs_cardno)=15 ");
 		sql.append("order by create_date LIMIT 1");
 		//System.out.println("getDoorData sql..." + ";" + sql.toString());
 
