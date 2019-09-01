@@ -9,6 +9,7 @@ import com.jeecg.basstudentinfo.entity.BasStudentInfoEntity;
 import net.sf.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.text.DecimalFormat;
@@ -64,8 +65,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 import java.util.HashMap;
+import java.util.Iterator;
+
 import org.jeecgframework.core.util.ExceptionUtil;
 
 
@@ -349,43 +353,81 @@ public class BasContrailYunController extends BaseController {
 		}
 		return j;
 	}
-	@RequestMapping(params = "pushMessage")  
-    public void pushMessage(HttpServletResponse response,HttpServletRequest request){
-            try {
-                //最后一次接收到的事件的标识符
-                String last = request.getHeader("Last-Event-ID");
-                //logger.info(last);
-                response.setContentType("text/event-stream");
-                response.setCharacterEncoding("utf-8");
-                PrintWriter out = response.getWriter();
-                
-                /*获取刷卡数据*/
-                BasStudentInfoEntity o=new BasStudentInfoEntity();
-        		for(BasStudentInfoEntity be:BusMapfenceController.listBs)
-        		{
-        			try {
-        				MyBeanUtils.copyBeanNotNull2Bean(be, o);
-        				BusMapfenceController.listBs.remove(be);
-        				break;
-        			} catch (Exception e) {
-        				// TODO Auto-generated catch block
-        				e.printStackTrace();
-        			}
-        		}
-                if(!(o==null || o.getBsDesc()==""||o.getBsDesc()==null))
-                out.println("data:"+JSONObject.fromObject(o).toString());
-                out.println("event:message");
-                //声明浏览器在连接断开之后进行再次连接之前的等待时间 1秒
-                out.println("retry:1000");
-                //事件的标识符
-                out.println("id:"+System.currentTimeMillis());
-                out.println();
-                out.flush();
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    }
+
+	//每个页面的id和消息
+	public static HashMap<String, List<BasStudentInfoEntity>> hm = new HashMap<String, List<BasStudentInfoEntity>>();
+	
+	@RequestMapping(params = "pushMessage")
+	public void pushMessage(HttpServletResponse response, HttpServletRequest request) {
+		try {
+			// 最后一次接收到的事件的标识符
+			String last = request.getHeader("Last-Event-ID");
+			//System.out.println(last);
+			if (last==null|| !hm.containsKey(last)) {
+				last = String.valueOf(System.currentTimeMillis());
+				List<BasStudentInfoEntity> listB = new ArrayList<BasStudentInfoEntity>();
+				hm.put(last, listB);
+			}
+			// logger.info(last);
+			response.setContentType("text/event-stream");
+			response.setCharacterEncoding("utf-8");
+			PrintWriter out = response.getWriter();
+
+			/* 获取刷卡数据 */
+			for (BasStudentInfoEntity be : BusMapfenceController.listBs) {
+				try {
+					//清除无效访问页的id和消息
+					List<String> removeKey=new ArrayList<String>();
+					
+			        for (HashMap.Entry<String, List<BasStudentInfoEntity>> entry : hm.entrySet()) {
+			            BasStudentInfoEntity oo = new BasStudentInfoEntity();
+						MyBeanUtils.copyBeanNotNull2Bean(be, oo);
+						List<BasStudentInfoEntity> lb = (List<BasStudentInfoEntity>)entry.getValue();
+						lb.add(oo);
+						//刷卡记录超过20,则该页面已无效
+						if(lb.size()>20)
+							removeKey.add(entry.getKey());
+						//System.out.println(lb.size());
+			        }
+			        
+			        //清除无效访问页的id和消息
+			        for(String rKey:removeKey)
+			        	hm.remove(rKey);
+			        
+					BusMapfenceController.listBs.remove(be);
+					break;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			BasStudentInfoEntity o = new BasStudentInfoEntity();
+			List<BasStudentInfoEntity> listBsie = (List<BasStudentInfoEntity>)hm.get(last);
+			for(BasStudentInfoEntity e:listBsie)
+			{
+				try {
+					MyBeanUtils.copyBeanNotNull2Bean(e,o);
+					listBsie.remove(e);
+					break;
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			if (!(o == null || o.getBsDesc() == "" || o.getBsDesc() == null))
+				out.println("data:" + JSONObject.fromObject(o).toString());
+			out.println("event:message");
+			// 声明浏览器在连接断开之后进行再次连接之前的等待时间 1秒
+			out.println("retry:1000");
+			// 事件的标识符
+			out.println("id:" + last);
+			out.println();
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/*门闸相关
 	 * @author:dev

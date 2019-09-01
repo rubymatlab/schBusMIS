@@ -547,6 +547,11 @@ public class BusMapfenceController extends BaseController {
 			if (ob.containsKey("type")) {
 				String type = ob.getString("type");
 				if (type.equals("0") || type.equals("1") || type.equals("9")) {
+					//超过容量则删除
+					if(listBs.size()>10000)
+					{
+						listBs.clear();
+					}
 					if (ob.containsKey("Card") && ob.containsKey("Reader")) {
 						String card = ob.getString("Card");
 						System.out.println("doPostData-->Card:" + card);
