@@ -93,7 +93,9 @@ public class BasContrailYunController extends BaseController {
 
 	public String pub_IndexCmd="";
 	public String pub_CmdValue="";
-	public int pub_faiNum=0;
+	public String pub_Cardno="";
+	public int pub_seq=0;
+
 	/**
 	 * 云在线通道列表 页面跳转
 	 * 
@@ -439,7 +441,10 @@ public class BasContrailYunController extends BaseController {
 	public JSONObject getCommTask(String Key,String IndexCmd,String CmdOK,String MAC,HttpServletRequest request, HttpServletResponse response){
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setCharacterEncoding("utf-8");
-		System.out.println("pub_CmdValue:"+pub_CmdValue+";pub_IndexCmd:"+pub_IndexCmd);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		
+		
+		//System.out.println("pub_CmdValue:"+pub_CmdValue+";pub_IndexCmd:"+pub_IndexCmd);
 		String strRet="";
 		String ranIndexCmd="";//this.getRandom(5);
 		String CmdValue="";//"02002CFF010000D003";		//开门指令
@@ -457,96 +462,106 @@ public class BasContrailYunController extends BaseController {
 		}
 		//ini end
 		
-		//获取学生卡号(姓名)和卡序号
-		String cardinfo=this.getDoorData(MAC);
-		//System.out.println("获取得卡号:"+cardno+";序号:"+seq);
-		if(cardinfo.equals("0")){
-			strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
-			
-			pub_CmdValue="";
-			pub_IndexCmd="";
-		}
-		else{	//有名单
-			String[] strArr = cardinfo.split("\\;");
-			String cardno=strArr[0];
-			String cardName=strArr[1];
-			int seq=getDoorMaxSeq(MAC);
-	
 
+		//System.out.println("获取得卡号:"+cardno+";序号:"+seq);
+
+			
 			if (pub_CmdValue.equals("")&pub_IndexCmd.equals("")){  //第一次执行
-				ranIndexCmd=String.valueOf(this.getRandom(5));
-				CmdValue=this.creWhiteNameCmd(cardno,cardName,seq);	
-				strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+ranIndexCmd+"\",\"CmdValue\":\""+CmdValue+"\"}";
-				pub_CmdValue=CmdValue;
-				pub_IndexCmd=ranIndexCmd;
-				
-				int i=iDoorData(MAC,cardno,seq,1);
-				String stip="";
-				if (i==1){
-					stip="写入门禁表成功1:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
-				}else{
-					stip="写入门禁表失败1:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+				//获取学生卡号(姓名)和卡序号
+				String cardinfo=this.getDoorData(MAC);
+				if(cardinfo.equals("0")){
+					strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
+					
+					pub_CmdValue="";
+					pub_IndexCmd="";
+					pub_Cardno="";
+					pub_seq=0;
+				}else{//有名单
+					String[] strArr = cardinfo.split("\\;");
+					String cardno=strArr[0];
+					String cardName=strArr[1];
+					int seq=getDoorMaxSeq(MAC);
+					ranIndexCmd=String.valueOf(this.getRandom(5));
+					CmdValue=this.creWhiteNameCmd(cardno,cardName,seq);	
+					
+					strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+ranIndexCmd+"\",\"CmdValue\":\""+CmdValue+"\"}";
+					pub_CmdValue=CmdValue;
+					pub_IndexCmd=ranIndexCmd;
+					pub_Cardno=cardno;
+					pub_seq=seq;					
 				}
-				System.out.println(stip);
+
 				
-			}else{			
-				if (CmdOK.equals("")&IndexCmd.equals("")){
+			}else{			//非第一次执行
+				if (CmdOK.equals("")&IndexCmd.equals("")){	//无应答 重复上次任务
 					strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+pub_IndexCmd+"\",\"CmdValue\":\""+pub_CmdValue+"\"}";
-				}else{
+				}else{		//有应答
+					//System.out.println("CmdOK:"+CmdOK+";IndexCmd:"+IndexCmd+";pub_IndexCmd:"+pub_IndexCmd);
+					
 					if(CmdOK.equals("1")&(IndexCmd.equals(String.valueOf(pub_IndexCmd)))){		//上次执行成功
-						ranIndexCmd=String.valueOf(this.getRandom(5));
-						CmdValue=this.creWhiteNameCmd(cardno,cardName,seq);	
-						strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+ranIndexCmd+"\",\"CmdValue\":\""+CmdValue+"\"}";
-						pub_CmdValue=CmdValue;
-						pub_IndexCmd=ranIndexCmd;	
-						
-						int i=iDoorData(MAC,cardno,seq,1);
+						String sysdt = df.format(new Date());// new Date()为获取当前系统时间
+						int i=iDoorData(MAC,pub_Cardno,pub_seq,1);		//记录上次任务日志
 						String stip="";
 						if (i==1){
-							stip="写入门禁表成功2:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+							stip="写入门禁表成功2:MAC:"+MAC+";cardno:"+pub_Cardno+";cardName:"+"::"+";seq:"+pub_seq;
 						}else{
-							stip="写入门禁表失败2:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
+							stip="写入门禁表失败2:MAC:"+MAC+";cardno:"+pub_Cardno+";cardName:"+"::"+";seq:"+pub_seq;
 						}
-						System.out.println(stip);
+						System.out.println(sysdt+":"+stip);						
 						
-					}else{  //上次执行失败
-						if(pub_faiNum<3){
-							strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+pub_IndexCmd+"\",\"CmdValue\":\""+pub_CmdValue+"\"}";
-							pub_faiNum=pub_faiNum+1;	
+						
+						//获取学生卡号(姓名)和卡序号
+						String cardinfo=this.getDoorData(MAC);
+						if(cardinfo.equals("0")){
+							strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
 							
-							int i=iDoorData(MAC,cardno,seq,0);
-							String stip="";
-							if (i==1){
-								stip="写入门禁表成功3:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
-							}else{
-								stip="写入门禁表失败3:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
-							}
-							System.out.println(stip);
+							pub_CmdValue="";
+							pub_IndexCmd="";
+							pub_Cardno="";
+							pub_seq=0;
+						}else{//有名单
+							String[] strArr = cardinfo.split("\\;");
+							String cardno=strArr[0];
+							String cardName=strArr[1];
+							//int seq=getDoorMaxSeq(MAC);
+							pub_seq=pub_seq+1;
 							
-						}else{
 							ranIndexCmd=String.valueOf(this.getRandom(5));
-							CmdValue=this.creWhiteNameCmd(cardno,cardName,seq);	
+							CmdValue=this.creWhiteNameCmd(cardno,cardName,pub_seq);	
 							strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\""+ranIndexCmd+"\",\"CmdValue\":\""+CmdValue+"\"}";
+
 							pub_CmdValue=CmdValue;
 							pub_IndexCmd=ranIndexCmd;	
-							
-							int i=iDoorData(MAC,cardno,seq,1);
-							String stip="";
-							if (i==1){
-								stip="写入门禁表成功4:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
-							}else{
-								stip="写入门禁表失败4:MAC:"+MAC+";cardno:"+cardno+";cardName:"+cardName+";seq:"+seq;
-							}
-							System.out.println(stip);
-							pub_faiNum=0;
+							pub_Cardno=cardno;
+							//pub_seq=seq;
+						
 						}
-
+					}else if(CmdOK.equals("0")&(IndexCmd.equals(String.valueOf(pub_IndexCmd)))){  //上次执行失败
+						int i=iDoorData(MAC,pub_Cardno,pub_seq,0);
+						String stip="";
+						if (i==1){
+							stip="上次执行失败:写入门禁表成功3:MAC:"+MAC+";cardno:"+pub_Cardno+";cardName:::;seq:"+pub_seq;
+						}else{
+							stip="上次执行失败:写入门禁表失败3:MAC:"+MAC+";cardno:"+pub_Cardno+";cardName:::;seq:"+pub_seq;
+						}
+						
+						strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
+						pub_CmdValue="";
+						pub_IndexCmd="";
+						pub_Cardno="";
+						pub_seq=0;			
+					}else{
+						strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
+						pub_CmdValue="";
+						pub_IndexCmd="";
+						pub_Cardno="";
+						pub_seq=0;						
 					}
 				}
-			}
+		}
 			
 
-		}
+		
 
 		JSONObject json = JSONObject.fromObject(strRet); 		
 		System.out.println("getCommTask:"+json);	
@@ -667,17 +682,27 @@ public class BasContrailYunController extends BaseController {
 		int sc=0;
 		
 		//是否有效
-		if (isExist(cardno,macno)<1){
+		if (isExist(cardno,macno,state)<1){
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 			String sysdt = df.format(new Date());// new Date()为获取当前系统时间
-			
 			UUID OID = UUID.randomUUID();
-			StringBuffer sql = new StringBuffer(
-					"INSERT INTO `bas_studentdoorinfo` (`id`, `bs_cardno`, `bs_macno`, `bs_state`,`create_date`,`bs_seq`) ");
-			sql.append("VALUES ('" + OID + "','" + cardno + "','"+macno+"',"+state+" ,'" + sysdt + "',"+seq+")");
+			StringBuffer sql = new StringBuffer();			
+			
+			if(state==1){
+				if(isExist(cardno,macno,0)>=1){ //有无效的记录则更新
+					sql.append("UPDATE bas_studentdoorinfo SET bs_state=1 where bs_cardno='" + cardno + "' and bs_macno='"+macno+"' and bs_state=0");					
+				}else{
+					sql.append("INSERT INTO `bas_studentdoorinfo` (`id`, `bs_cardno`, `bs_macno`, `bs_state`,`create_date`,`bs_seq`) ");
+					sql.append("VALUES ('" + OID + "','" + cardno + "','"+macno+"',"+state+" ,'" + sysdt + "',"+seq+")");										
+				}
+			}else{
+				sql.append("INSERT INTO `bas_studentdoorinfo` (`id`, `bs_cardno`, `bs_macno`, `bs_state`,`create_date`,`bs_seq`) ");
+				sql.append("VALUES ('" + OID + "','" + cardno + "','"+macno+"',"+state+" ,'" + sysdt + "',"+seq+")");				
+			}
 	
 			//System.out.println("iDoorData sql..." + ";" + sql.toString());
 			sc =this.systemService.executeSql(sql.toString());			
+			
 			
 		}else
 		{
@@ -687,10 +712,10 @@ public class BasContrailYunController extends BaseController {
 
 	}
 	//是否已有数据
-	private int isExist(String cardno,String macno){
+	private int isExist(String cardno,String macno,int state){
 		List<Map<String, Object>> listTree = new ArrayList<Map<String, Object>>();
 		StringBuffer sql = new StringBuffer("select count(bs_cardno) as c from bas_studentdoorinfo ");
-		sql.append(" where bs_cardno='" + cardno + "' and bs_macno='"+macno+"'");
+		sql.append(" where bs_cardno='" + cardno + "' and bs_macno='"+macno+"' and bs_state="+state);
 		//System.out.println("isExist sql..." + ";" + sql.toString());
 
 		listTree = this.systemService.findForJdbc(sql.toString());
@@ -770,7 +795,7 @@ public class BasContrailYunController extends BaseController {
  		}
  		 
  		String code = "";
- 		for (int i = 0; i < dateArr.length-1; i++) {
+ 		for (int i = 0; i < dateArr.length; i++) {
  			if(i == 0){
  				code = xorString(dateArr[i], dateArr[i+1]);
  			}else{
