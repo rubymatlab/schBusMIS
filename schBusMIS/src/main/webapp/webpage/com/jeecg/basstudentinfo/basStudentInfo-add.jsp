@@ -101,7 +101,7 @@
 						</label>
 					</td>
 					<td class="value">
-					     	 <input id="bsCardno" name="bsCardno" type="text" maxlength="24" style="width: 150px" class="inputxt"  ignore="ignore" />
+					     	 <input id="bsCardno" name="bsCardno" type="text" maxlength="24" style="width: 150px" class="inputxt"  ignore="ignore" datatype=n15-15 />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">卡号</label>
 						</td>
