@@ -87,7 +87,7 @@ public class basWXController extends BaseController {
 	private static final String Templateid_SK="cmd-JJSPBxdyuyasLi2ZP3EV6LMB31xiHhGG3xtUbZg";		//学生刷卡通知ok
 	private static final String Templateid_QryBusLoc="hNzDLlteTH5pNsOR5ucMmk88quySmpePoEfRIrPPvQo";	//车辆位置(X)
 	private static final String Templateid_leave="iARE4zwVtsh3GojcPVDm9Y02BlLUOCIXIr5JzuHeQc8";		//学生请假提醒ok
-	public static final String Templateid_notice="MK1v3CKZeQALOMOF2ugq3YnbWXhdfc80q1m6hFuboUc";		//超出围栏预警
+	public static final String Templateid_notice="STcSlCFB5iU5zy7S58qUT6-Tz0LJgLnBVPgH6r7-__o";		//超出围栏预警
 	public static final String Templateid_warn="q8NBTwtgUXh4W9lr-U0QfD48mW8HxcRPRoso_ZTnjXY";		//设备异常ok
 	@Autowired
 	private SystemService systemService;
