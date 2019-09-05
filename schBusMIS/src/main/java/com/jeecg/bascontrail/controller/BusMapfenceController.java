@@ -527,7 +527,10 @@ public class BusMapfenceController extends BaseController {
 
 	@RequestMapping(params = "doPostData")
 	@ResponseBody
-	public JSONObject doPostData(HttpServletRequest request) {
+	public JSONObject doPostData(HttpServletRequest request, HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setCharacterEncoding("utf-8");
+		
 		String message = null;
 		// AjaxJson j = new AjaxJson();
 		JSONObject json = null;
