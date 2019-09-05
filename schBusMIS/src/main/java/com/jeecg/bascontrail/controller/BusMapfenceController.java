@@ -636,9 +636,13 @@ public class BusMapfenceController extends BaseController {
 						str = "{\"ActIndex\":\"" + ActIndex + "\",\"AcsRes\":\"" + acsres + "\",\"Time\":\"" + time
 								+ "\"}";
 					} else if (type.equals("1")) {
+						iReader = Integer.valueOf(reader);
+						ActIndex = 1 & iReader;
 						str = "{\"ActIndex\":\"" + ActIndex + "\",\"AcsRes\":\"" + acsres + "\",\"Time\":\"" + time
 								+ "\"}";
 					} else if (type.equals("9")) {
+						iReader = Integer.valueOf(reader);
+						ActIndex = 1 & iReader;
 						str = "{\"ActIndex\":\"" + ActIndex + "\",\"AcsRes\":\"" + acsres + "\",\"Time\":\"" + time
 								+ "\"}";
 					} else {
