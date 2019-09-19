@@ -475,7 +475,7 @@ public class BasContrailYunController extends BaseController {
 					pub_CmdValue="";
 					pub_IndexCmd="";
 					pub_Cardno="";
-					pub_seq=0;
+					//pub_seq=0;
 				}else{//有名单
 					String[] strArr = cardinfo.split("\\;");
 					String cardno=strArr[0];
@@ -518,7 +518,7 @@ public class BasContrailYunController extends BaseController {
 							pub_CmdValue="";
 							pub_IndexCmd="";
 							pub_Cardno="";
-							pub_seq=0;
+							//pub_seq=0;
 						}else{//有名单
 							String[] strArr = cardinfo.split("\\;");
 							String cardno=strArr[0];
@@ -532,9 +532,7 @@ public class BasContrailYunController extends BaseController {
 
 							pub_CmdValue=CmdValue;
 							pub_IndexCmd=ranIndexCmd;	
-							pub_Cardno=cardno;
-							//pub_seq=seq;
-						
+							pub_Cardno=cardno;						
 						}
 					}else if(CmdOK.equals("0")&(IndexCmd.equals(String.valueOf(pub_IndexCmd)))){  //上次执行失败
 						int i=iDoorData(MAC,pub_Cardno,pub_seq,0);
@@ -549,13 +547,13 @@ public class BasContrailYunController extends BaseController {
 						pub_CmdValue="";
 						pub_IndexCmd="";
 						pub_Cardno="";
-						pub_seq=0;			
+						//pub_seq=0;			
 					}else{
 						strRet=	"{\"Key\":\""+Key+"\",\"IndexCmd\":\"0\"}";	//结束
 						pub_CmdValue="";
 						pub_IndexCmd="";
 						pub_Cardno="";
-						pub_seq=0;						
+						//pub_seq=0;						
 					}
 				}
 		}
