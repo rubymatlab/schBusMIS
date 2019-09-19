@@ -48,37 +48,13 @@ import com.sun.star.awt.Size;
 import net.sf.json.JSONObject;
 
 /**
- * @author dev001
+ * @author 
  *
  */
 
 @Controller
 @RequestMapping("/baswxcontroller")
 public class basWXController extends BaseController {	 
-	
-/*	private static final String Templateid_UP="J_1DwXtF8IorKSmpxR3I2v_kb-rLykW4kb8-7E0RQpw";
-	private static final String Templateid_LO="SYi3dsdmvq7CUw3M3E0Mfl63xLl7wAo-4oJY5v126O0";*/
-	
-	/*private static final String Templateid_WR="adEMn2SjI_B3R_ckc9oqfDR7DPQ_t7znxiJxi9pSmoA";
-	private static final String Templateid_NextUp="uocevTOp3GEooEc6AK0Me1Fk1shv4y8Uk0Gn5lIi9f8";
-	private static final String Templateid_NextDw="7gNUN4ACrn0bogzgtnSQHWfjTMvCR57J7iaR05_OnqU";
-	private static final String Templateid_SK="2BqUTvHUOZreolc2SDtFRpF6ESbIqjObH2OvVO6QDKc";
-	private static final String Templateid_QryBusLoc="7_gJwIOoSclWvtUsgFTkTtGSHO-zuXHeO3978m2bPoA";
-	private static final String Templateid_leave="2FADaZxNLxG8U4eCHt70tBTBDKuRryTo-L06AsJn4A8";
-	//超出围栏预警
-	public static final String Templateid_notice="MNOe2kDuz6N1D55fdpCgX-MWepR_thv3SR7R6MF0hXg";*/
-	
-	//高测试号
-/*	private static final String Templateid_WR="jRs79YzKAdsdQk4javBgVENDvzgzSyPZRhzbQupodv8";
-	private static final String Templateid_NextUp="J9jGet_IXoPXpcJtM3-IB4hudBG22hDvHdKR2Z1_cSg";
-	private static final String Templateid_NextDw="gyPNPSmqQr1SjeUND1z2fUmcO2HX7bUZdj42yt0R6-U";
-	private static final String Templateid_SK="U6JsaXb6eFLhib_53OgVpKuRiklQRUF_QU0O8jpaf0A";
-	private static final String Templateid_QryBusLoc="hNzDLlteTH5pNsOR5ucMmk88quySmpePoEfRIrPPvQo";
-	private static final String Templateid_leave="6We64z7RgzgrQpxmpAhityw5x2UJWxHQQgqjHQXXN4c";
-	//超出围栏预警
-	public static final String Templateid_notice="MK1v3CKZeQALOMOF2ugq3YnbWXhdfc80q1m6hFuboUc";
-	//设备异常
-	public static final String Templateid_warn="k3NZBmCE8MvqLfFCNlBtLeaFK_EJ8Qa6bLoQmS0LeOA";*/
 	
 	//ssby
 	private static final String Templateid_WR="k82RguiMM9EvyKiwrbbHV3enQuXHdkhRSngd4g_j8_o";		//未刷卡通知

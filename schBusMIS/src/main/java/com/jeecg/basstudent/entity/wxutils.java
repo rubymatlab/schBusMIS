@@ -38,25 +38,16 @@ import net.sf.json.JSONObject;
 
 
 /**
- * @author dev001
+ * @author 
  *
  */
 public class wxutils {
 
 	//配置信息
-/*	public static  String basurl="http://zhyongfeng.natapp1.cc/schBusMIS";	
-	public static  String appid = "wx682cc2749a11f4c1";
-	public static  String appscret = "b369bb95659591a7b69f213b4ac5e390";*/
-	
 	public static  String basurl="http://www.infmore.com/ssby";
-	//public static  String basurl="http://tdcq.natapp1.cc/schBusMIS";
-	//public static  String basurl="http://nubiolite.com/schBusMIS";
-	//public static  String storePath="D:/Programs/schBusMIS/code/schBusMIS/src/main/webapp/photos/";
+
 	public static  String storePath="C:/apache-tomcat-7.0.92-windows-x64/apache-tomcat-7.0.92/webapps/schBusMIS/photos/";
-	//public static  String appid = "wx2968e71a3e302dab";
-	//public static  String appscret = "fdca7717bdd31d4c52feb67d82d8f700";
-	//public static  String appid = "wx3cd24f27f5849f46";//高
-	//public static  String appscret = "f709f8e1197ec861c3662ddb4cb944bf";//高
+
 	//ssby
 	public static  String appid = "wx5a9efacb2d950b33";
 	public static  String appscret = "cc8649f517abfb78faa969ef8b9adca5";
@@ -64,7 +55,7 @@ public class wxutils {
 	private static final String token = "JYWX";
 	
 	private static final String openidurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/baswxcontroller.do?gopenid&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-	//private static final String qrybusurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+basurl+"/baswxcontroller.do?getBusloc&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+
 	private static final String qrybusurl = "http://www.infmore.com/xiaoce/index.html";
 	private static final String leaerecsurl = basurl+"/page/leaverecs.html";
 	//地图地址openid

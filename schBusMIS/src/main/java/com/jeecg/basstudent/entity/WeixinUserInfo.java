@@ -4,7 +4,7 @@
 package com.jeecg.basstudent.entity;
 
 /**
- * @author dev001
+ * @author 
  *
  */
 public class WeixinUserInfo {
