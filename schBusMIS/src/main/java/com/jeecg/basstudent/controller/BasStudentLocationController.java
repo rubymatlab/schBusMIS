@@ -313,6 +313,8 @@ public class BasStudentLocationController extends BaseController {
 					String deviceid = k.get("bs_deviceid").toString();
 					if (json.toString().contains(deviceid)) {
 						System.out.println(deviceid);
+						if(!StringUtil.isNotEmpty(deviceid))
+							continue;
 						net.sf.json.JSONArray array = net.sf.json.JSONArray.fromObject(json.get(deviceid).toString());// 将json字符串转成json数组
 
 						for (int i = 0; i < array.size(); i++) {// 循环json数组
